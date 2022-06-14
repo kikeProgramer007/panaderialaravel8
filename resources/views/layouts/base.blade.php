@@ -4,33 +4,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('/images/icono.png')}}" sizes="32x32" />
+  <link rel="icon" href="{{asset('/vendor/images/icono.png')}}" sizes="32x32" />
   <title>Panderia</title>
 
 <!-- autocomplete de venta -->
-<script src="{{asset('/js/jquery-3.5.1.min.js')}}"></script>
- <script src="{{asset('/js/jquery-ui/jquery-ui.min.js')}}"></script> 
- <link href="{{asset('/js/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet"/>
+<script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script>
+ <script src="{{asset('/vendor/js/jquery-ui/jquery-ui.min.js')}}"></script> 
+ <link href="{{asset('/vendor/js/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet"/>
   <!-- / autocomplete de venta -->
 
   <script type="text/javascript"></script>
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="{{asset('/dist/css/css.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/dist/css/css.css')}}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/fontawesome-free/css/all.min.css')}}">
    <!-- SweetAlert2 -->
-   <link rel="stylesheet" href="{{asset('/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+   <link rel="stylesheet" href="{{asset('/vendor/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('/dist/css/adminlte.min.css')}}">
-  <link rel="stylesheet" href="{{asset('/dist/css/boton.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/dist/css/boton.css')}}">
    <!-- DataTables -->
-   <link rel="stylesheet" href="{{asset('/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+   <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <!-- CSS PARA EL INPUT DATE Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{asset('/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- ChartJS -->
-  <script src="{{asset('/plugins/chart.js/Chart.min.js')}}"></script>
+  <script src="{{asset('/vendor/plugins/chart.js/Chart.min.js')}}"></script>
 
 </head>
  
@@ -55,7 +55,7 @@
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
           <li class="user-header">
-            <img src="{{asset('/images/user.png')}}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{asset('/vendor/images/user.png')}}" class="img-circle elevation-2" alt="User Image">
             <p>
                {{Auth::user()->name}}
               <small clasS="text-muted">Montero -  {{date('d-m-Y');}} </small>
@@ -105,7 +105,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/inicio" class="brand-link">
-      <img src="{{asset('/images/logotipo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{asset('/vendor/images/logotipo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-bold font-weight-light">Restaurante</span>
     </a>
 
@@ -114,7 +114,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('/images/user.png')}}" class="img-circle elevation-2" alt="User Image"> 
+          <img src="{{asset('/vendor/images/user.png')}}" class="img-circle elevation-2" alt="User Image"> 
         </div>
         <div class="info">
           <a href="/usuarios/cargar_perfil" class="d-block">{{Auth::user()->name}}</a>
@@ -292,40 +292,12 @@
   </aside>
 
 
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>TeamFinor</title>
-
-   <!-- Bootstrap CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <!-- Bootstrap CSS iconos-->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-
-   <link href="{{ asset('css2/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
-   <link href="{{ asset('css2/rowGroup.bootstrap5.min.css') }}" rel="stylesheet">
-
-</head>
-<body>
- --}}
-
-
   {{-- FIN DEL HEADER --}}
 
   @yield('content')
-  {{-- <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-  <script src="{{ asset('js2/jquery-3.5.1.js') }}"></script>
-  <script src="{{ asset('js2/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('js2/dataTables.bootstrap5.min.js') }}"></script>
-  <script src="{{ asset('js2/dataTables.rowGroup.min.js') }}"></script>
- --}}
 
   {{-- INICIO DEL FOOTER --}}
+  
   <footer class="main-footer text-sm">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 2.0.1-rc
@@ -337,31 +309,31 @@
 <!-- ./wrapper -->
 
 <!-- Bootstrap 4 -->
-<script src="{{asset('/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- SweetAlert2 -->
-<script src="{{asset('/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <!-- jquery-validation -->
-<script src="{{asset('/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-<script src="{{asset('/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 <!-- bs-custom-file-input photo-->
-<script src="{{asset('/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 <!-- Plantilla principal -->
-<script src="{{asset('/dist/js/plantilla.js')}}"></script>
+<script src="{{asset('/vendor/dist/js/plantilla.js')}}"></script>
 <!-- ========================= JS PARA EL DATA FECHA ========================= -->
 <!-- Select2 -->
-<script src="{{asset('/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- InputMask -->
-<script src="{{asset('/plugins/moment/moment.min.js')}}"></script>
-<script src="{{asset('/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
 <script>
 /*========================= COMPLEMENTO DATATABLES ===========================*/
