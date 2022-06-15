@@ -1,0 +1,14 @@
+EN CARPETA htdocs:
+
+> git clone https://github.com/kikeProgramer007/panaderialaravel8.git
+
+EN CARPETA panaderialaravel8:
+
+> composer update
+> cp .env.example .env
+> php artisan key:generate
+
+EN EL ACHIVO .env COLOCAR EL NAME DE LA BD:
+
+>php artisan migrate --seed
+

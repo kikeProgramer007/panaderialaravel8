@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('/vendor/images/icono.png')}}" sizes="32x32" />
-  <title>Panderia</title>
+  {{-- <link rel="icon" href="{{asset('/vendor/images/icono.png')}}" sizes="32x32" /> --}}
+  <title>Panaderia</title>
 
 <!-- autocomplete de venta -->
 <script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script>
@@ -105,8 +105,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/inicio" class="brand-link">
-      <img src="{{asset('/vendor/images/logotipo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-bold font-weight-light">Restaurante</span>
+      <img src="{{asset('/vendor/images/user.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-bold font-weight-light">Panaderia</span>
     </a>
 
     <!-- Sidebar -->
@@ -135,13 +135,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/productos" class="nav-link">
+                <a href="#" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/categorias" class="nav-link">
+                <a href="{{asset('categoria')}}" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
@@ -150,7 +150,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="/clientes" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Clientes
@@ -162,40 +162,32 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cart-plus"></i>
               <p>
-                Compras
+                Producción
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/compras/nuevo" class="nav-link">
+                <a href="#" class="nav-link">
                    <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Nueva compra</p>
+                  <p>Nueva producción</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/compras" class="nav-link">
+                <a href="#" class="nav-link">
                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Compras</p>
+                  <p>Terminados</p>
                 </a>
               </li>
             </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="/ventas/venta" class="nav-link">
-              <i class="nav-icon fas fa-cash-register"></i>
-              <p>
-                Caja
-              </p>
-            </a>
-          </li>
 
           <li class="nav-item">
-            <a href="/ventas" class="nav-link">
-              <i class="nav-icon fas fa-money-bill-wave"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-truck"></i>
               <p>
-                Ventas realizadas
+                Pedidos
               </p>
             </a>
           </li>
@@ -209,12 +201,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/configuracion" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Configuración</p>
-                </a>
-              </li>
+ 
               <li class="nav-item">
                 <a href="{{asset('administracion')}}" class="nav-link">
                  <i class="far fa-dot-circle nav-icon"></i>
@@ -227,12 +214,7 @@
                   <p>Roles</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/cajas" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Cajas</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
@@ -248,39 +230,27 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/reportes/mostrarMinimos" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Stock mínimos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/reportes" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Rango de fechas</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/reportes/index_CP" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Según categoría</p>
-                </a>
-              </li>
+
             </ul>
           </li>
  
           <li class="nav-item">
-            <a href="/graficos" class="nav-link">
+            <a href="#" class="nav-link">
             <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Gráficos
               </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>Documentación</p>
             </a>
           </li>
 

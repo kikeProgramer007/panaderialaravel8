@@ -1,65 +1,71 @@
-@extends('adminlte::page')
-<!--//implementa la vista de adminlte -->
-@section('title' )
-<!--//agregamos un titulo  -->
-
-@section('content_header')
-@stop
-<!--//Agregamos un header a nuestra pagina -->
+@extends('layouts.base')
 
 @section('content')
 
-<div class="container-fluid">
-    <h1 class="text-center" >Roles</h1>   
-    <br>
-        <div class="mb-4 text-center">
-            <a class="btn btn-dark" href="{{asset('administracion')}}"> <i class="bi bi-coin"></i> Usuarios</a>
-            <a class="btn btn-dark" href="{{asset('administracion/roles')}}"><i class="bi bi-file-earmark-bar-graph"></i> Roles</a>
+{{-- INICIO DEL CUERPO --}}
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-0">
+          <div class="col-sm-6 mb-0">
+            <h1>Asignar permisos</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="{{asset('administracion/roles')}}">Roles</a></li>
+              <li class="breadcrumb-item active">Asignar permisos</li>
+            </ol>
+          </div>
         </div>
-        <div class="mb-4" >
-           
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="container-fluid">
-                    <form action="{{asset('administracion/permisos/update')}}/{{$id_aux}}" method="POST">
-                        @csrf
-                        @foreach ($permisos as $permiso)
-                            @php($per=$permiso['id'])
-                            @php($sw=0)
-                            @foreach ($rol_permiso as $rol_per)
-                                @if ($per==$rol_per['permission_id'])
-                                @php($sw=1)
-                                @endif
-                            @endforeach
-                            <div class="mb-1">
-                                <input class="form-check-input" type="checkbox" @if ($sw==1){{'checked'}} @endif value ="{{$permiso['id']}}" name= "permisos[]" >
-                                <label for="">{{$permiso['name']}}</label>   
-                            </div>  
-                        @endforeach
+      </div><!-- /.container-fluid -->
+    </section>
 
-                        <br>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+   
+                <div class="card card card-outline card-primary">
+                    <div class="card-body">
 
-                        <button class="btn btn-success" type="submit">Guardar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form action="{{asset('administracion/permisos/update')}}/{{$id_aux}}" method="POST">
+                                    @csrf
+                                    @foreach ($permisos as $permiso)
+                                        @php($per=$permiso['id'])
+                                        @php($sw=0)
+                                        @foreach ($rol_permiso as $rol_per)
+                                            @if ($per==$rol_per['permission_id'])
+                                            @php($sw=1)
+                                            @endif
+                                        @endforeach
+                                            <div class="custom-control custom-switch">
+                                                <input class="custom-control-input" type="checkbox" id="{{$permiso['id']}}" @if ($sw==1){{'checked'}} @endif value ="{{$permiso['id']}}" name= "permisos[]"/>
+                                                <label class="custom-control-label font-weight-normal" for="{{$permiso['id']}}">{{$permiso['name']}}</label>
+                                            </div>
+                                    @endforeach
+                                    <div class="d-flex justify-content-end">
+                                        <div>
+                                          <button type="submit" class= "btn btn-success btn-sm">Guardar</button> 
+                                          <a href="{{asset('administracion/roles')}}" class= "btn btn-secondary btn-sm">Regresar</a>  
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+        
+                        </div>
+          
 
-@stop
+                    </div><!--/body card-->
 
-<!--//Contenido de nuestra pagina -->
+                </div><!--/CARD FIN-->
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+        </div><!-- /.container-fluid -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
 
-<!--//agregamos css -->
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
-
-<!--//agregamos Java Script-->
+@endsection

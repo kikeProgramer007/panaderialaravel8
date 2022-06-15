@@ -1,56 +1,66 @@
-@extends('adminlte::page')
-<!--//implementa la vista de adminlte -->
-@section('title' )
-<!--//agregamos un titulo  -->
-
-@section('content_header')
-@stop
-<!--//Agregamos un header a nuestra pagina -->
+@extends('layouts.base')
 
 @section('content')
 
-<div class="container-fluid">
-    <h1 class="text-center" >Editar Rol</h1>   
-    <br>
-        <div class="mb-4 text-center">
-            <a class="btn btn-dark" href="{{asset('administracion')}}"> <i class="bi bi-coin"></i> Usuarios</a>
-            <a class="btn btn-dark" href="{{asset('administracion/roles')}}"><i class="bi bi-file-earmark-bar-graph"></i> Roles</a>
+{{-- INICIO DEL CUERPO --}}
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-0">
+          <div class="col-sm-6 mb-0">
+            <h1>Editar rol</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{asset('administracion')}}">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="{{asset('administracion/roles')}}">Roles</a></li>
+              <li class="breadcrumb-item active">Editar rol</li>
+            </ol>
+          </div>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <form action="{{asset('administracion/roles/update')}}/{{$roles->id}}" method="POST" > 
-                    @csrf
-                        <div class="mb-3">
-                                <label>Nombre</label>
-                                <input class="form-control" type="text" id="nombre" name="nombre" value="{{$roles->name}}"   placeholder="ingrese su nombre " />
-                                <span class="icon"><i class="lni lni-user"></i></span>
-                                @error('nombre')
-                                    <div class="alert alert-warning">
-                                    {{$message}}
-                                    </div>
-                                @enderror
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <form method="POST" action="{{asset('administracion/roles/update')}}/{{$roles->id}}" autocomplete="off" class="needs-validation" novalidate>
+              @csrf
+                <div class="card card-secondary card-outline">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label> 
+                                    <input class="form-control" id="nombre" name="nombre" type="text" value="{{$roles->name}}"placeholder="ingrese su nombre " pattern=".*\S+.*" autofocus/>
+                                    <div class="invalid-feedback">Introduzca nombre de rol.</div>
+                                    @error('nombre')
+                                        <div class="alert alert-warning">
+                                        {{$message}}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+  
                         </div>
-                        
-                      <a href="{{asset('administracion/roles')}}" class="btn btn-primary" > Regresar </a>
-                      <button type="submit" class="btn btn-success"> Actualizar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-@stop
+                          <div class="d-flex justify-content-end">
+                              <div>
+                                <button type="submit" class= "btn btn-success btn-sm">Guardar</button> 
+                                <a href="{{asset('administracion/roles')}}" class= "btn btn-secondary btn-sm">Regresar</a>  
+                              </div>
+                          </div>
 
-<!--//Contenido de nuestra pagina -->
+                    </div><!--/body card-->
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+                </div><!--/CARD FIN-->
+            </form>
 
-<!--//agregamos css -->
+        </div><!-- /.container-fluid -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
 
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
-
-<!--//agregamos Java Script-->
+@endsection

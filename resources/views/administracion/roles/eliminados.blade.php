@@ -1,63 +1,94 @@
-@extends('adminlte::page')
-<!--//implementa la vista de adminlte -->
-@section('title' )
-<!--//agregamos un titulo  -->
-
-@section('content_header')
-@stop
-<!--//Agregamos un header a nuestra pagina -->
+@extends('layouts.base')
 
 @section('content')
+    {{-- INICIO DEL CUERPO --}}
 
-<div class="container-fluid">
-    <h1 class="text-center" >Roles Eliminados</h1>   
-    <br>
-        <div class="mb-4 text-center">
-            <a class="btn btn-dark" href="{{asset('administracion')}}"> <i class="bi bi-coin"></i> Usuarios</a>
-            <a class="btn btn-dark" href="{{asset('administracion/roles')}}"><i class="bi bi-file-earmark-bar-graph"></i> Roles</a>
-        </div>
-        <div class="mb-4" >
-            <a class="btn btn-primary" href="{{asset('administracion/roles')}}"><i class="bi bi-brush"></i>regresar</a>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <table id="tabla_empresa"  class=" table table-bordered table-sm">
-                    <thead>
-                        <th> id </th>
-                        <th> nombre </th>
-                        <th width="10px">  </th>
-                        
-                    </thead>
-                    <tbody>   
-                    @foreach ($roles as $rol)     
-                    <tr>
-                        <td>{{$rol['id']}}</td>
-                        <td>{{$rol['name']}}</td>
-                        <td>
-                            <a href="{{asset('administracion/roles/restaurar')}}/{{$rol['id']}}" class="btn btn-outline-secondary ">restaurar</a>
-                        </td>       
-                    </tr>
-                    @endforeach
-               
-                    </tbody>
-                </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-0">
+                    <div class="col-sm-6 mb-0">
+                        <h1>Roles eliminados</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="{{asset('administracion/roles')}}">Roles</a></li>
+                            <li class="breadcrumb-item active">Roles eliminados</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-secondary card-outline">
+
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th> id </th>
+                                            <th> nombre </th>
+                                            <th width="4%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($roles as $rol)     
+                                        <tr>
+                                            <td>{{$rol['id']}}</td>
+                                            <td>{{$rol['name']}}</td>
+                                            <td class="text-center">
+                                                <a href="#" data-href="{{asset('administracion/roles/restaurar')}}/{{$rol['id']}}" rel="tooltip" title="Restaurar" data-toggle="modal" data-target="#modal-confirma" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-alt-circle-up"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
-        </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
-</div>
+    <!-- /.content-wrapper -->
 
-@stop
-
-<!--//Contenido de nuestra pagina -->
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-<!--//agregamos css -->
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
-
-<!--//agregamos Java Script-->
+    <!-- Modal -->
+    <div class="modal fade" id="modal-confirma" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Restaurar Registro</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea Restaurar este registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok btn-sm">Confirmar</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+@endsection

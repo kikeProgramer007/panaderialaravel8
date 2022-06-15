@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 
 //administracion
 use App\Http\Controllers\administracion;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +28,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //administracion de usuario
-
 Route::get('administracion', [administracion::class,'index']);
 Route::get('administracion/usuarios/eliminados', [administracion::class,'eliminados']);
 Route::get('administracion/usuarios/create', [administracion::class,'create']);
@@ -36,7 +38,6 @@ Route::get('administracion/usuarios/edit/{id}', [administracion::class,'edit']);
 Route::post('administracion/usuarios/update/{id}', [administracion::class,'update']);
 
 //roles
-
 Route::get('administracion/roles', [administracion::class,'indexROL']);
 Route::get('administracion/roles/create', [administracion::class,'createROL']);
 Route::post('administracion/roles/store', [administracion::class,'storeROL']);
@@ -45,8 +46,19 @@ Route::get('administracion/roles/eliminados', [administracion::class,'eliminados
 Route::get('administracion/roles/restaurar/{id}',[ administracion::class , 'restaurarROL']);
 Route::get('administracion/roles/edit/{id}', [administracion::class,'editROL']);
 Route::post('administracion/roles/update/{id}', [administracion::class,'updateROL']);
-
 //permiso
 
 Route::get('administracion/permisos/{id}', [administracion::class,'indexPERMISO']);
 Route::post('administracion/permisos/update/{id}', [administracion::class,'updatePERMISO']);
+
+// Productos
+Route::get('categoria', [CategoriaController::class,'index']);
+// Categorias
+Route::get('producto', [ProductoController::class,'index']);
+
+
+// Route::get('/','CategoriaController@index');
+// Route::post('/registrar','CategoriaController@store');
+// Route::get('/editar/{id}','CategoriaController@edit');
+// Route::put('/modificar/{id}','CategoriaController@update');
+// Route::delete('/eliminar/{id}','CategoriaController@destroy');
