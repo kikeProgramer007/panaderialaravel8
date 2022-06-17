@@ -34,8 +34,10 @@
 
 </head>
  
- <body class="hold-transition layout-fixed sidebar-collapse sidebar-mini-md layout-navbar-fixed">  <!--layout-navbar-fixed --FIJA EL NAV-->
- <!-- Site wrapper -->
+<!--<body class="hold-transition layout-fixed sidebar-collapse sidebar-mini-md layout-navbar-fixed">  layout-navbar-fixed --FIJA EL NAV-->
+<body class="layout-fixed sidebar-mini-md layout-navbar-fixed">  <!--layout-navbar-fixed --FIJA EL NAV-->
+ 
+<!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light">
@@ -104,7 +106,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/inicio" class="brand-link">
+    <a href="{{url('/home')}}" class="brand-link">
       <img src="{{asset('/vendor/images/user.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-bold font-weight-light">Panaderia</span>
     </a>
@@ -117,7 +119,7 @@
           <img src="{{asset('/vendor/images/user.png')}}" class="img-circle elevation-2" alt="User Image"> 
         </div>
         <div class="info">
-          <a href="/usuarios/cargar_perfil" class="d-block">{{Auth::user()->name}}</a>
+          <a href="#" class="d-block">{{Auth::user()->name}}</a>
         </div>
       </div>
 
@@ -135,7 +137,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ asset('producto') }}" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>
@@ -275,8 +277,7 @@
     <strong>Copyright &copy; 2022 <a href="https://www.facebook.com/EnriquePlayer" target="_blank">kike_programmer</a>.</strong> Todos los derechos reservados.
   </footer>
 
-</div>
-<!-- ./wrapper -->
+</div><!-- ./wrapper -->
 
 <!-- Bootstrap 4 -->
 <script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -353,5 +354,3 @@ $(document).ready(function() {
 
 
   {{-- FIN DEL FOOTER --}}
-
-</body>

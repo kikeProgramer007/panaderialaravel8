@@ -31,18 +31,7 @@
               @csrf
                 <div class="card card-secondary card-outline">
                     <div class="card-body">
-                        <!-- alert -->
-                        {{-- <php if(isset($validation)){
-                        echo'<div class="row ">
-                                    <div class="col-md-6 offset-md-3">
-                                        <div class="alert alert-danger alert-dismissible">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-                                            '.$validation->listErrors().'
-                                        </div>
-                                    </div>
-                                </div> ';
-                        };?> --}}
+        
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -73,9 +62,6 @@
                         <div class="row">
                
                             <div class="col-sm-6">
-
-
-
                                 <input type="hidden" value="{{$usuario->roles['0']->name}}" id="id_rol_aux" name="id_rol_aux" >
                                 <div class="form-group">
                                 <label>Rol</label>

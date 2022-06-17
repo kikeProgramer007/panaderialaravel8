@@ -15186,10 +15186,12 @@ body.text-sm .control-sidebar {
 .dropdown-icon::after {
   margin-left: 0;
 }
-
+/* ACA MODIFIQUE EL DESESSCION */
 .dropdown-menu-lg {
-  max-width: 300px;
-  min-width: 280px;
+  /* max-width: 300px;
+  min-width: 280px; */
+  max-width: 220px;
+  min-width: 200px; 
   padding: 0;
 }
 
@@ -15198,7 +15200,8 @@ body.text-sm .control-sidebar {
 }
 
 .dropdown-menu-lg .dropdown-item {
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
+  padding: 0.2rem 1rem;
 }
 
 .dropdown-menu-lg p {

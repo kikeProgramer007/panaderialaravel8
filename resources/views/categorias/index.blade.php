@@ -11,7 +11,7 @@
           <div class="container-fluid">
               <div class="row mb-0">
                   <div class="col-sm-6 mb-0">
-                      <h1>Categorias</h1>
+                      <h1>Categorías</h1>
                   </div>
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
@@ -34,31 +34,32 @@
                           <div class="card-body">
                               <div class="d-flex justify-content-end">
                                   <div class="form-group">
-                                      <a class="btn btn-info btn-sm" href="{{asset('categoria/create')}}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar</a>
+                                      <a class="btn btn-info btn-sm" href="{{ asset('categoria/create')}}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar</a>
                                       <a class="btn btn-danger btn-sm" href="{{asset('categoria/eliminados')}}"><i class="far fa-trash-alt"></i>&nbsp;Eliminados</a>
                                   </div>
                               </div>
                               <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
                                   <thead>
                                       <tr>
-                                        <th> id </th>
+                                        <th width="5%"> id </th>
                                         <th> nombre </th>
-                                        <th> descripcion </th>
-                                        <th> stock </th>
-                                        <th> precio </th>
-                   
+                                        <th width="7%">Acción</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      {{-- @foreach ($productos as $prod) --}}
-                                          <tr>
-                                            <td>-----------</td>
-                                            <td>-----------</td>
-                                            <td>-----------</td>
-                                            <td>-----------</td>
-                                     
-                                          </tr>
-                                      {{-- @endforeach --}}
+                                    @foreach ($categorias as $categoria)
+                                      <tr>
+                                          <td>{{$categoria->id}}</td>
+                                          <td>{{$categoria->nombre}}</td>
+                                          <td class="py-1 align-middle text-center">
+                                            <div class="btn-group btn-group-sm">
+                                              <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{ url('categoria/edit/'.$categoria->id)}}"><i class="fas fa-pencil-alt"></i></a>
+                                              <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{url('categoria/destroy/'.$categoria->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                          </td>
+                                      </tr>
+                                    </tr>
+                                    @endforeach
                                   </tbody>
                               </table>
                           </div>

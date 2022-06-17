@@ -15,9 +15,14 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('estado')->default(1);
-            $table->timestamps();
+            $table->string('nombre');
+            $table->text('descripcion',20);
+            $table->float('precio',8,2);
+            $table->integer('stock')->default(0);
+            $table->tinyInteger('estado')->default(1);
+            // Relacionando tablas capturando llave primaria de categoria
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
         });
     }
 

@@ -51,14 +51,26 @@ Route::post('administracion/roles/update/{id}', [administracion::class,'updateRO
 Route::get('administracion/permisos/{id}', [administracion::class,'indexPERMISO']);
 Route::post('administracion/permisos/update/{id}', [administracion::class,'updatePERMISO']);
 
-// Productos
-Route::get('categoria', [CategoriaController::class,'index']);
+
 // Categorias
-Route::get('producto', [ProductoController::class,'index']);
-
-
-// Route::get('/','CategoriaController@index');
-// Route::post('/registrar','CategoriaController@store');
-// Route::get('/editar/{id}','CategoriaController@edit');
-// Route::put('/modificar/{id}','CategoriaController@update');
-// Route::delete('/eliminar/{id}','CategoriaController@destroy');
+Route::controller(CategoriaController::class)->group(function (){
+    Route::get('/categoria','index');
+    Route::get('/categoria/create','create');
+    Route::post('/categoria/store','store');
+    Route::get('/categoria/edit/{id}','edit');
+    Route::put('/categoria/update/{id}','update');
+    Route::get('/categoria/destroy/{id}','destroy');
+    Route::get('/categoria/eliminados','deletes');
+    Route::get('/categoria/restaurar/{id}','restore');
+});
+// Productos
+Route::controller(ProductoController::class)->group(function (){
+    Route::get('/producto','index');
+    Route::get('/producto/create','create');
+    Route::post('/producto/store','store');
+    Route::get('/producto/edit/{id}','edit');
+    Route::put('/producto/update/{id}','update');
+    Route::get('/producto/destroy/{id}','destroy');
+    Route::get('/producto/eliminados','deletes');
+    Route::get('/producto/restaurar/{id}','restore');
+});

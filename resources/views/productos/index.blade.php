@@ -2,82 +2,111 @@
 
 @section('content')
 
-<div class="container py-4">
-    <h2 class="text-center">CRUD con laravel 8, php, bootstrap 5 y datatables</h2>
-    
-    <div class="mb-3">
-        <a href="{{route('product.create')}}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Agregar producto</a>
-    </div>
-  
-    @if (Session::has('mensaje'))
-        <div class="alert alert-info my-3 text-center">
-            {{Session::get('mensaje')}}
+    {{-- INICIO DEL CUERPO --}}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <div class="container-fluid">
+              <div class="row mb-0">
+                  <div class="col-sm-6 mb-0">
+                      <h1>Panes</h1>
+                  </div>
+                  <div class="col-sm-6">
+                      <ol class="breadcrumb float-sm-right">
+                          <li class="breadcrumb-item"><a href="">Inicio</a></li>
+                          <li class="breadcrumb-item active">Panes</li>
+                      </ol>
+                  </div>
+              </div>
+          </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card">
+
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                              <div class="d-flex justify-content-end">
+                                  <div class="form-group">
+                                      <a class="btn btn-info btn-sm" href="{{ asset('producto/create')}}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar</a>
+                                      <a class="btn btn-danger btn-sm" href="{{asset('producto/eliminados')}}"><i class="far fa-trash-alt"></i>&nbsp;Eliminados</a>
+                                  </div>
+                              </div>
+                              <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
+                                  <thead>
+                                      <tr>
+                                        <th width="5%"> id </th>
+                                        <th> nombre </th>
+                                        <th> descripcion </th>
+                                        <th> precio </th>
+                                        <th> stock </th>
+                                        <th width="7%">Acción</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    @foreach ($productos as $producto)
+                                      <tr>
+                                          <td>{{$producto->id}}</td>
+                                          <td>{{$producto->nombre}}</td>
+                                          <td>{{$producto->descripcion}}</td>
+                                          <td>{{$producto->precio}}</td>
+                                          <td>{{$producto->stock}}</td>
+                                          <td class="py-1 align-middle text-center">
+                                            <div class="btn-group btn-group-sm">
+                                              <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{ url('producto/edit/'.$producto->id)}}"><i class="fas fa-pencil-alt"></i></a>
+                                              <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{url('producto/destroy/'.$producto->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                          </td>
+                                      </tr>
+                                    </tr>
+                                    @endforeach
+                                  </tbody>
+                              </table>
+                          </div>
+                          <!-- /.card-body -->
+
+                      </div>
+                      <!-- /.card -->
+
+                  </div>
+                  <!-- /.col -->
+              </div>
+              <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-confirma" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Eliminar Registro</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    @endif
-
-    <div class="card">
-        <div class="card-header text-center"><b>Registro de Productos</b></div>
-        <div class="table-responsive">
-        <div class="card-body"> 
-          
-        <table id="example" class="table table-sm table-striped table-hover table-bordered nowrap" style="width:100%">
-            <thead>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th width="1%"></th>
-                <th width="1%"></th>
-            </thead>
-            <tbody>
-             
-                    <tr>
-                        <td>------------------</td>
-                        <td>------------------</td>
-                        <td>------------------</td>
-                        <td>------------------</td>
-                        <td><a href="" class="btn btn-warning btn-sm"><i class="bi bi-pencil-fill"></i></a></td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" onclick=""><i class="bi bi-trash2-fill"></i></button>
-                        </td>
-                        
-                    </tr>
-                    @empty
-                    <tr>
-                    <td colspan="6" class="text-center">No hay registro</td>
-                </tr>
-   
-            </tbody>
-        </table>
-
-    </div><!--card-body-->
-    </div><!--table-responsive-->
-    </div><!--card-->
-</div>
-
-<script type="text/javascript">
-function eliminar($id) {
-    var url='{{asset('')}}product/eliminar/'+$id;
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡No podrás revertir esto!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '!Si, elimínalo!',
-  
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            '¡Eliminado!',
-            'Su archivo ha sido eliminado.',
-            'success'
-            ),
-            window.location.href = url;
-        }
-    });
-}
-</script>
+        <div class="modal-body">
+          <p>¿Desea Eliminar este registro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-danger btn-ok btn-sm">Confirmar</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+    <!-- /.modal -->
 
 @endsection

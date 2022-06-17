@@ -2,73 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('categorias.index');
+        $categorias = Categoria::all()->where('estado',1);
+        return view('categorias.index',compact('categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        echo view('administracion/roles/index');
+        return view('categorias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'=>'required|max:30',
+        ]);
+        $categoria = new Categoria();
+        $categoria->nombre = $request->nombre;
+        $categoria->save();
+        return redirect('/categoria'); //IR A ESA RUTA
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.editar',compact('categoria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre'=>'required|max:30',
+        ]);
+        $producto = Categoria::findOrFail($id);
+        $producto->nombre = $request->nombre;
+        $producto->update();
+        return redirect('/categoria');//IR A ESA RUTA
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->estado = 0;
+        $categoria->update();
+        $categorias = Categoria::all()->where('estado',1);
+        return view('categorias.index',compact('categorias'));
+    }
+
+    public function deletes()
+    {
+        $categorias = Categoria::all()->where('estado',0);
+        return view('categorias.eliminados',compact('categorias'));
+    }
+
+    public function restore($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        $categoria->estado = 1;
+        $categoria->update();
+        return redirect('/categoria');//IR A ESA RUTA
     }
 }
