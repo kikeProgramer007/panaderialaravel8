@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\administracion;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
-
+use App\Http\Controllers\ClienteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +51,15 @@ Route::post('administracion/roles/update/{id}', [administracion::class,'updateRO
 Route::get('administracion/permisos/{id}', [administracion::class,'indexPERMISO']);
 Route::post('administracion/permisos/update/{id}', [administracion::class,'updatePERMISO']);
 
+//clientes
+Route::controller(ClienteController::class)->group(function (){
+    Route::get('administracion/cliente','index');
+    Route::get('administracion/cliente/edit/{id}','edit');
+    Route::post('administracion/cliente/update/{cliente}','update');
+    Route::get('administracion/cliente/destroy/{cliente}','destroy');
+    Route::get('administracion/cliente/eliminados','eliminados');
+    Route::get('administracion/cliente/restaurar/{cliente}','restaurar');
+});
 
 // Categorias
 Route::controller(CategoriaController::class)->group(function (){

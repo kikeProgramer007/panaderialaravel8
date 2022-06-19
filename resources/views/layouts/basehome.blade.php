@@ -148,7 +148,7 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     {{-- <a id="" class="" href="#" role="button"v-pre>name </a> --}}
-                    <a href="#" role="button" class="dropdown-item" v-pre>
+                    <a href="{{ asset('administracion/cliente/edit') }}/{{ Auth::user()->id }}" role="button" class="dropdown-item" v-pre>
                         <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
                     </a>
 
