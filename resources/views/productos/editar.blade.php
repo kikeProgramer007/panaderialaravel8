@@ -27,7 +27,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form method="POST" action="{{url('producto/update/'.$producto['id'])}}" autocomplete="off" class="needs-validation" novalidate>
+            <form method="POST"enctype="multipart/form-data" action="{{url('producto/update/'.$producto['id'])}}" autocomplete="off" class="needs-validation" novalidate>
               @method('PUT')
               @csrf
                 <div class="card card-secondary card-outline">
@@ -82,12 +82,19 @@
                           </div>
                       </div>
 
+                      @php
+                        $imagen = "img/productos/".$producto['id'].".jpg";
+                        if (!file_exists($imagen)) {
+                          $imagen = "img/productos/150x150.png";
+                        }
+                      @endphp
+
                       <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                             <label for="customFile">Previsualizar imagen</label>
                                 <div class="row col-sm-6">
-                                    <img id="blah" class="img-fluid" src="{{asset('vendor/dist/img/150x150.png')}}" alt="Photo" style="max-height: 160px;">
+                                    <img id="blah" class="img-fluid" src="{{asset($imagen.'?'.time())}}" alt="Photo" style="max-height: 160px;">
                                 </div>
                             </div>
                           </div>
@@ -96,7 +103,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                             <div class="custom-file">
-                                <input style="cursor: pointer;" type="file" id="img_producto" name="img_producto" class="custom-file-input" accept="image/jpeg" required>
+                                <input style="cursor: pointer;" type="file" id="img_producto" name="img_producto" class="custom-file-input" accept="image/jpeg,jpg">
                                 <div class="invalid-feedback">Seleccione una imagen porfavor.</div>
                                 @error('img_producto')
                                 <small class="text-danger"> {{$message}}</small>

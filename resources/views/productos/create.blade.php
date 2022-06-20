@@ -32,6 +32,21 @@
               @csrf
                 <div class="card card-secondary card-outline">
                     <div class="card-body">
+                     <!-- alert -->
+                      @if ($errors->any())
+                      <div class="row ">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                                  @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                                  @endforeach
+                            </div>
+                        </div>
+                      </div>
+                      @endif
+
                       <div class="row">
                           <div class="col-sm-6">
                               <div class="form-group">
@@ -96,7 +111,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                             <div class="custom-file">
-                                <input style="cursor: pointer;" type="file" id="img_producto" name="img_producto" class="custom-file-input" accept="image/jpeg" required>
+                                <input style="cursor: pointer;" type="file" id="img_producto" name="img_producto" class="custom-file-input" accept="image/jpeg,jpg" >
                                 <div class="invalid-feedback">Seleccione una imagen porfavor.</div>
                                 @error('img_producto')
                                 <small class="text-danger"> {{$message}}</small>
@@ -113,7 +128,7 @@
                             </div>
                         </div>
                       </div>
-
+    
                     </div><!--/body card-->
 
                 </div><!--/CARD FIN-->

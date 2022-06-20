@@ -12,3 +12,10 @@ EN EL ACHIVO .env COLOCAR EL NAME DE LA BD:
 
 >php artisan migrate --seed
 
+================================================================================================
+Actualizar Repositorio:
+
+> git status
+> git add .
+> git commit -m "descripcion de cambios"
+> git push origin main

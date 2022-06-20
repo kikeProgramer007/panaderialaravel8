@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str; //Extencion para importar imagen
+use Illuminate\Support\Facades\File;//extencion para eliminar imagen
+// use Illuminate\Support\Facades\StorageNews
+// Storage::disk('public')->delete("images/news/{$news->file_name}");
 class ProductoController extends Controller
 {
     public function index()
@@ -27,14 +30,26 @@ class ProductoController extends Controller
             'descripcion'=>'required',
             'precio'=>'required',
             'id_categoria'=>'required',
-            'img_producto'=>'required',
+            'img_producto' => 'image|mimes:jpg,jpeg|max:2048|min:8'
         ]);
+
         $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->precio = $request->precio;
         $producto->id_categoria = $request->id_categoria;
         $producto->save();
+        
+        //script para subir una imagen
+        if ($request->hasFile("img_producto")) {//existe un campo de tipo file?
+            $imagen = $request->file("img_producto"); //almacenar imagen en variable
+            $nombreimagen = Str::slug($producto->id).".".$imagen->guessExtension();//insertar parametro del nombre de imagen
+            $ruta = public_path("img/productos/");//guardar en esa ruta
+            $imagen->move($ruta,$nombreimagen); //mover la imagen es esa ruta y con ese nombre
+
+            //copy($imagen->getRealPath(),$ruta.$nombreimagen); copiar imagen un una ruta
+        }
+
         return redirect('producto');
     }
 
@@ -54,14 +69,27 @@ class ProductoController extends Controller
             'descripcion'=>'required',
             'precio'=>'required',
             'id_categoria'=>'required',
-            'img_producto'=>'required',
+            'img_producto' => 'image|mimes:jpg,jpeg|max:2048|min:8'
         ]);
+
         $producto = Producto::findOrFail($id);
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->precio = $request->precio;
         $producto->id_categoria = $request->id_categoria;
         $producto->update();
+
+        //script para subir editar una imagen
+        if ($request->hasFile("img_producto")) {
+            $image_path = public_path("img/productos/{$request->id}.jpg");
+            if (File::exists($image_path)) {
+                File::delete($image_path);  //eliminar imagen existente
+            }
+            $imagen = $request->file("img_producto");
+            $nombreimagen =  $request->id.".jpg";
+            $ruta = public_path("img/productos/");
+            $imagen->move($ruta,$nombreimagen);
+        }
         return redirect('producto');
     }
 

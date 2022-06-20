@@ -41,6 +41,7 @@
                               <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
                                   <thead>
                                       <tr>
+                                        <th width="8%">Imagen</th>
                                         <th width="5%"> id </th>
                                         <th> nombre </th>
                                         <th> descripcion </th>
@@ -52,6 +53,14 @@
                                   <tbody>
                                     @foreach ($productos as $producto)
                                       <tr>
+                                          @php
+                                             $imagen = "img/productos/".$producto->id.".jpg";
+                                            if (!file_exists($imagen)) {
+                                                $imagen = "img/productos/150x150.png";
+                                            }
+                                          @endphp
+                                         
+                                          <td class="text-center"><img width="50"height="30"src="{{asset($imagen.'?'.time())}}"/></td>
                                           <td>{{$producto->id}}</td>
                                           <td>{{$producto->nombre}}</td>
                                           <td>{{$producto->descripcion}}</td>
@@ -63,7 +72,6 @@
                                               <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{url('producto/destroy/'.$producto->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
                                             </div>
                                           </td>
-                                      </tr>
                                     </tr>
                                     @endforeach
                                   </tbody>

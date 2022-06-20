@@ -335,9 +335,13 @@ $(function () {
             "next": "Siguiente",
             "previous": "Anterior"
         }
-    }
+      }
     });
   });
+
+
+
+
 //tooltips
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()

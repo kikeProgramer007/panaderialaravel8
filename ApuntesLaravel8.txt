@@ -1,0 +1,27 @@
+
+return $request->all(); //que esta recibiendo
+
+dd($request) //ver lo que se envio
+
+
+
+OBTENER ID QUE SIGUE:
+M1
+DB::table('myTable')->orderBy('id','desc')->first();
+
+M2
+$data = User::create(['name'=>'first']);
+dd($data->id);
+
+
+$area = new Area; # Crear nuevo modelo
+# Ponerle los datos para guardar
+$area->nombre = $peticion->nombre; 
+# Guardar en BD
+$area->save();
+# ==================================
+# Aquí tenemos el id recién guardado :)
+# ==================================
+$idAreaRecienGuardada = $area->id;
+# Y podemos obtener cualquier propiedad, pues está refrescado
+# Aquí ya puedes hacer lo que quieras con el id

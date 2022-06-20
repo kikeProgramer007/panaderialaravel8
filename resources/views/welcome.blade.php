@@ -29,144 +29,27 @@
         {{-- <div class="row"> --}}
         {{-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> --}}
             <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3 row-cols-lg-4  g-3">
-
-            <div class="col">
-                <div class="card shadow-md  card-warning card-outline">
-                    <img src="{{asset('/vendor/dist/img/pan.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
+                @foreach ($productos as $producto)
+                    @php
+                       $imagen = "img/productos/".$producto->id.".jpg";
+                      if (!file_exists($imagen)) {$imagen = "img/productos/150x150.png";}
+                    @endphp
+                    <div class="col">
+                        <div class="card shadow-md  card-warning card-outline">
+                            <img src="{{asset($imagen.'?'.time())}}" alt="imagen producto">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$producto->nombre}}</h5>
+                                <p class="card-text">{{$producto->precio}} Bs</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
+                                </div>
                             </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card  card-warning card-outline shadow-md">
-                    <img src="{{asset('/vendor/dist/img/pan2.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">SistemaPos</h5>
-                        <p class="card-text">$ 12.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                            <!-- <small class="text-muted">9 mins</small> -->
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col">
-                <div class="card  card-warning card-outline shadow-md">
-                    <img src="{{asset('/vendor/dist/img/pan.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col">
-                <div class="card card-warning card-outline shadow-sm">
-                    <img src="{{asset('/vendor/dist/img/pan2.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">SistemaPos</h5>
-                        <p class="card-text">$ 12.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                            <!-- <small class="text-muted">9 mins</small> -->
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card-warning card-outline shadow-sm">
-                    <img src="{{asset('/vendor/dist/img/pan.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card-warning card-outline shadow-sm">
-                    <img src="{{asset('/vendor/dist/img/pan2.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card-warning card-outline shadow-sm">
-                    <img src="{{asset('/vendor/dist/img/pan.jpg')}}" alt="imagen producto">
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card card-warning card-outline shadow-sm">
-                    <img src="{{asset('/vendor/dist/img/pan2.jpg')}}" alt="imagen producto">
-                 
-                    <div class="card-body">
-                        <h5 class="card-title">CocaCola</h5>
-                        <p class="card-text">$ 10.00</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
-                            </div>
-                           {{-- <small class="text-muted">9 mins</small>  --}}
-                            <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
+              @endforeach
 
         </div>
         <!-- /.row -->
