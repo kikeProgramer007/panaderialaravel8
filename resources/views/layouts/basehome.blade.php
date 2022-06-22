@@ -17,13 +17,13 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition layout-top-nav">
+<body class="hold-transition layout-top-nav layout-navbar-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="{{ url('/home') }}" class="navbar-brand">
+      <a href="{{ url('/') }}" class="navbar-brand">
         <img src="{{asset('/vendor/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">Panaderia Elias</span>
@@ -96,30 +96,16 @@
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+          <a class="nav-link" href="{{route('cart.checkout')}}" >
             <i class="fa fa-shopping-cart"></i>
-            <span class="badge badge-warning navbar-badge">2</span>
+
+            @if (count(Cart::getContent()))
+              <span class="badge badge-warning navbar-badge">{{count(Cart::getContent())}}</span>
+            @else
+            <span class="badge badge-warning navbar-badge">0</span>
+            @endif
           </a>
-          {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-        
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-         
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-          
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div> --}}
+ 
         </li>
 
         <!-- Iniciar Sesion -->
@@ -201,5 +187,7 @@
 <script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
+
+
 </body>
 </html>

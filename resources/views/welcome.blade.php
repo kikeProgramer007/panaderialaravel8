@@ -44,7 +44,12 @@
                                     <div class="btn-group">
                                         <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
                                     </div>
-                                    <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button>
+                                    {{-- <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button> --}}
+                                    <form action="{{route('cart.add')}}" method="POST">
+                                      @csrf
+                                      <input type="hidden" name="producto_id" value="{{$producto->id}}">
+                                      <button class="btn btn-sm btn-outline-warning" type="submit" name="btn" onclick="#" >Agregar al carrito</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

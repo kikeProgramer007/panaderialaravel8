@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Auth;
 
 //administracion
 use App\Http\Controllers\administracion;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FrontController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,13 +23,20 @@ use App\Http\Controllers\ClienteController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/');
 });
+// Route::resource('index', HomeController::class);
+Route::get('/', [FrontController::class,'index']);
+
+Route::post('/card-add', [CartController::class,'add'])->name('cart.add');
+Route::get('/card-checkout', [CartController::class,'cart'])->name('cart.checkout');
+Route::post('/card-clear', [CartController::class,'clear'])->name('cart.clear');
+Route::post('/card-removeitem', [CartController::class,'removeitem'])->name('cart.removeitem');
+Route::post('/card-update', [CartController::class,'update'])->name('cart.update');
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 //administracion de usuario
 Route::get('administracion', [administracion::class,'index']);
 Route::get('administracion/usuarios/eliminados', [administracion::class,'eliminados']);

@@ -25,3 +25,48 @@ $area->save();
 $idAreaRecienGuardada = $area->id;
 # Y podemos obtener cualquier propiedad, pues está refrescado
 # Aquí ya puedes hacer lo que quieras con el id
+
+===================================================================
+IMPLEMENTAR EL CARRITO DE COMPRAS:
+
+https://github.com/darryldecode/laravelshoppingcart
+
+composer require "darryldecode/cart"
+
+
+
+CONFIGURATION
+1. Open config/app.php and add this line to your Service Providers Array.
+
+   Darryldecode\Cart\CartServiceProvider::class
+
+2. Open config/app.php and add this line to your Aliases
+
+  'Cart' => Darryldecode\Cart\Facades\CartFacade::class
+
+3. Optional configuration file (useful if you plan to have full control)
+
+php artisan vendor:publish --provider="Darryldecode\Cart\CartServiceProvider" --tag="config"
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+<body>  
+  <p> Hello! I'm <span id="input"></span>.</p>
+  
+  <script>
+      document.getElementById('input').innerHTML = "Robert" ;
+  </script>
+</body>
+</html>
+
+
+ <th scope="row">{{Cart::getTotalQuantity()}}</th>
+  <th scope="row">{{Cart::getSubTotal()}}</th>
+ <th scope="row">{{Cart::getTotal()}}</th>
