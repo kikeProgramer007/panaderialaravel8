@@ -11,140 +11,109 @@
     @php( $register_url = $register_url ? url($register_url) : '' )
 @endif
 
-@section('auth_header', __('adminlte::adminlte.register_message'))
+@section('auth_header','Registrar Cliente'))
 
 @section('auth_body')
-    <form action="{{ $register_url }}" method="post">
+    <form action="{{ $register_url }}" method="post" autocomplete="off" class="needs-validation" novalidate>
         @csrf
 
         {{-- Name field --}}
         <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
-
+            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror"
+                   value="{{ old('name') }}" placeholder="ingrese su nombre" pattern=".*\S+.*" autofocus required>
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-user classes_auth_icon"></span>
                 </div>
             </div>
-
-            @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+            <div class="invalid-feedback">Introduzca nombre</div>
         </div>
         {{--apellidos--}}
         <div class="input-group mb-3">
             <input type="text" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror"
-                   value="{{ old('apellidos') }}" placeholder="apellidos" autofocus>
+                   value="{{ old('apellidos') }}" placeholder="ingrese su apellido paterno y materno" pattern=".*\S+.*" autofocus required>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-address-card classes_auth_icon"></span>
                 </div>
             </div>
-
-            @error('apellidos')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+            <div class="invalid-feedback">Introduzca su apellido paterno y materno</div>
         </div>
         {{--edad--}}
         <div class="input-group mb-3">
-            <input type="text" name="edad" class="form-control @error('edad') is-invalid @enderror"
-                   value="{{ old('edad') }}" placeholder="edad" autofocus>
+            <input type="number" name="edad" class="form-control @error('edad') is-invalid @enderror"
+                   value="{{ old('edad') }}" placeholder="ingrese su edad" pattern=".*\S+.*" autofocus required>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="far fa-address-card classes_auth_icon "></span>
                 </div>
             </div>
+            <div class="invalid-feedback">Introduzca su edad</div>
 
-            @error('edad')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
          {{--telefono--}}
          <div class="input-group mb-3">
-            <input type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror"
-                   value="{{ old('telefono') }}" placeholder="telefono" autofocus>
+            <input type="number" name="telefono" class="form-control @error('telefono') is-invalid @enderror"
+                   value="{{ old('telefono') }}" placeholder="ingrese su nro de telefono" pattern=".*\S+.*" autofocus required>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-mobile classes_auth_icon"></span>
                 </div>
             </div>
+            <div class="invalid-feedback">Introduzca su nro de telefono</div>
 
-            @error('telefono')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
 
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+                   value="{{ old('email') }}" placeholder="cuenta de usuario" pattern=".*\S+.*" autofocus required>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-envelope classes_auth_icon"></span>
                 </div>
             </div>
+            <div class="invalid-feedback">Introduzca cuenta de usuario</div>
 
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
 
         {{-- Password field --}}
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.password') }}">
+                   placeholder=" ingrese su contraseña" pattern=".*\S+.*" autofocus required>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-lock classes_auth_icon"></span>
                 </div>
             </div>
+            <div class="invalid-feedback">password corregir</div>
 
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
 
         {{-- Confirm password field --}}
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
                    class="form-control @error('password_confirmation') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.retype_password') }}">
-
+                   placeholder="verificar su contraseña" pattern=".*\S+.*" autofocus required >
+           
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-lock classes_auth_icon"></span>
                 </div>
             </div>
+            <div class="invalid-feedback">password diferente</div>
 
-            @error('password_confirmation')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
 
         {{-- Register button --}}
-        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+        <button type="submit" class="btn btn-block classes_auth_btn btn-flat btn-primary">
             <span class="fas fa-user-plus"></span>
-            {{ __('adminlte::adminlte.register') }}
+            Registrame
         </button>
 
     </form>
@@ -153,7 +122,7 @@
 @section('auth_footer')
     <p class="my-0">
         <a href="{{ $login_url }}">
-            {{ __('adminlte::adminlte.i_already_have_a_membership') }}
+            Login 
         </a>
     </p>
 @stop

@@ -10,6 +10,8 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ProvedorController;
+use App\Http\Controllers\IngredienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,4 +94,27 @@ Route::controller(ProductoController::class)->group(function (){
     Route::get('/producto/destroy/{id}','destroy');
     Route::get('/producto/eliminados','deletes');
     Route::get('/producto/restaurar/{id}','restore');
+});
+
+//provedores
+Route::controller(ProvedorController::class)->group(function (){
+    Route::get('provedor','index')->name('provedor');
+    Route::get('provedor/create','create');
+    Route::post('provedor/store','store');
+    Route::get('provedor/edit/{provedor}/{sw}','edit');
+    Route::post('provedor/update/{provedor}','update');
+    Route::get('provedor/destroy/{provedor}','destroy');
+    Route::get('provedor/eliminados','deletes');
+    Route::get('provedor/restaurar/{provedor}','restore');
+});
+//ingrediente
+Route::controller(IngredienteController::class)->group(function (){
+    Route::get('ingrediente','index')->name('ingrediente');
+    Route::get('ingrediente/create','create');
+    Route::post('ingrediente/store','store');
+    Route::get('ingrediente/edit/{ingrediente}','edit');
+    Route::post('ingrediente/update/{ingrediente}','update');
+    Route::get('ingrediente/destroy/{ingrediente}','destroy');
+    Route::get('ingrediente/eliminados','deletes');
+    Route::get('ingrediente/restaurar/{ingrediente}','restore');
 });

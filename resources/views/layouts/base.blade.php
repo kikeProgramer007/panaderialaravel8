@@ -181,6 +181,18 @@
                   <p>Terminados</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('ingrediente')}}" class="nav-link">
+                 <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Ingredientes</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('provedor')}}" class="nav-link">
+                 <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Provedores</p>
+                </a>
+              </li>
             </ul>
           </li>
 
