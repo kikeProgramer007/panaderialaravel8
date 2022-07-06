@@ -31,11 +31,13 @@ Route::get('/', function () {
 // Route::resource('index', HomeController::class);
 Route::get('/', [FrontController::class,'index']);
 
-Route::post('/card-add', [CartController::class,'add'])->name('cart.add');
+Route::post('/card-add}', [CartController::class,'add'])->name('cart.add');
+
 Route::get('/card-checkout', [CartController::class,'cart'])->name('cart.checkout');
 Route::post('/card-clear', [CartController::class,'clear'])->name('cart.clear');
 Route::post('/card-removeitem', [CartController::class,'removeitem'])->name('cart.removeitem');
 Route::post('/card-update', [CartController::class,'update'])->name('cart.update');
+
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

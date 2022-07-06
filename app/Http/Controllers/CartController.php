@@ -16,26 +16,23 @@ class CartController extends Controller
         $this->middleware('auth');
     }
     
-    public function add(Request $request){
-       
-        $producto = Producto::find($request->producto_id);
-
-        Cart::add(
-            $producto->id, 
-            $producto->nombre, 
-            $producto->precio, 
-            1,
-            // array("urlfoto"=>$producto->urlfoto)
-           
-        );
-        return back()->with('success',"$producto->nombre ¡se ha agregado con éxito al carrito!");
-   
+     public function add(Request $request){
+      
+      $producto = Producto::find($request->producto_id);
+       \Cart::add(
+           $producto->id, 
+           $producto->nombre, 
+           $producto->precio, 
+           1,
+           // array("urlfoto"=>$producto->urlfoto)
+       );
+      return back()->with('success',"$producto->nombre ¡se ha agregado con éxito al carrito!");
+        // return response()->json(['success'=>'Added new records.']);
     }
-
     public function cart(){
         // $cliente=Cliente::all();
         $userId = auth()->user()->id;
-
+        
         // $iduser=Auth::user()->id;
         $cliente=Cliente::all();
         $cliente=$cliente->where('id_usuario',$userId)->first();

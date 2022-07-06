@@ -20,7 +20,6 @@
   }
 </style>
 
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -162,7 +161,7 @@
                 <div class="card card-default shadow-md">
                    
                   <div class="card-header">
-                    <h3 class="card-title  w-100 text-center font-weight-bold text-primary">Datos del Cliente</h3>
+                    <h3 class="card-title  w-100 text-center font-weight-bold text-primary">MI PEDIDO</h3>
                   
                 </div><!--/.card-header-->
                     <div class="card-body">
@@ -172,56 +171,74 @@
                         @endif
                       @else
                         <!-- /input-group -->
-                        <div class="form-group mb-0">
-                          <div class="row">
-                            <input type="hidden" id="id_producto" name="id_producto"/>
-                            <div class="col-12 col-sm-4">
-                              <label>Correo</label>
-                              <input class="form-control form-control-sm" id="nombre" name="nombre" type="text"value="{{ Auth::user()->email }}" disabled />
+
+                          <input type="hidden" id="id_producto" name="id_producto"/>
+                          <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3 g-3">
+
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Correo</label>
+                                <input class="form-control form-control-sm" id="nombre" name="nombre" type="text"value="{{ Auth::user()->email }}" disabled />
+                              </div>
                             </div>
-                            <div class="col-12 col-sm-4 mb-2">
+                            <div class="col">
+                              <div class="form-group">
                                 <label>Nombre</label> 
                                 <input class="form-control form-control-sm me-md-8" id="nombre" name="nombre" type="text"  value="{{ Auth::user()->name }}" disabled />
+                              </div>
                             </div>
-                            <div class="col-12 col-sm-4 mb-2">
+                            <div class="col">
+                              <div class="form-group">
                                 <label>Apellidos</label>
                                 <input class="form-control form-control-sm" id="apellidos" name="apellidos" type="text"  value="{{$cliente['apellidos']}}" disabled/>
+                              </div>
                             </div>
-                          </div> 
-                        </div>
-                        @endguest
-
-                        <div class="form-group mb-3">
-                            <div class="row">
-                                <div class="col-12 col-sm-4 mb-2">
-                                  <label>Telefono</label>
+                         
+                              <div class="col">
+                                <div class="form-group">
+                                  <label class="text-center">Telefono</label>
                                   <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{$cliente['telefono']}}" disabled/>
                                 </div>
-                                <div class="col-12 col-sm-4">
-                                    <label>Telefono</label>
-                                    <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{$cliente['telefono']}}" disabled/>
-                                    <p class="h3" id="total"></p>
+                              </div>
+                              
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Fecha</label>
+                                  <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{date('m-d-Y');}}" disabled/>
                                 </div>
-                                <div class="col-12 col-sm-4">
-                                    <div class="float-right">
-                                        <label><br></label>
-                                        <div class="mb-0">
-                                        <button class="btn btn-info btn-sm btn-flat" title="Agregar ubicación" data-toggle="modal" data-target="#maps" type="button"  data-toggle="modal" class="twitter" ><i class="fas fa-map-marker-alt"></i> Mi Ubicación</button>
-                                        </div>
-                                    </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Ubicación:</label>
+                                  <div class="d-flex justify-content-start">
+                                    <button class="btn btn-info btn-sm btn-flat" title="Agregar ubicación" data-toggle="modal" data-target="#maps" type="button"  data-toggle="modal" class="twitter" ><i class="fas fa-map-marker-alt"></i> Seleccionar mi ubicación</button>
+                                  </div>
                                 </div>
-                            </div>
-                        </div>
+                              </div>
+                           
+                          </div> 
 
+                    
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <label>Referencia de la ubicación</label> 
+                            <textarea class="form-control" rows="3" id="ref" name="ref" pattern=".*\S+.*" required></textarea>
+                            <div class="invalid-feedback">ingrese una dirección.</div>
+                          </div>
+                        </div>
+                      </div>
 
                         <div class="d-flex justify-content-center">
                           <div class="row">
-                              <div class="col-12">
-                                  <button class="btn btn-primary btn-flat" type="button" id="completa_compra">Solicitar Pedido</button>
-
-                              </div>
+                            <div class="col-12">
+                              <button class="btn btn-primary btn-flat" type="button" id="completa_compra">Solicitar Pedido</button>
+                            </div>
                           </div>
-                      </div>
+                        </div>
+                        @endguest
+
+                
                   @endif
 
 
@@ -250,7 +267,7 @@
           </button>
       </div>
 
-      <div class="modal-body py-0 px-0">
+      <div class="modal-body px-0 py-0">
 
         <div id="div_maps">
           <!--  GOOGLE MAPS-->
@@ -258,15 +275,10 @@
 
             <div style="display:none">
               Nueva Ubiv.<input type="text" id="coords" />
-              <br>
-              Latitud <input class="xy" type="text" id="longitud" name="longitud" />
-              <br>
-              Longitud <input class="xy" type="text" id="latitud" name="latitud" />
-              <br>
-              <br>
+              {{-- Latitud <input class="xy" type="text" id="longitud" name="longitud" />
+              Longitud <input class="xy" type="text"id="latitud" name="latitud" /> --}}
             </div>
 
-      
             <div id="ayuda" align="center">
               <p id="nomDir"> </p>
           </div>
@@ -274,27 +286,34 @@
           <!-- END ,MAPS -->
         </div>
 
-
       </div>
 
-      <div class="modal-footer p-1 justify-content-end">
-
-        <div class="form-group justify-content-start">
+      <div class="modal-footer p-2">
+ 
+          <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-4">
-                  <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{$cliente['telefono']}}" disabled/>
+              <div class="col-md-12">
+
+                <div class="form-group row mb-0">
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-info btn-sm btn-lg btn-block"  name="confir_ubv" id="confir_ubv" Onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); ">Aceptar</button>
+                  </div>
+                  <label for="latitud" class="col-sm-2 form-control-sm col-form-label text-center">Latitud:</label>
+                  <div class="col-sm-3">
+                    <input type="email" class="form-control form-control-sm" id="latitud"  name="longitud" placeholder="Latitud">
+                  </div>
+                  <label for="longitud" class="col-sm-2 form-control-sm col-form-label text-center">Longitud:</label>
+                  <div class="col-sm-3">
+                    <input type="email" class="form-control form-control-sm" id="longitud" name="longitud" placeholder="Email">
+                  </div>
+                
                 </div>
-                <div class="col-12 col-sm-4">
-                    <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{$cliente['telefono']}}" disabled/>
-                    <p class="h3" id="total"></p>
-                </div>
+              </div>
             </div>
-        </div>
+          </div> {{-- container --}}
+         
 
-
-          <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-info btn-sm"  name="confir_ubv" id="confir_ubv" Onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); ">Obtener Coordenadas</button>
-      </div>
+      </div><!-- /.modal-footer -->
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -304,7 +323,7 @@
 
 
 
-<script>
+<script type="text/javascript">
   function click(){
       alert('Error')
   }
@@ -313,246 +332,216 @@
 type="text/javascript" >
 </script>
 
-<script>
-      var marker;
-    var coords = {};
-    var x=document.getElementById("nomDir");
-    var options = {
-    enableHighAccuracy: true,
-    timeout: 6000,
-    maximumAge: 0
-    };
-    //Funcion principal
-    initMap = function () {
+<script type="text/javascript">
+  var marker;
+  var coords = {};
+  var x=document.getElementById("nomDir");
+  var options = {
+  enableHighAccuracy: true,
+  timeout: 6000,
+  maximumAge: 0
+  };
 
-        // navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:3000});
+/*============================= FUNCION PRINCIPAL ==================================*/
+  initMap = function(){
 
-        //usamos la API para geolocalizar el usuario
+    //navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:3000});
+    //usamos la API para geolocalizar el usuario
 
-            navigator.geolocation.getCurrentPosition(function (position){
-                coords =  {
-                lng: position.coords.longitude,
-                lat: position.coords.latitude,
-                };
-                document.getElementById("longitud").value = position.coords.longitude;
-                document.getElementById("latitud").value = position.coords.latitude;
+    navigator.geolocation.getCurrentPosition(function (position){
+      coords =  {
+      lng: position.coords.longitude,
+      lat: position.coords.latitude,
+      };
+      document.getElementById("longitud").value = position.coords.longitude;
+      document.getElementById("latitud").value = position.coords.latitude;
+      setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
 
-                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
-             
+    },function(error){
 
-            },function(error){
+      // El segundo parámetro es la función de error
+      switch(error.code)
+      {
+        case error.PERMISSION_DENIED:
+        // El usuario denegó el permiso para la Geolocalización.
+        console.log(error);
+        Swal.fire({icon:'info', title: 'Aviso', text: 'Por favor permita el acceso a su ubicación.'})
+        break;
+        case error.POSITION_UNAVAILABLE:
+        // La ubicación no está disponible.
+        console.log(error);
+        Swal.fire({icon: 'info', title: 'Aviso', text: 'Active su GPS y recargue la página.'})
+        break;
+        case error.TIMEOUT:
+        // Se ha excedido el tiempo para obtener la ubicación.
+        console.log(error);
+        Swal.fire({icon: 'info', title: 'Aviso', text: 'Active su GPS y recargue la página.'})
+        break;
+        case error.UNKNOWN_ERROR:
+        // Un error desconocido.
+        console.log(error);
+        Swal.fire({ icon: 'info', title: 'Aviso', text: 'INTENTE MÁS TARDE.', })
+        break;
+      }
+      coords =  {
+        lng: '-17.34981426967225',
+        lat: '-63.262442186041355'
+      };
+      document.getElementById("longitud").value = '-17.34981426967225';
+      document.getElementById("latitud").value =  '-63.262442186041355';
+      setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
 
-                // El segundo parámetro es la función de error
-                switch(error.code)
-                {
-                    case error.PERMISSION_DENIED:
-                    // El usuario denegó el permiso para la Geolocalización.
-                    console.log(error);
-                    alert('ACTIVE SU GPS O USTED BLOQUEO EL PERMISO DE UBICACION');
-                    // initMap();
-                    break;
-                    case error.POSITION_UNAVAILABLE:
-                    // La ubicación no está disponible.
-                    console.log(error);
-                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
-                    break;
-                    case error.TIMEOUT:
-                    // Se ha excedido el tiempo para obtener la ubicación.
-                    console.log(error);
-                        alert('ACTIVE SU GPS Y RECARGE LA PAGINA');
-                    break;
-                    case error.UNKNOWN_ERROR:
-                    // Un error desconocido.
-                    alert('INTENTE MÁS TARDE');
-                    console.log(error);
-                    break;
-                }
-                coords =  {
-                    lng: '-17.34981426967225',
-                    lat: '-63.262442186041355'
-                };
+    },options);
+  }
 
-                document.getElementById("longitud").value = '-17.34981426967225';
-                document.getElementById("latitud").value =  '-63.262442186041355';
-                
-                setMapa(coords);  //pasamos las coordenadas al metodo para crear el mapa
+/*============================= FUNCION SETMAPA ==================================*/
+  function setMapa (coords)
+  {
+    //Se crea una nueva instancia del objeto mapa
+    var map = new google.maps.Map(document.getElementById('map'),{
+        zoom: 17,
+        center:new google.maps.LatLng(coords.lat,coords.lng),
+    });
 
+    //Creamos el marcador en el mapa con sus propiedades
+    //para nuestro obetivo tenemos que poner el atributo draggable en true
+    //position pondremos las mismas coordenas que obtuvimos en la geolocalización
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      title:"Mi ubicación actual",
+      position: new google.maps.LatLng(coords.lat,coords.lng),
+    });
+    //map.setCenter(pos);
+    //agregamos un evento al marcador junto con la funcion callback al igual que el evento dragend que indica
+    //cuando el usuario a soltado el marcador
+    marker.addListener('click', toggleBounce);
 
-            },options);
+    marker.addListener( 'dragend', function (event)
+    {
+      //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
+      document.getElementById("coords").value =   this.getPosition().lat()+","+ this.getPosition().lng();
+      document.getElementById("longitud").value = this.getPosition().lng();
+      document.getElementById("latitud").value =  this.getPosition().lat();
 
-    }
-    function setMapa (coords){
+      var long=this.getPosition().lat();
+      var lat=this.getPosition().long();
 
-            //Se crea una nueva instancia del objeto mapa
-            var map = new google.maps.Map(document.getElementById('map'),{
-                zoom: 17,
-                center:new google.maps.LatLng(coords.lat,coords.lng),
-            });
+      var locApi="https://maps.googleapis.com/maps/api/geocode/json?latlng="+long+","+lat+"&sensor=true";
+      //x.innerHTML=locApi+"<br>"+loc.loc +"<br>"+loc.city +"<br>"+loc.region +"<br>";
+      var cadena="";
 
-            //Creamos el marcador en el mapa con sus propiedades
-            //para nuestro obetivo tenemos que poner el atributo draggable en true
-            //position pondremos las mismas coordenas que obtuvimos en la geolocalización
-            marker = new google.maps.Marker({
-            map: map,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            title:"Mi ubicación actual",
-            position: new google.maps.LatLng(coords.lat,coords.lng),
-
-            });
-            //map.setCenter(pos);
-            //agregamos un evento al marcador junto con la funcion callback al igual que el evento dragend que indica
-            //cuando el usuario a soltado el marcador
-            marker.addListener('click', toggleBounce);
-
-            marker.addListener( 'dragend', function (event)
-            {
-                //escribimos las coordenadas de la posicion actual del marcador dentro del input #coords
-                document.getElementById("coords").value =   this.getPosition().lat()+","+ this.getPosition().lng();
-                document.getElementById("longitud").value = this.getPosition().lng();
-                document.getElementById("latitud").value =  this.getPosition().lat();
-
-                var long=this.getPosition().lat();
-                var lat=this.getPosition().long();
-
-                var locApi="https://maps.googleapis.com/maps/api/geocode/json?latlng="+long+","+lat+"&sensor=true";
-                //x.innerHTML=locApi+"<br>"+loc.loc +"<br>"+loc.city +"<br>"+loc.region +"<br>";
-                var cadena="";
-
-                $.get({
-
-                    url: locApi,
-                    success:function(data)
-                    {
-                        console.log(typeof data);
-                        //console.log(data.results.length);
-                        if (data.results.length > 0)
-                        {
-                            cadena=data.results[0].address_components[0].long_name+", ";
-
-                            cadena+=data.results[0].address_components[1].long_name+", ";
-
-                            //cadena+=data.results[0].address_components[4].long_name;
-                            x.innerHTML=cadena;
-                            document.getElementById("txtDir").value=cadena;
-                        }
-                        else
-                        {
-                            x.innerHTML="La ubicacion no se reconoce, por favor intente de nuevo";
-                        }
-
-                    },
-                    error:function(data)
-                    {
-                        console.log(data);
-                    }
-                });
-
-            });
-    }
-    //callback al hacer clic en el marcador lo que hace es quitar y poner la animacion BOUNCE
-    function toggleBounce()
+      $.get({
+        url: locApi,
+        success:function(data)
         {
-            if (marker.getAnimation() !== null)
-            {
-            marker.setAnimation(null);
-            } else
-            {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
+          console.log(typeof data);
+          //console.log(data.results.length);
+          if(data.results.length > 0){
+            cadena=data.results[0].address_components[0].long_name+", ";
+            cadena+=data.results[0].address_components[1].long_name+", ";
+            //cadena+=data.results[0].address_components[4].long_name;
+            x.innerHTML=cadena;
+            document.getElementById("txtDir").value=cadena;
+          }else{
+            x.innerHTML="La ubicacion no se reconoce, por favor intente de nuevo";
+          }
+
+        },
+        error:function(data){
+          console.log(data);
         }
-    function addUbicacion(x,y,dir){
+      });
+    });
+  }
 
-          // alert(x);
-          let totalx = document.getElementById('total')
-        totalx.innerHTML = y+"";
-        // document.getElementById('div-referencia').style.display='block';
-        document.getElementById("textlatitud").value=x+"";
+/*============================= FUNCION toggleBounce =================================*/
+  //callback al hacer clic en el marcador lo que hace es quitar y poner la animacion BOUNCE
+  function toggleBounce(){
+    if (marker.getAnimation() !== null){
+      marker.setAnimation(null);
+    }else{
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 
-        document.getElementById("textlongitud").value=y+"";
+/*============================= FUNCION addUbicacion =================================*/
+  function addUbicacion(x,y,dir)
+  {
+    // alert(x);
+    // kike
+    let totalx = document.getElementById('total')
+    totalx.innerHTML = y+"";
+    // document.getElementById('div-referencia').style.display='block';
+    document.getElementById("textlatitud").value=x+"";
+    document.getElementById("textlongitud").value=y+"";
+
+    //document.getElementById("textdescripcion").value=dir+"";
+
+    document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
+
+    let latitud1=-63.256608;//latitud de la empresa
+    let longitud1=-17.334064;//longitud de la empresa
+
+    let latitud2=x; //latitud del destino
+    let longitud2=y;//longitud del destino
+
+    alert('graciass');
+
+    (calculateDistance(latitud1,longitud1,latitud2,longitud2));
+    //funcion para calcular la distancia en kilometro
+    // Swal.fire('Gracias por darnos tu ubicacion!', ' ','success')
         
-        //kike
-        // document.getElementById('total').innerHTML = y;
-       
-        //document.getElementById("textdescripcion").value=dir+"";
+  }
+/*============================= FUNCION calculateDistance ================================*/
+  function calculateDistance(lt1,lng1,lt2,lng2) {
 
-        document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
+    var origin = new google.maps.LatLng(lng1, lt1);
+    var destination = new google.maps.LatLng(lng2, lt2);
+    var service = new google.maps.DistanceMatrixService();
 
-        let latitud1=-63.256608;//latitud de la empresa
-        let longitud1=-17.334064;//longitud de la empresa
+    service.getDistanceMatrix(
+    {
+      origins: [origin],
+      destinations: [destination],
+      travelMode: google.maps.TravelMode.DRIVING,
+      //unitSystem: google.maps.UnitSystem.IMPERIAL, // millas y pies.
+      unitSystem: google.maps.UnitSystem.metric, // kilometros y metros
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
 
-        let latitud2=x; //latitud del destino
-        let longitud2=y;//longitud del destino
+  }
+/*============================= FUNCION callback ================================*/
+  function callback(response, status)
+  {
+  if (status != google.maps.DistanceMatrixStatus.OK){
+    console.log(origin);
+  }else{
+      var origin = response.originAddresses[0];
+      var destination = response.destinationAddresses[0];
+      
+      if (response.rows[0].elements[0].status === "ZERO_RESULTS"){
+          $('#textTiempo').val("No hay distancia para  "  + origin + " and " + destination);
+          console.log(origin);
+      }else{
+          var distance = response.rows[0].elements[0].distance;
+          var duration = response.rows[0].elements[0].duration;
+          var distanciaKilometro = distance.value / 1000; // Kilometro
+          //var distanciaMillas = distance.value / 1609.34; // millas
+          var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
+          //aumentamos 10 minutos de preparacion que son 600 segundos
+          var duracionValue = duration.value + 600;// tiempo en formato solo segundos
 
+          $('#textDistancia').val(distanciaKilometro.toFixed(2));//distancia en km
 
-        alert('graciass');
-
-        (calculateDistance(latitud1,longitud1,latitud2,longitud2));
-        //funcion para calcular la distancia en kilometro
-
-
-        // Swal.fire(
-        //     'Gracias por darnos tu ubicacion!',
-        //     ' ',
-        //     'success'
-        // )
-
-
-        
+          //llamamos a la funcion para calcular el precio de acuerdo a km
+          // recargoPedido(distanciaKilometro);
+          // //llamamos a la funcion para calcular el tiempo
+          convertirSegundosAhoraMinutos(duracionValue);
+      }
     }
-    function calculateDistance(lt1,lng1,lt2,lng2) {
-
-        var origin = new google.maps.LatLng(lng1, lt1);
-
-        var destination = new google.maps.LatLng(lng2, lt2);
-
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
-            {
-                origins: [origin],
-                destinations: [destination],
-                travelMode: google.maps.TravelMode.DRIVING,
-                //unitSystem: google.maps.UnitSystem.IMPERIAL, // millas y pies.
-                unitSystem: google.maps.UnitSystem.metric, // kilometros y metros
-                avoidHighways: false,
-                avoidTolls: false
-            }, callback);
-        }
-
-        function callback(response, status)
-        {
-        if (status != google.maps.DistanceMatrixStatus.OK)
-        {
-            console.log(origin);
-        } else
-        {
-            var origin = response.originAddresses[0];
-            var destination = response.destinationAddresses[0];
-            if (response.rows[0].elements[0].status === "ZERO_RESULTS")
-            {
-                $('#textTiempo').val("No hay distancia para  "  + origin + " and " + destination);
-                console.log(origin);
-            } else
-            {
-                var distance = response.rows[0].elements[0].distance;
-                var duration = response.rows[0].elements[0].duration;
-                var distanciaKilometro = distance.value / 1000; // Kilometro
-                //var distanciaMillas = distance.value / 1609.34; // millas
-                var duracionText = duration.text; //tiempo en formato (1 hours 50 min) (1 h 6 min)
-                //aumentamos 10 minutos de preparacion que son 600 segundos
-                var duracionValue = duration.value + 600;// tiempo en formato solo segundos
-
-
-                $('#textDistancia').val(distanciaKilometro.toFixed(2));//distancia en km
-
-                //llamamos a la funcion para calcular el precio de acuerdo a km
-                // recargoPedido(distanciaKilometro);
-                // //llamamos a la funcion para calcular el tiempo
-                convertirSegundosAhoraMinutos(duracionValue);
-
-            }
-
-        }
-        }
+  }
 </script>
   @endsection

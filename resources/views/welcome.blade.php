@@ -1,7 +1,8 @@
 @extends('layouts.basehome')
 
 @section('content')
-
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> --}}
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,7 +36,7 @@
                       if (!file_exists($imagen)) {$imagen = "img/productos/150x150.png";}
                     @endphp
                     <div class="col">
-                        <div class="card shadow-md  card-warning card-outline">
+                        <div class="card shadow-md card-warning card-outline">
                             <img src="{{asset($imagen.'?'.time())}}" alt="imagen producto">
                             <div class="card-body">
                                 <h5 class="card-title">{{$producto->nombre}}</h5>
@@ -44,12 +45,14 @@
                                     <div class="btn-group">
                                         <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
                                     </div>
-                                    {{-- <button class="btn btn-sm btn-outline-warning" type="button" onclick="#">Agregar al carrito</button> --}}
+                             
                                     <form action="{{route('cart.add')}}" method="POST">
                                       @csrf
-                                      <input type="hidden" name="producto_id" value="{{$producto->id}}">
+                                      <input type="hidden" id="producto_id"name="producto_id" value="{{$producto->id}}">
                                       <button class="btn btn-sm btn-outline-warning" type="submit" name="btn" onclick="#" >Agregar al carrito</button>
+                                      {{-- <button class="btn btn-sm btn-outline-warning btn-submit" type="submit" >Agregar al carrito</button> --}}
                                     </form>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -70,12 +73,41 @@
     <div class="p-3">
       <h5>Title</h5>
       <p>Sidebar content</p>
-      <p>Sidebar content</p>
-      <p>Sidebar content</p>
-      <p>Sidebar content</p>
-      <p>Sidebar content</p>
+
     </div>
   </aside>
   <!-- /.control-sidebar -->
 
+  <script  type="text/javascript">
+
+  $(document).ready(function() {
+    $(".btn-submit").click(function(e){
+      e.preventDefault();
+      let link="{{asset('')}}card-add";
+      var _token = $("input[name='_token']").val();
+      var producto_id = $("#producto_id").val();
+  
+      $.ajax({
+        url: link,
+        type:'POST',
+        data: {_token:_token, producto_id:producto_id},
+        success: function(data) {
+          alert('j')
+          printMsg(data);
+        }
+      });
+    }); 
+
+    function printMsg (msg) {
+      if($.isEmptyObject(msg.error)){
+        console.log(msg.success);
+        $('.alert-block').css('display','block').append('<strong>'+msg.success+'</strong>');
+      }else{
+        $.each( msg.error, function( key, value ) {
+          $('.'+key+'_err').text(value);
+        });
+      }
+    }
+  });
+  </script>
   @endsection

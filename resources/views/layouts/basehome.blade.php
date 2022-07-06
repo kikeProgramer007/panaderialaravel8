@@ -9,13 +9,17 @@
   {{-- <title>AdminLTE 3 | Top Navigation</title> --}}
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Panaderia Elias</title>
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet"  href="{{asset('/vendor/plugins/fontawesome-free/css/all.min.css')}}">
+   <!-- SweetAlert2 -->
+   <link rel="stylesheet" href="{{asset('/vendor/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('/vendor/dist/css/adminlte.css')}}">
   {{-- <link rel="stylesheet" href="{{asset('/vendor/dist/css/adminlte.min.css')}}"> --}}
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 <body class="hold-transition layout-top-nav layout-navbar-fixed">
 <div class="wrapper">
@@ -185,9 +189,10 @@
 <script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- SweetAlert2 -->
+<script src="{{asset('/vendor/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
-
 
 </body>
 </html>

@@ -20,7 +20,6 @@ class CreateIngredientesTable extends Migration
             $table->bigInteger('id_provedor')->unsigned();
             $table->foreign('id_provedor')->references('id')->on('provedores');
             $table->integer('estado')->default(1);
-            $table->timestamps();
         });
     }
 

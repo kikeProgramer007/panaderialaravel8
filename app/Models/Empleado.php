@@ -5,17 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ingrediente extends Model
+class Empleado extends Model
 {
     use HasFactory;
-    protected $table = 'ingredientes';
+
+    protected $table = 'empleados';
     protected $primaryKey ='id';
     protected $fillable = [
         'nombre',
-        'descripcion',
-        'id_provedor',
-        'id_provedor',
+        'apellidos',
+        'edad',
+        'sueldo',
+        'dirreccion',
+        'telefono',
         'estado',
+        'id_usuario',
     ];
     public $timestamps=false;
+    
 }

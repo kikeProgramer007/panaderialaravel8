@@ -1,4 +1,6 @@
 
+https://styde.net/laravel-6-doc-base-de-datos-migraciones/	<-- TYPO DE DATOS EN MIGRAATIONS
+
 return $request->all(); //que esta recibiendo
 
 dd($request) //ver lo que se envio

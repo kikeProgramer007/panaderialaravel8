@@ -129,7 +129,7 @@
           <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-utensils"></i>
+              <i class="nav-icon fas fa-hockey-puck"></i>
               <p>
                 Productos
                 <i class="right fas fa-angle-left"></i>
@@ -139,7 +139,7 @@
               <li class="nav-item">
                 <a href="{{ asset('producto') }}" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Productos</p>
+                  <p>Panes</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -17,7 +17,7 @@ class CreateClientesTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellidos');
-            $table->integer('edad');
+            $table->tinyInteger('edad');// de 0 a 255
             $table->integer('telefono');
             $table->bigInteger('id_usuario')->unsigned()->nullable();
             $table->integer('estado')->default(1);
