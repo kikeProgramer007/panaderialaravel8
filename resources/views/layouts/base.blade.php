@@ -152,6 +152,30 @@
           </li>
 
           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hockey-puck"></i>
+              <p>
+                Almacén
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('almacen.index') }}" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Almacén</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{asset('categoria')}}" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Producto en Almacén</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
             <a href="{{asset('administracion/cliente')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>

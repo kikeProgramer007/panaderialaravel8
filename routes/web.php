@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 //administracion
 use App\Http\Controllers\administracion;
+use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
@@ -97,7 +98,17 @@ Route::controller(ProductoController::class)->group(function (){
     Route::get('/producto/eliminados','deletes');
     Route::get('/producto/restaurar/{id}','restore');
 });
-
+// Almacenes
+Route::controller(AlmacenController::class)->group(function (){
+    Route::get('/administracion/almacen','index')->name('almacen.index');
+    Route::get('/administracion/almacen/create','create')->name('almacen.create');
+    Route::post('/administracion/almacen/store','store')->name('almacen.store');
+    Route::get('/administracion/almacen/edit/{id}','edit')->name('almacen.edit');
+    Route::put('/administracion/almacen/update/{id}','update')->name('almacen.update');
+    Route::get('/administracion/almacen/destroy/{id}','destroy')->name('almacen.destroy');
+    Route::get('/administracion/almacen/eliminados','deletes')->name('almacen.deletes');
+    Route::get('/administracion/almacen/restaurar/{id}','restore')->name('almacen.restore');
+});
 //provedores
 Route::controller(ProvedorController::class)->group(function (){
     Route::get('provedor','index')->name('provedor');

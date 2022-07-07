@@ -18,7 +18,6 @@ class CreateAlmacenesTable extends Migration
             $table->string('sigla',10);
             $table->smallInteger('capacidad');//0 a 65535
             $table->tinyInteger('estado')->default(1);//0 a255
-            $table->timestamps();
         });
     }
 
