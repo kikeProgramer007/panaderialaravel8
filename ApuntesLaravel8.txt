@@ -5,7 +5,7 @@ return $request->all(); //que esta recibiendo
 
 dd($request) //ver lo que se envio
 
-
+https://laravel.com/docs/9.x/queries
 
 OBTENER ID QUE SIGUE:
 M1
@@ -72,3 +72,39 @@ php artisan vendor:publish --provider="Darryldecode\Cart\CartServiceProvider" --
  <th scope="row">{{Cart::getTotalQuantity()}}</th>
   <th scope="row">{{Cart::getSubTotal()}}</th>
  <th scope="row">{{Cart::getTotal()}}</th>
+
+
+================================ FALLIDO ==============================================================
+INTEGRANDO LIVEWIRE:
+> composer require livewire/livewire	 	<--INSTALAR LIVEWIRE 2.X EN LARAVEL 8
+
+> php artisan make:livewire ProductoAlmacen
+
+=================================================================================================
+CORRER LIVEWIRE CON LA CARPETA "PUBLIC":
+> php artisan livewire:publish				<--CORRER COMANDO
+  
+ A continuación, abra "config/livewire.php" cambie:
+  ...
+  //'asset_url' => null					<--POR DEFECTO (COMENTARLA O BORRAR)
+  'asset_url' => env('APP_URL', 'http://localhost'),	<--CAMBIAR POR ESTA NUEVA LINEA
+  ...
+
+ Ahora, se debe configurar su URL en ".env":
+ #APP_URL=http://localhost				<--POR DEFECTO(COMENTARLA O BORRAR)
+ APP_URL=http://localhost/crudlaravel8livewire/public	<--CAMBIAR POR ESTA NUEVA LINEA
+
+=================================================================================================
+MIS CONTROLADORES:
+> php artisan make:model TemporalInventario -mc   	<-- CREAR MODELO, MIGRACION,CONTROLLER
+
+========================================CONSULTAS========================================
+use Illuminate\Support\Facades\DB;
+// $datosExiste = DB::table('temporal_inventario')
+// ->where('id_producto','=',$id_producto )->where('folio','=',$id_inventario )->get()->first();
+
+
+
+
+javasc2wriwp fotmulario2
+https://laracasts.com/discuss/channels/laravel/how-to-show-validation-errors-when-submitting-form-with-ajax

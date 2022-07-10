@@ -1,15 +1,9 @@
-{{-- @extends('layouts.base')
-
-@section('content')
-    @livewire('add-product',['title' => 'Este es el titulo de prueba'])
-@endsection --}}
-
 @extends('layouts.base')
 
 @section('content')
 
     {{-- INICIO DEL CUERPO --}}
-
+    
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -22,18 +16,23 @@
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="">Inicio</a></li>
-                          <li class="breadcrumb-item active">Inventario</li>
+                          <li class="breadcrumb-item"><a href="{{route('inventario.index')}}">Inventario</a></li>
+                          <li class="breadcrumb-item active">Agregar producto</li>
                       </ol>
                   </div>
               </div>
           </div><!-- /.container-fluid -->
       </section>
-
+     
+      @php
+           {{$id_inventario = uniqid();}}
+      @endphp
       <!-- Main content -->
 
       <section class="content">
         <div class="container-fluid">
-            <form method="POST" id="form_compra" name="form_compra" action="" autocomplete="off">
+            <form method="POST" id="form_inventario" name="form_inventario" action="{{ route('inventario.store') }}" autocomplete="off">
+                @method('POST')
                 @csrf
                 <div class="card card-outline card-dark">
                     <div class="card-header">
@@ -44,17 +43,17 @@
                     </div><!--/.card-header-->
 
                     <div class="card-body">
-
+                   
                         <!-- /input-group -->
                         <div class="form-group mb-0">
                             <div class="row">
                                 <input type="hidden" id="id_producto" name="id_producto"/>
-                                <input type="hidden" id="id_compra" name="id_compra" value="62c8b8276651a"/>
+                                <input type="hidden" id="id_inventario" name="id_inventario" value="{{$id_inventario}}"/>
 
                                 <div class="col-12 col-sm-4">
                                     <label >Producto</label> 
                                     <div class="input-group input-group-sm mb-0 eliminarbtn">
-                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el código y luego enter."  data-toggle="tooltip" data-placement="bottom" title="Codigo" onkeyup="buscarProducto(event,this,this.value)">
+                                        <input type="text" class="form-control" id="nombre" name="nombre" data-toggle="tooltip" data-placement="bottom" title="Producto" disabled>
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-info btn-flat" title="Lista de producto" data-toggle="modal" data-target="#lista"><i class="fas fa-list-ol"></i></button>
                                         </span>
@@ -90,13 +89,13 @@
                                 </div>
                                 <div class="col-12 col-sm-4">
                                   <label>Stock</label>
-                                  <input class="form-control form-control-sm" id="stock" name="stock" type="number" onkeyup="Calcula_cantidad_subtotal(event,this,codigo.value,this.value)" min="1" onclick="Calcula_cantidad_subtotal2(codigo.value,cantidad.value)"  />
+                                  <input class="form-control form-control-sm" id="stock" name="stock" type="number" min="1" disabled/>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="float-right">
                                         <label><br></label>
                                         <div class="mb-0">
-                                        <button class="btn btn-primary btn-sm" id="agregar_producto" name="agregar_producto" type="button" onclick="agregarProducto(id_producto.value,codigo.value,cantidad.value,'62c8b8276651a')">Agregar producto</button>
+                                        <button class="btn btn-primary btn-sm" id="agregar_producto" name="agregar_producto" type="button" onclick="agregarProducto(id_producto.value,id_almacen.value,stock.value,'{{$id_inventario}}')">Agregar producto</button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,18 +126,10 @@
                         <div class="d-flex justify-content-center">
                             <div class="row">
                                 <div class="col-12">
-                                    <button class="btn btn-info btn-flat" type="button" id="completa_compra">Registrar en Almacen</button>
-  
+                                    <button class="btn btn-info btn-flat"  type="button" id="completa_compra">Registrar en Almacen</button>
                                 </div>
                             </div>
                         </div>
-
-                        <form id="form1" action="/administracion/inventario/all">
-                            @csrf
-                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                            <input type="text" name="id" value="1">
-                            <input type="number" name="nro" value="22">
-                          </form>
 
                     </div><!--/body card-->
                 </div><!--/card-->
@@ -165,8 +156,7 @@
           <table  id="example2" class="table table-bordered table-sm table-hover table-striped ">
               <thead>
                   <tr>
-                    <th>Id</th>
-                    {{-- <th width="11%">Imagen</th> --}}
+                    <th width="11%">Imagen</th>
                     <th>Nombre</th>
                     <th>Descripción</th>      
                     <th>stock</th>
@@ -182,12 +172,11 @@
                             $imagen = "img/productos/150x150.png";
                         }
                       @endphp
-                      <td>{{$producto->id}}</td>
-                      {{-- <td class="text-center"><img width="50"height="30"src="{{asset($imagen.'?'.time())}}"/></td>  --}}
-                      <td>{{$producto->nombre}}</td>
-                      <td>{{$producto->descripcion}}</td>
-                      <td>{{$producto->stock}}</td>
-                      <td><a class="badge bg-success" onclick="buscarproduct({{$producto->id}})" rel="tooltip" data-placement="top" title="Seleccionar"> <i class="fas fa-plus"></i></a></td> 
+                      <td class="text-center"><img width="50"height="30"src="{{asset($imagen.'?'.time())}}"/></td>  
+                      <td class="align-baseline">{{$producto->nombre}}</td>
+                      <td  class="align-baseline">{{$producto->descripcion}}</td>
+                      <td  class="align-baseline">{{$producto->stock}}</td>
+                      <td  class="align-baseline"><a class="btn btn-info btn-sm" onclick="buscarproduct({{$producto->id}})" rel="tooltip" data-placement="top" title="Seleccionar"> <i class="fas fa-plus"></i></a></td> 
                 </tr>
                 @endforeach
               </tbody>
@@ -203,8 +192,14 @@
 </div>
 <!-- /.modal -->
 
-
 <script>
+
+    $(document).ready(function(){
+      $.ajax({
+            url:'{{url('')}}/temporalinventario/vaciar',
+            method:"GET",
+        });
+    });
 
     function buscarproduct(codigo) {
         var url='{{asset('')}}administracion/buscar/'+codigo;
@@ -213,34 +208,117 @@
             success: function(resultado){
                 var resultado= JSON.parse(resultado);
                 // alert(resultado.datos.nombre);
+                $("#id_producto").val(resultado.datos.id);
                 $("#nombre").val(resultado.datos.nombre);
                 $("#descripcion").val(resultado.datos.descripcion);
                 $("#precio_venta").val(resultado.datos.precio);
                 $('#lista').modal('hide');
+                document.getElementById('stock').disabled=false;
             },
         });
     }
 
+    function agregarProducto(id_producto,id_almacen,stock,id_inventario) { 
+        if(nombre !='' || (id_producto != null && id_producto != 0)){
+            if(stock > 0 && stock!=''){
+                $.ajax({
+                    url:'{{url('')}}/temporalinventario/insertar',
+                    method: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "id_producto":id_producto,
+                        "stock":stock,
+                        "id_inventario":id_inventario,
+                        "id_almacen":id_almacen,
+                    },
+                    success: function(resultado){
+                        if (resultado == 0) {
+                            alert('hola');
+                        }
+                        else{
+                    
+                            if (resultado.errors) {
+                                if (resultado.errors.id_producto) {mostrarerror(resultado.errors.id_producto)}
+                                if (resultado.errors.stock) { mostrarerror(resultado.errors.stock)}
+                                if (resultado.errors.id_inventario) {mostrarerror(resultado.errors.id_inventario)}
+                                if (resultado.errors.id_almacen) {mostrarerror(resultado.errors.id_almacen)}
+                            }else{
+                                var resultado= JSON.parse(resultado);
+                              
+                                if (resultado.error == '') {
+                                    $("#tablaProductos tbody").empty();
+                                    $("#tablaProductos tbody").append(resultado.datos);
+                                    $("#id_producto").val('');
+                                    $("#nombre").val('');
+                                    $("#descripcion").val('');
+                                    $("#stock").val('');
+                                    $("#precio_venta").val('');
+                                
+                                    document.getElementById('stock').disabled=true;
+                                
+                                }else{
+                                    alert('resultado.error')
+                                }
+                            }
+                        }
+                    },
+                    
+                });
+            } else {Toast.fire({icon: 'error',title: 'Digite la cantidad para el stock.'})}
+            
+        }
+        else {
+            Swal.fire({
+            icon: 'info',
+            title: 'Aviso',
+            text: 'Seleccione un producto por favor.',
+            })
+        }
+    }
 
-    $(document).ready(function(){
-      $.ajax({
-            url:'{{url('')}}/administracion/inventario/all',
-            method: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id:1,
-                nombre:"enrique Condori"
-            },
+    function mostrarerror(error){
+     Toast.fire({icon: 'error',title: error});
+    }
+
+    //ESTA FUNICION ES PARA ELIMINAR UNA REGISTRO DE LA TABLA TEMPORAL
+    function eliminaProducto(id_temporalinventaario) {
+        var url='{{url('')}}/temporalinventario/eliminar/'+ id_temporalinventaario;
+        $.ajax({
+            url: url,
+            method:"GET",
             success: function(resultado){
-                var resultado= JSON.parse(resultado);
-                alert(resultado.nombre);
+                if (resultado == 0) {
+                }
+                else{
+                    var resultado= JSON.parse(resultado);
+                    $("#tablaProductos tbody").empty();
+                    $("#tablaProductos tbody").append(resultado.datos);
+                }
+            }
+        });
+    }
+
+
+    //COMPLETAR EL ALMACENAMIENTO
+    $(document).ready(function() {
+        $("#completa_compra").click(function () {
+            let nFila= $("#tablaProductos tr").length;
+            if(nFila <2){
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Agregue los productos que desea comprar.'
+                })
+            }else{
+            
+            Toast.fire({
+                icon: 'success',
+                title: 'Comprar registrada y stock axtualizado.',
+                timer: 7000
+            })
+            $("#form_inventario").submit();
             }
         });
     });
-  
-
-
-
 
   </script>
 

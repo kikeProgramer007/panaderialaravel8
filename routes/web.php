@@ -16,6 +16,8 @@ use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\ProductoAlmacenController;
 use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\TemporalInventarioController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,12 +117,20 @@ Route::controller(AlmacenController::class)->group(function (){
     Route::get('/administracion/almacen/eliminados','deletes')->name('almacen.deletes');
     Route::get('/administracion/almacen/restaurar/{id}','restore')->name('almacen.restore');
 });
+
 //Inventario
 Route::controller(ProductoAlmacenController::class)->group(function (){
     Route::get('/administracion/inventario','index')->name('inventario.index');
     Route::get('/administracion/inventario/create','create')->name('inventario.create');
-    Route::post('/administracion/inventario/all','all');
+    Route::post('/administracion/inventario/store','store')->name('inventario.store');
     Route::get('/administracion/buscar/{code}','buscarporcodigo');
+});
+
+//Temporal Tabla inventario
+Route::controller(TemporalInventarioController::class)->group(function (){
+    Route::post('/temporalinventario/insertar','insertar');
+    Route::get('/temporalinventario/eliminar/{id}','eliminar');
+    Route::get('/temporalinventario/vaciar','vaciar');
 });
 
 //provedores

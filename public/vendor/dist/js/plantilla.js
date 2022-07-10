@@ -261,7 +261,9 @@ function Calcula_cantidad_subtotal2(codigo,cantidad){
     }
 }
 
-function agregarProducto(id_producto,codigo,cantidad,id_compra) { 
+
+
+function agregarProductoxxx(id_producto,codigo,cantidad,id_compra) { 
   if(codigo !=''){
     if (id_producto != null && id_producto != 0) {
       if(cantidad > 0 && cantidad!=''){
@@ -301,7 +303,7 @@ function agregarProducto(id_producto,codigo,cantidad,id_compra) {
   }
 }
 //ESTA FUNICION FUNCIONA PARA AMBAS PARTES (CAJA Y NUEVA COMPRA)
-function eliminaProducto(id_producto, id_de_compraYventa) { 
+function eliminaProductoxx(id_producto, id_de_compraYventa) { 
     $.ajax({
         url: base_url+'/TemporalCompra/eliminar/'+ id_producto +"/"+ id_de_compraYventa,
         success: function(resultado){

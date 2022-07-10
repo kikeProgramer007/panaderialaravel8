@@ -20,4 +20,16 @@ class Producto extends Model
         'id_categoria'
     ];
     public $timestamps=false;
+
+    public function actualizaStock($id_producto, $cantidad, $operador='+')
+    {
+        $producto = $this->findOrFail($id_producto);
+        if( $operador == '+'){
+            $stock_actualizado = $producto->stock + $cantidad;
+        }else{
+            $stock_actualizado = $producto->stock - $cantidad;
+        }
+        $producto->stock = $stock_actualizado;
+        $producto->update();
+    }
 }

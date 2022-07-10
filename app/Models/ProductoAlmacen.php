@@ -18,4 +18,10 @@ class ProductoAlmacen extends Model
         'estado'
     ];
     public $timestamps=false;
+
+    public function porIdProductoAlmacen($id_producto,$id_almacen){
+        $datos=$this->select('*')->where('id_producto','=',$id_producto)->where('id_almacen','=',$id_almacen)->get()->first(); 
+        return $datos;
+    }
+
 }

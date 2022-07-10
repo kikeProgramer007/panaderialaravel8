@@ -5,17 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Almacen;
 use App\Models\Producto;
 use App\Models\ProductoAlmacen;
+use App\Models\TemporalInventario;
 use Illuminate\Http\Request;
 
 class ProductoAlmacenController extends Controller
 {
-    //
+    protected $productos, $temporal_inventario, $producto_almacen;
+
+    public function __construct()
+    {
+        $this->productos = New Producto;
+        $this->temporal_inventario = New TemporalInventario();       
+        $this->producto_almacen = New ProductoAlmacen();       
+    }
 
     //PRODUCTO EN ALMACEN(INVENTARIO) - TABLA INTERMEDIA
-    
     public function index()
     {
-
         $producto_almacen=ProductoAlmacen::select(
             'producto_almacen.id as id_product_almacen',
             'productos.nombre',
@@ -30,14 +36,6 @@ class ProductoAlmacenController extends Controller
         ->get();
         //->get(); //DEVUELDE TODOS LOS DATOS
         //->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
-     /* if (count($producto_almacen) > 0) {//SI NO ESTA VACIO
-             return $producto_almacen;
-         }else{
-             return [
-                 'success' => false,
-                 'message' => 'No hay regitros',
-            ];
-         }*/
 
         return view('administracion.inventario.index',compact('producto_almacen'));
 
@@ -50,28 +48,42 @@ class ProductoAlmacenController extends Controller
         return view('administracion.inventario.create',compact('almacenes','productos'));
     }
 
-    public function all(Request $request){
+    public function store(Request $request)
+    {
+        $folio =  $request->id_inventario;
+        $datos_del_temporal_inventario = $this->temporal_inventario->TraerDatosTempInv($folio);
 
+        foreach ($datos_del_temporal_inventario as $row) {
 
-        $data = Almacen::findOrFail(1);
-        // return response()->json($data, 200, []);
-        $res['datos']='hola como te llamas';
-        $res['nombre']=$request->nombre;
-        //  return response()->json($data);
-         return json_encode($res);
-        // return "hola";
+            $exite_producto_almacen = $this->producto_almacen->porIdProductoAlmacen($row['id_producto'],$row['id_almacen']);
+
+            if ($exite_producto_almacen) {
+                $productoAlmacen = ProductoAlmacen::findOrFail($exite_producto_almacen['id']);
+                $productoAlmacen->stock = ($exite_producto_almacen['stock'] + $row['stock']);
+                $productoAlmacen->update();
+                $this->productos->actualizaStock($row['id_producto'],$row['stock'],'-');
+            }else{
+                $productoAlmacen = new ProductoAlmacen();
+                $productoAlmacen->id_producto = $row['id_producto'];
+                $productoAlmacen->id_almacen = $row['id_almacen'];
+                $productoAlmacen->stock = $row['stock'];
+                $productoAlmacen->save();
+                $this->productos->actualizaStock($row['id_producto'],$row['stock'],'-');
+            }
+        }
+
+        $this->temporal_inventario->vaciar_temporal_inventario();
+        return redirect('/administracion/inventario');
     }
 
 
-    public function buscarporcodigo($id){
+    public function buscarporcodigo($id)
+    {
         $datos = Producto::findOrFail($id);
-
         $res['messege']='hola como te llamas';
         $res['id']=$id;
         $res['datos']=$datos;
-        //  return response()->json($data);
-         return json_encode($res);
-        // return "hola";
+        return json_encode($res);
     }
     
 }

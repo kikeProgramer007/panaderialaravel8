@@ -55,7 +55,6 @@
                                               <td>{{ $usuario['name'] }}</td>
                                               <td>{{ $usuario['email'] }}</td>
                                               <td>{{ $usuario->roles['0']->name }}</td>
-
                                         
                                               <td class="py-1 align-middle text-center">
                                                 <div class="btn-group btn-group-sm">
