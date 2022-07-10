@@ -167,7 +167,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('categoria')}}" class="nav-link">
+                <a href="{{route('inventario.index')}}" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
                   <p>Producto en Almacén</p>
                 </a>

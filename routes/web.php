@@ -13,6 +13,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProvedorController;
 use App\Http\Controllers\IngredienteController;
+use App\Http\Controllers\ProductoAlmacenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,14 @@ Route::controller(AlmacenController::class)->group(function (){
     Route::get('/administracion/almacen/eliminados','deletes')->name('almacen.deletes');
     Route::get('/administracion/almacen/restaurar/{id}','restore')->name('almacen.restore');
 });
+//Inventario
+Route::controller(ProductoAlmacenController::class)->group(function (){
+    Route::get('/administracion/inventario','index')->name('inventario.index');
+    Route::get('/administracion/inventario/create','create')->name('inventario.create');
+    Route::post('/administracion/inventario/all','all');
+    Route::get('/administracion/buscar/{code}','buscarporcodigo');
+});
+
 //provedores
 Route::controller(ProvedorController::class)->group(function (){
     Route::get('provedor','index')->name('provedor');
