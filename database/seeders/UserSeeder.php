@@ -4,9 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Cliente;
+use App\Models\Repartidor;
+use App\Models\Empleado;
 use Illuminate\Support\Facades\Hash;  // para la contrsenia
 use Spatie\Permission\Models\Role;    // crear roles
 use Spatie\Permission\Models\Permission; // crear permisos
+use App\Models\provedor;
+use App\Models\ppersona;
+use App\Models\pempresa;
 
 
 
@@ -21,19 +27,21 @@ class UserSeeder extends Seeder
     {
        //creacion de roles y permisos 
        $role1=Role::create(['name'=>'Administrador']);
-       $role2=Role::create(['name'=>'INVITADO']);
+       $role2=Role::create(['name'=>'Cliente']);
+       $role3=Role::create(['name'=>'Repartidor']);
+       $role4=Role::create(['name'=>'Recepcionesta']);
        
-       Permission::create(['name'=> 'catalogo', 'subname'=> 'catalogo principal'])->syncRoles([$role1,$role2]);
+       Permission::create(['name'=> 'catalogo', 'subname'=> 'catalogo principal'])->syncRoles([$role1,$role2,$role3,$role4]);
        //administracion usuarios
-       Permission::create(['name'=> 'usuario', 'subname'=> 'usuario principal','tipo'=>2])->syncRoles([$role1]);
+       Permission::create(['name'=> 'usuario', 'subname'=> 'usuario principal','tipo'=>2])->syncRoles([$role1,$role4]);
        Permission::create(['name'=> 'usuario.editar', 'subname'=> 'editar usuarios','tipo'=>2])->syncRoles([$role1]);
        Permission::create(['name'=> 'usuario.eliminar', 'subname'=> 'eliminar usuarios','tipo'=>2])->syncRoles([$role1]);
        Permission::create(['name'=> 'usuario.agregar', 'subname'=> 'agregar usuarios','tipo'=>2])->syncRoles([$role1]);
-       Permission::create(['name'=> 'usuario.eliminados', 'subname'=> 'ver usuarios eliminados','tipo'=>2])->syncRoles([$role1]);
+       Permission::create(['name'=> 'usuario.eliminados', 'subname'=> 'ver usuarios eliminados','tipo'=>2])->syncRoles([$role1,$role4]);
        Permission::create(['name'=> 'usuario.restore', 'subname'=> 'restaurar usuarios eliminados','tipo'=>2])->syncRoles([$role1]);
        //administracion roles
-       Permission::create(['name'=> 'rol', 'subname'=> 'rol principal','tipo'=>3])->syncRoles([$role1]);
-       Permission::create(['name'=> 'rol.editar', 'subname'=> 'editar rol','tipo'=>3])->syncRoles([$role1]);
+       Permission::create(['name'=> 'rol', 'subname'=> 'rol principal','tipo'=>3])->syncRoles([$role1,$role4]);
+       Permission::create(['name'=> 'rol.editar', 'subname'=> 'editar rol','tipo'=>3])->syncRoles([$role1,$role4]);
        Permission::create(['name'=> 'rol.eliminar', 'subname'=> 'eliminar rol','tipo'=>3])->syncRoles([$role1]);
        Permission::create(['name'=> 'rol.agregar', 'subname'=> 'agregar rol','tipo'=>3])->syncRoles([$role1]);
        Permission::create(['name'=> 'rol.eliminados', 'subname'=> 'ver rol eliminados','tipo'=>3])->syncRoles([$role1]);
@@ -104,16 +112,122 @@ class UserSeeder extends Seeder
         Permission::create(['name'=> 'producto.eliminados', 'subname'=> 'ver producto eliminados','tipo'=>14])->syncRoles([$role1]);
         Permission::create(['name'=> 'producto.restore', 'subname'=> 'restaurar producto eliminados','tipo'=>14])->syncRoles([$role1]);
 
-       user::create([
+       $admin=user::create([
            'name' => 'admin',
            'email' => 'admin@gmail.com',
-           'password' => Hash::make('12345678'),
+           'password' => Hash::make('123'),
        ])->assignRole('Administrador');
 
-       user::create([
+       Empleado::create([
+        'nombre'=>'admin',
+        'apellidos'=>'uagrm',
+        'edad'=>50,
+        'sueldo'=>6950,
+        'direccion'=>'montero-c. avaroa',
+        'telefono'=>219085080,
+        'id_usuario'=>$admin->id,
+        ]);
+
+       $c1=user::create([
         'name' => 'enrique',
         'email' => 'enrique@gmail.com',
-        'password' => Hash::make('12345678'),
-        ])->assignRole('INVITADO'); 
+        'password' => Hash::make('123'),
+        ])->assignRole('Cliente'); 
+
+       Cliente::create([
+            'nombre'=>'enrique',
+            'apellidos'=>'confori quispe',
+            'edad'=>21,
+            'telefono'=>71619345,
+            'id_usuario'=>$c1->id,
+        ]);
+
+       $c2=user::create([
+        'name' => 'lucas',
+        'email' => 'lucas@gmail.com',
+        'password' => Hash::make('123'),
+        ])->assignRole('Repartidor');
+
+       Repartidor::create([
+       'nombre'=>'lucas',
+       'apellidos'=>'carvajal barrios',
+       'edad'=>21,
+       'nro_licencia'=>'Categoria A',
+       'telefono'=>71619345,
+       'id_usuario'=>$c2->id,
+       ]);
+    
+       //creacion de provedor
+
+       $p1=provedor::create([
+        'direccion' => 'santa cruz 2do anillo',
+        'telefono' => '69827341',
+        'correo' => 'eva@gmail.com',
+        ]);
+
+       ppersona::create([
+       'nombre'=>'eva luz',
+       'apellidos'=>'salazar prado',
+       'id'=>$p1->id,
+       ]);
+
+       $p2=provedor::create([
+        'direccion' => 'montero',
+        'telefono' => '71625382',
+        'correo' => 'leonel@gmail.com',
+        ]);
+
+       ppersona::create([
+       'nombre'=>'leonel',
+       'apellidos'=>'chana',
+       'id'=>$p2->id,
+       ]);
+
+       $p3=provedor::create([
+        'direccion' => 'santa cruz',
+        'telefono' => '7862534',
+        'correo' => 'victor@gmail.com',
+        ]);
+
+       ppersona::create([
+       'nombre'=>'victor',
+       'apellidos'=>'estares',
+       'id'=>$p3->id,
+       ]);
+
+       $p4=provedor::create([
+        'direccion' => 'san jose del norte',
+        'telefono' => '7161826',
+        'correo' => 'gustabito@gmail.com',
+        ]);
+
+       ppersona::create([
+       'nombre'=>'gustavo',
+       'apellidos'=>'carvajal barrios',
+       'id'=>$p4->id,
+       ]);
+
+       $p5=provedor::create([
+        'direccion' => 'montero av. avaroa',
+        'telefono' => '18827',
+        'correo' => 'delicia@gmail.com',
+        ]);
+
+       pempresa::create([
+       'razonsocial'=>'harina delicia',
+       'id'=>$p5->id,
+       ]);
+
+       $p6=provedor::create([
+        'direccion' => 'yapacani',
+        'telefono' => '827391',
+        'correo' => 'qeso@gmail.com',
+        ]);
+
+       pempresa::create([
+       'razonsocial'=>'queso frances',
+       'id'=>$p6->id,
+       ]);
+
     }
 }

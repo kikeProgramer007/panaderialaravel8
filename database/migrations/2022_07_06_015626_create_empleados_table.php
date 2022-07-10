@@ -19,7 +19,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('apellidos');
             $table->tinyInteger('edad');// de 0 a 255
             $table->integer('sueldo');
-            $table->string('dirreccion',300);
+            $table->string('direccion',300);
             $table->string('telefono',10);
             $table->tinyInteger('estado')->default(1);
             $table->bigInteger('id_usuario')->unsigned()->nullable();

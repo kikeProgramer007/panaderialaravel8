@@ -14,7 +14,8 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProvedorController;
 use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\ProductoAlmacenController;
-
+use App\Http\Controllers\RepartidorController;
+use App\Http\Controllers\EmpleadoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,9 +41,13 @@ Route::post('/card-clear', [CartController::class,'clear'])->name('cart.clear');
 Route::post('/card-removeitem', [CartController::class,'removeitem'])->name('cart.removeitem');
 Route::post('/card-update', [CartController::class,'update'])->name('cart.update');
 
-
 Auth::routes();
+//Home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('perfil/{user}', [App\Http\Controllers\HomeController::class, 'perfil']);
+Route::post('perfil/update/{user}', [App\Http\Controllers\HomeController::class, 'perfilupdate']);
+Route::post('perfil/update/password/{user}', [App\Http\Controllers\HomeController::class, 'perfilupdatepassword']);
+
 //administracion de usuario
 Route::get('administracion', [administracion::class,'index']);
 Route::get('administracion/usuarios/eliminados', [administracion::class,'eliminados']);
@@ -140,3 +145,28 @@ Route::controller(IngredienteController::class)->group(function (){
     Route::get('ingrediente/eliminados','deletes');
     Route::get('ingrediente/restaurar/{ingrediente}','restore');
 });
+
+//repartidor
+Route::controller(RepartidorController::class)->group(function (){
+    Route::get('administracion/repartidor','index')->name('repartidor');
+    Route::get('administracion/repartidor/create','create');
+    Route::post('administracion/repartidor/store','store');
+    Route::get('administracion/repartidor/edit/{repartidor}','edit');
+    Route::post('administracion/repartidor/update/{repartidor}','update');
+    Route::get('administracion/repartidor/destroy/{repartidor}','destroy');
+    Route::get('administracion/repartidor/eliminados','deletes');
+    Route::get('administracion/repartidor/restaurar/{repartidor}','restore');
+});
+
+//empleado
+Route::controller(EmpleadoController::class)->group(function (){
+    Route::get('administracion/empleado','index')->name('empleado');
+    Route::get('administracion/empleado/create','create');
+    Route::post('administracion/empleado/store','store');
+    Route::get('administracion/empleado/edit/{empleado}','edit');
+    Route::post('administracion/empleado/update/{empleado}','update');
+    Route::get('administracion/empleado/destroy/{empleado}','destroy');
+    Route::get('administracion/empleado/eliminados','deletes');
+    Route::get('administracion/empleado/restaurar/{empleado}','restore');
+});
+

@@ -246,10 +246,24 @@
                   <p>Usuarios</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="{{asset('administracion/roles')}}" class="nav-link">
                  <i class="far fa-dot-circle nav-icon"></i>
                   <p>Roles</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="{{route('empleado')}}" class="nav-link">
+                 <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Empleado</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('repartidor')}}" class="nav-link">
+                 <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Repartidor</p>
                 </a>
               </li>
 

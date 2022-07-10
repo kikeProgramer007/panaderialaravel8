@@ -20,6 +20,14 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  @php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
+
+  @if (config('adminlte.use_route_url', false))
+      @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
+  @else
+      @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
+  @endif
+
 </head>
 <body class="hold-transition layout-top-nav layout-navbar-fixed">
 <div class="wrapper">
@@ -99,60 +107,130 @@
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <!-- Notifications Dropdown Menu -->
+        
+        @guest
+        @else
         <li class="nav-item dropdown">
-          <a class="nav-link" href="{{route('cart.checkout')}}" >
-            <i class="fa fa-shopping-cart"></i>
-
-            @if (count(Cart::getContent()))
-              <span class="badge badge-warning navbar-badge">{{count(Cart::getContent())}}</span>
-            @else
-            <span class="badge badge-warning navbar-badge">0</span>
+          @if (Auth::user()->hasRole('Cliente') or Auth::user()->hasRole('Administrador') or Auth::user()->hasRole('Repartidor'))
+            @if (Auth::user()->hasRole('Cliente'))
+            <a href="{{asset('administracion')}}"  class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> Historico
+            </a>   
             @endif
-          </a>
- 
-        </li>
-
-        <!-- Iniciar Sesion -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fas fa-user-circle"></i>
+            @if (Auth::user()->hasRole('Administrador'))
+            <a href="{{asset('administracion')}}"  class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> Administracion
+            </a> 
+            @endif
+            @if (Auth::user()->hasRole('Repartidor'))
+            <a href="{{asset('administracion')}}"  class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> Delivery
+            </a>   
+            @endif 
+          @else
+            <a href="{{asset('administracion')}}"  class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> Area
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                @guest
-                  @if (Route::has('login'))
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('login') }}" class="dropdown-item">
-                        <i class="fas fa-sign-in-alt mr-2"></i>{{ __('Login') }}
-                    </a>
-                  @endif
-                    @if (Route::has('register'))
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ route('register') }}" class="dropdown-item ">
-                            <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
-                        </a>
-                  @endif
+          @endif
+        </li>            
+        @endguest
+        
+        @guest
+         
+        @else
+          @if (Auth::user()->hasRole('Cliente'))
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="{{route('cart.checkout')}}" >
+                <i class="fa fa-shopping-cart"></i>__
+                @if (count(Cart::getContent()))
+                  <span class="badge badge-warning navbar-badge"><h6>{{count(Cart::getContent())}}</h6></span>
                 @else
-                    <div class="dropdown-divider"></div>
-                    <a href="{{asset('administracion')}}"  class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> Administracion
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    {{-- <a id="" class="" href="#" role="button"v-pre>name </a> --}}
-                    <a href="{{ asset('administracion/cliente/edit') }}/{{ Auth::user()->id }}" role="button" class="dropdown-item" v-pre>
-                        <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item">
-                       <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
-                    </a>
-                    
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                @endguest
-            </div>
+                  <span class="badge badge-warning navbar-badge">0</span>
+                @endif
+              </a>
             </li>
+          @endif
+        @endguest
+
+          <!-- Iniciar Sesion -->
+        <li  class="nav-item dropdown">
+          <a  class="nav-link" data-toggle="dropdown" href="#">
+             <i class="far fas fa-user-circle"></i>
+          </a> 
+          @guest
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+          @if (Route::has('login'))
+            <div class="dropdown-divider"></div>
+            <a href="{{ route('login') }}" class="dropdown-item">
+                <i class="fas fa-sign-in-alt mr-2"></i>{{ __('Login') }}
+            </a>
+          @endif
+            @if (Route::has('register'))
+                <div class="dropdown-divider"></div>
+                <a href="{{ route('register') }}" class="dropdown-item ">
+                    <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
+                </a>
+          @endif
+        
+          @else 
+          <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+            <div class="card card-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header text-white"
+                    style="background: url({{asset('/vendor/images/photo1.png')}}) center center;">
+                <h3 class="widget-user-username text-right">{{Auth::user()->name}}</h3>
+                <h5 class="widget-user-desc text-right">{{ Auth::user()->roles[0]->name  }}</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle" src="{{asset('/vendor/images/user.png')}}" alt="User Avatar">
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <a href="{{asset('perfil')}}/{{Auth::user()->id}}"  class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i> Perfil
+                      </a>
+                    {{--  <a href="{{$password_reset_url}}"  class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i> editar
+                      </a>
+                    --}}  
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4">
+                    <div class="description-block">
+                      <a href="{{ route('logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                      </form> 
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                
+              </div>
+            </div>
+          </div>
+        </li>
+        @endguest
+
+
+
 
         <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
@@ -193,6 +271,12 @@
 <script src="{{asset('/vendor/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
+
+
+{{--
+  
+  
+  --}}
 
 </body>
 </html>

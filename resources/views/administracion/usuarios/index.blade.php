@@ -34,7 +34,7 @@
                           <div class="card-body">
                               <div class="d-flex justify-content-end">
                                   <div class="form-group">
-                                      <a class="btn btn-info btn-sm" href="{{ asset('administracion/usuarios/create') }}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar</a>
+                                      {{-- <a class="btn btn-info btn-sm" href="{{ asset('administracion/usuarios/create') }}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar</a> --}}
                                       <a class="btn btn-danger btn-sm" href="{{ asset('administracion/usuarios/eliminados') }}"><i class="far fa-trash-alt"></i>&nbsp;Eliminados</a>
                                   </div>
                               </div>
@@ -45,13 +45,7 @@
                                           <th> Usuario </th>
                                           <th> correo </th>
                                           <th> rol </th>
-                                          @can('producto.producto')
-                                              <th width="7px">Acción</th>
-                                          @else
-                                              @can('producto', true)
-                                                  <th width="7px">Acción</th>
-                                              @endcan
-                                          @endcan
+                                          <th width="7px">Acción</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -62,24 +56,14 @@
                                               <td>{{ $usuario['email'] }}</td>
                                               <td>{{ $usuario->roles['0']->name }}</td>
 
-                                            @can('producto.producto')
+                                        
                                               <td class="py-1 align-middle text-center">
                                                 <div class="btn-group btn-group-sm">
                                                   <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{ asset('administracion/usuarios/edit') }}/{{ $usuario['id'] }}"><i class="fas fa-pencil-alt"></i></a>
-                                                    @can('producto', true)
                                                       <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{ asset('administracion/usuarios/destroy') }}/{{ $usuario['id'] }}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
-                                                    @endcan
                                                 </div>
                                               </td>
-                                              @else
-                                                @can('producto', true)
-                                                  <td class="py-1 align-middle text-center">
-                                                    <div class="btn-group btn-group-sm">
-                                                        <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{ asset('administracion/usuarios/destroy') }}/{{ $usuario['id'] }}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
-                                                    </div>
-                                                  </td>
-                                                @endcan
-                                              @endcan
+                                          
                                           </tr>
                                       @endforeach
                                   </tbody>
