@@ -86,4 +86,7 @@ class ProductoAlmacenController extends Controller
         return json_encode($res);
     }
     
+
+
+
 }

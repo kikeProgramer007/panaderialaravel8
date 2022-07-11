@@ -108,3 +108,13 @@ use Illuminate\Support\Facades\DB;
 
 javasc2wriwp fotmulario2
 https://laracasts.com/discuss/channels/laravel/how-to-show-validation-errors-when-submitting-form-with-ajax
+
+
+
+========================================================
+select SUM(`producto_almacen`.`stock`) as total,`productos`.`id`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`precio`
+from `producto_almacen` inner join `productos`
+on `producto_almacen`.`id_producto` = `productos`.`id`
+where `producto_almacen`.`estado` = 1
+and `producto_almacen`.`stock` > 0
+group by `productos`.`id`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`precio`;

@@ -16,6 +16,7 @@ use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\ProductoAlmacenController;
 use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\TemporalInventarioController;
 
 /*
@@ -37,6 +38,8 @@ Route::get('/', function () {
 Route::get('/', [FrontController::class,'index']);
 
 Route::post('/card-add}', [CartController::class,'add'])->name('cart.add');
+Route::get('/carrito-agregar/{id}', [CartController::class,'agregar'])->name('cart.agregar');
+Route::get('/carrito-leer', [CartController::class,'leer'])->name('cart.leer');
 
 Route::get('/card-checkout', [CartController::class,'cart'])->name('cart.checkout');
 Route::post('/card-clear', [CartController::class,'clear'])->name('cart.clear');
@@ -180,3 +183,8 @@ Route::controller(EmpleadoController::class)->group(function (){
     Route::get('administracion/empleado/restaurar/{empleado}','restore');
 });
 
+//Pedido
+Route::controller(PedidoController::class)->group(function (){
+    Route::post('/pedido/store','store')->name('pedido.store');
+
+});

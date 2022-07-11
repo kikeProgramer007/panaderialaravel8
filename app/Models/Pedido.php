@@ -16,8 +16,11 @@ class Pedido extends Model
         'montototal',
         'estado',
         'id_ubicacion',
-        'id_empleado'
+        'id_cliente',
+        'id_empleado',
+        'id_repartidor'
     ];
+
     //UNO A UNO (INVERSO): Lo mismo, Ayuda a traer los datos con el que esta relacionado, es decir la ubicacion de ese pedido
     public function ubicacion()
     {

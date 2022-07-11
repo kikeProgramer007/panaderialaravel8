@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Repartidor;
 use App\Models\Cliente;
-use Illuminate\Support\Facades\Crypt;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -32,8 +32,25 @@ class HomeController extends Controller
     public function index()
     {   $id=Auth::user()->id;
     
-        $productos = Producto::all()->where('estado',1);
+        // $productos = Producto::all()->where('estado',1);
+        // return view('welcome',compact('productos'));
+
+         $sql = "SELECT SUM(producto_almacen.stock) AS totalstock, productos.id, productos.nombre, productos.descripcion, productos.precio
+                 FROM producto_almacen INNER JOIN productos
+                 ON producto_almacen.id_producto = productos.id
+                 WHERE producto_almacen.estado = 1
+                 AND producto_almacen.stock > 0
+                 GROUP BY productos.id, productos.nombre, productos.descripcion, productos.precio;";
+
+         $productos = DB::select($sql);
+       
+        //  $sql = 'SELECT * FROM products';
+        //  ->distinct()->get();  
+        // ->get(); //DEVUELDE TODOS LOS DATOS
+        // ->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
         return view('welcome',compact('productos'));
+
+       
     }
 
     public function perfil(User $user)

@@ -24,23 +24,65 @@
     </div>
     <!-- /.content-header -->
 
+
+
+
+
+
+
+
+
     <!-- Main content -->
     <div class="content">
       <div class="container">
         {{-- <div class="row"> --}}
         {{-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> --}}
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false">
+              Right-aligned basdasdsaads
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+              <form class="px-4 py-3">
+                <div class="form-group">
+                  <label for="exampleDropdownFormEmail1">Email address</label>
+                  <input type="email" class="form-control form-control-sm" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleDropdownFormPassword1">Password</label>
+                  <input type="password" class="form-control form-control-sm" id="exampleDropdownFormPassword1" placeholder="Password">
+                </div>
+                <div class="form-group mb-0">
+                  <label for="exampleDropdownFormPassword1">categoría</label>
+                </div>
+                <div class="form-group">
+                  <select class="form-control form-control-sm"    id="dropdownSubMenu2"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
+                  <option selected disabled value="">Seleccionar categoría</option>
+                      <option value="2">ssssssssss</option>
+                      <option value="2">xxxxxxxxxxx</option>
+                      <option value="2">wwwwwwww</option>
+                      <option value="2">4444</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
+              </form>
+            </div>
+          </div>
+          <br><br>
+
             <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3 row-cols-lg-4  g-3">
-                @foreach ($productos as $producto)
+                @foreach ($productos as $row)
                     @php
-                       $imagen = "img/productos/".$producto->id.".jpg";
+                       $imagen = "img/productos/".$row->id.".jpg";
                       if (!file_exists($imagen)) {$imagen = "img/productos/150x150.png";}
                     @endphp
                     <div class="col">
                         <div class="card shadow-md card-warning card-outline">
                             <img src="{{asset($imagen.'?'.time())}}" alt="imagen producto">
                             <div class="card-body">
-                                <h5 class="card-title">{{$producto->nombre}}</h5>
-                                <p class="card-text">{{$producto->precio}} Bs</p>
+                                <h5 class="card-title">{{$row->nombre}}</h5>
+                                <p class="card-text  mb-0">{{$row->precio}} Bs </p>
+                                <p class="card-text mb-2 text-right">Stock:{{$row->totalstock}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="#"class="btn btn-sm btn-outline-info">Detalles</a>
@@ -48,8 +90,10 @@
                              
                                     <form action="{{route('cart.add')}}" method="POST">
                                       @csrf
-                                      <input type="hidden" id="producto_id"name="producto_id" value="{{$producto->id}}">
-                                      <button class="btn btn-sm btn-outline-warning" type="submit" name="btn" onclick="#" >Agregar al carrito</button>
+                                      <input type="hidden" id="producto_id"name="producto_id" value="{{$row->id}}">
+                                      {{-- <button class="btn btn-sm btn-outline-warning" type="submit" name="btn" onclick="#" >Agregar al carrito</button> --}}
+                                      <button class="btn btn-sm btn-outline-warning" type="button" onclick="addproducto({{$row->id}})" name="btn" onclick="#" >Agregar al carrito</button>
+                                      
                                       {{-- <button class="btn btn-sm btn-outline-warning btn-submit" type="submit" >Agregar al carrito</button> --}}
                                     </form>
                                         
@@ -80,6 +124,27 @@
 
   <script  type="text/javascript">
 
+
+
+    //ESTA FUNICION ES PARA ELIMINAR UNA REGISTRO DE LA TABLA TEMPORAL
+    function addproducto(id_producto) {
+        var url='{{url('')}}/carrito-agregar/'+ id_producto;
+        $.ajax({
+            url: url,
+            method:"GET",
+            success: function(resultado){
+                if (resultado == 0) {
+                }
+                else{
+                    var resultado= JSON.parse(resultado);
+                    // alert(resultado.datos);
+                    $("#ContadorCart").html(resultado.datos);
+                }
+            }
+        });
+    }
+
+/*
   $(document).ready(function() {
     $(".btn-submit").click(function(e){
       e.preventDefault();
@@ -108,6 +173,6 @@
         });
       }
     }
-  });
+  });*/
   </script>
   @endsection

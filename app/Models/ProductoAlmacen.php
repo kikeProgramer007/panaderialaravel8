@@ -24,4 +24,16 @@ class ProductoAlmacen extends Model
         return $datos;
     }
 
+    public function actualizaStockProductoAlmacen($id_producto, $cantidad, $operador='+')
+    {
+        $producto_almacen = $this->findOrFail($id_producto);
+        if( $operador == '+'){
+            $stock_actualizado = $producto_almacen->stock + $cantidad;
+        }else{
+            $stock_actualizado = $producto_almacen->stock - $cantidad;
+        }
+        $producto_almacen->stock = $stock_actualizado;
+        $producto_almacen->update();
+    }
+
 }

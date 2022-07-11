@@ -18,6 +18,11 @@
     width: 100%;
     height: 100%;
   }
+  .disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
 </style>
 
   <!-- Content Wrapper. Contains page content -->
@@ -163,22 +168,24 @@
                   <div class="card-header">
                     <h3 class="card-title  w-100 text-center font-weight-bold text-primary">MI PEDIDO</h3>
                   
-                </div><!--/.card-header-->
+                   </div><!--/.card-header-->
                     <div class="card-body">
                       @guest
                         @if (Route::has('login'))
-                        
                         @endif
                       @else
                         <!-- /input-group -->
+                        <form method="POST" action="" autocomplete="off">
+                          @csrf
+                          <input type="hidden" id="id_usuario" name="id_usuario" value="{{ Auth::user()->id }}"/>
+                          <input type="hidden" id="id_cliente" name="id_cliente" value="{{$cliente['id']}}"/>
 
-                          <input type="hidden" id="id_producto" name="id_producto"/>
                           <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3 g-3">
 
                             <div class="col">
                               <div class="form-group">
                                 <label>Correo</label>
-                                <input class="form-control form-control-sm" id="nombre" name="nombre" type="text"value="{{ Auth::user()->email }}" disabled />
+                                <input class="form-control form-control-sm" id="correo" name="correo" type="email"value="{{ Auth::user()->email }}" disabled />
                               </div>
                             </div>
                             <div class="col">
@@ -204,9 +211,36 @@
                               <div class="col">
                                 <div class="form-group">
                                   <label>Fecha</label>
-                                  <input class="form-control form-control-sm" id="telefono" name="telefono" type="tel" value="{{date('m-d-Y');}}" disabled/>
+                                  <input class="form-control form-control-sm" id="fecha" name="fecha" type="tel" value="{{date('m-d-Y');}}" disabled/>
                                 </div>
                               </div>
+                              {{-- DATOS PARA LA TABLA UBICACION --}}
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Mi URL Google Maps</label>
+                                  <div class="input-group input-group-sm mb-0 eliminarbtn">
+                                    <input type="text" class="form-control" id="url_ubicacion" name="url_ubicacion" title="Producto" disabled>
+                                    <span class="input-group-append">
+                                      <a target="_blank" href="#" id="link_ubicacion" class="btn btn-info btn-flat disabled" title="Ir a mi ubicación" disabled><i class="fas fa-map-marker-alt"></i></a>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+ 
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Latitud</label>
+                                  <input class="form-control form-control-sm" id="latitud_y" name="latitud_y" type="text"  value="" disabled/>
+                                </div>
+                              </div>
+                           
+                              <div class="col">
+                                <div class="form-group">
+                                  <label class="text-center">Longitud</label>
+                                  <input class="form-control form-control-sm" id="longitud_x" name="longitud_x" type="text" value="" disabled/>
+                                </div>
+                              </div>
+
                               <div class="col">
                                 <div class="form-group">
                                   <label>Ubicación:</label>
@@ -215,34 +249,32 @@
                                   </div>
                                 </div>
                               </div>
-                           
-                          </div> 
+                            </div> 
 
-                    
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <div class="form-group">
-                            <label>Referencia de la ubicación</label> 
-                            <textarea class="form-control" rows="3" id="ref" name="ref" pattern=".*\S+.*" required></textarea>
-                            <div class="invalid-feedback">ingrese una dirección.</div>
-                          </div>
-                        </div>
-                      </div>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label>Referencia de la ubicación</label> 
+                                  <textarea class="form-control" id="referencia" name="referencia" rows="3"  pattern=".*\S+.*" required></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            {{---------------- FIN --------------_--}}
 
-                        <div class="d-flex justify-content-center">
-                          <div class="row">
-                            <div class="col-12">
-                              <button class="btn btn-primary btn-flat" type="button" id="completa_compra">Solicitar Pedido</button>
+                          <div class="d-flex justify-content-center">
+                            <div class="row">
+                              <div class="col-12">
+                                <button class="btn btn-primary btn-flat" type="button" id="completa_pedido" onclick="guardarpedido()">Solicitar Pedido</button>
+                              </div>
                             </div>
                           </div>
-                        </div>
+
+                        </form><!--/form-->
+
                         @endguest
+                    @endif
 
-                
-                  @endif
-
-
-                    </div><!--/body card-->
+                  </div><!--/body card-->
                 </div><!--/card-->
             </div>
             <!-- /.col -->
@@ -296,7 +328,7 @@
 
                 <div class="form-group row mb-0">
                   <div class="col-sm-2">
-                    <button type="button" class="btn btn-info btn-sm btn-lg btn-block"  name="confir_ubv" id="confir_ubv" Onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); ">Aceptar</button>
+                    <button type="button" class="btn btn-info btn-sm btn-lg btn-block"  name="confir_ubv" id="confir_ubv" onclick="addUbicacion(longitud.value,latitud.value,txtDir.value); ">Aceptar</button>
                   </div>
                   <label for="latitud" class="col-sm-2 form-control-sm col-form-label text-center">Latitud:</label>
                   <div class="col-sm-3">
@@ -324,10 +356,85 @@
 
 
 <script type="text/javascript">
+
   function click(){
       alert('Error')
   }
+
+  function guardarpedido() { 
+    
+
+    let url = '{{url('')}}/pedido/store';
+
+    id_usuario    = document.getElementById("id_usuario").value;
+    id_cliente    = document.getElementById("id_cliente").value;
+    correo        = document.getElementById("correo").value;
+    nombre        = document.getElementById("nombre").value;
+    apellidos     = document.getElementById("apellidos").value;
+    telefono      = document.getElementById("telefono").value;
+    fecha         = document.getElementById("fecha").value;
+    url_ubicacion = document.getElementById("url_ubicacion").value;
+    latitud_y     = document.getElementById("latitud_y").value;
+    longitud_x    = document.getElementById("longitud_x").value;
+    referencia    = document.getElementById('referencia').value;
+
+      $.ajax({
+          url: url,
+          method: "POST",
+          data: {
+              "_token"          :"{{ csrf_token() }}",
+              "id_usuario"      :id_usuario,
+              "id_cliente"      :id_cliente,
+              "correo"          :correo,
+              "apellidos"       :apellidos,
+              "telefono"        :telefono,
+              "fecha"           :fecha,
+              "url_ubicacion"   :url_ubicacion,
+              "latitud_y"       :latitud_y,
+              "longitud_x"      :longitud_x,
+              "referencia"      :referencia,
+          },
+          success: function(resultado){
+              if (resultado == 0) {
+                  alert('hola');
+              }
+              else{
+       
+                  if (resultado.errors) {
+                      if (resultado.errors.latitud_y) {mostrarerror(resultado.errors.latitud_y)}
+                      if (resultado.errors.longitud_x) { mostrarerror(resultado.errors.longitud_x)}
+                      if (resultado.errors.url_ubicacion) {mostrarerror(resultado.errors.url_ubicacion)}
+                      if (resultado.errors.referencia) {mostrarerror(resultado.errors.referencia)}
+                  }else{
+                      // var resultado= JSON.parse(resultado);
+                    
+                      // if (resultado.error == '') {
+                      //     $("#tablaProductos tbody").empty();
+                      //     $("#tablaProductos tbody").append(resultado.datos);
+                      //     $("#id_producto").val('');
+                      //     $("#nombre").val('');
+                      //     $("#descripcion").val('');
+                      //     $("#stock").val('');
+                      //     $("#precio_venta").val('');
+                      
+                      //     document.getElementById('stock').disabled=true;
+                      
+                      // }else{
+                      //     alert('resultado.error')
+                      // }
+                  }
+              }
+          },
+          
+      });
+  
+    }
+    
+    function mostrarerror(error){
+     Toast.fire({icon: 'error',title: error});
+    }
 </script>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
 type="text/javascript" >
 </script>
@@ -469,30 +576,26 @@ type="text/javascript" >
 /*============================= FUNCION addUbicacion =================================*/
   function addUbicacion(x,y,dir)
   {
-    // alert(x);
-    // kike
-    let totalx = document.getElementById('total')
-    totalx.innerHTML = y+"";
-    // document.getElementById('div-referencia').style.display='block';
-    document.getElementById("textlatitud").value=x+"";
-    document.getElementById("textlongitud").value=y+"";
-
-    //document.getElementById("textdescripcion").value=dir+"";
-
-    document.getElementById("textlink").value="https://maps.google.com/?q="+y+","+x;
-
     let latitud1=-63.256608;//latitud de la empresa
     let longitud1=-17.334064;//longitud de la empresa
+  
+    if( y!='' && x!=''){
+      let url_ubicacion = 'https://maps.google.com/?q='+y+','+x
+      $("#latitud_y").val(y);
+      $("#longitud_x").val(x);
+      $("#url_ubicacion").val(url_ubicacion);
+      document.getElementById('link_ubicacion').setAttribute('href', url_ubicacion);
+      var a = document.getElementById('link_ubicacion');
+      a.classList.remove('disabled');
+      let latitud2=x; //latitud del destino
+      let longitud2=y;//longitud del destino
 
-    let latitud2=x; //latitud del destino
-    let longitud2=y;//longitud del destino
-
-    alert('graciass');
-
-    (calculateDistance(latitud1,longitud1,latitud2,longitud2));
-    //funcion para calcular la distancia en kilometro
-    // Swal.fire('Gracias por darnos tu ubicacion!', ' ','success')
-        
+      (calculateDistance(latitud1,longitud1,latitud2,longitud2));
+      $('#maps').modal('hide');
+      Swal.fire('Gracias por darnos tu ubicacion!', ' ','success')
+    }else{
+      Swal.fire('Seleccione su ubicacion por favor', ' ','error')
+    }
   }
 /*============================= FUNCION calculateDistance ================================*/
   function calculateDistance(lt1,lng1,lt2,lng2) {

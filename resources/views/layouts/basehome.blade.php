@@ -9,7 +9,7 @@
   {{-- <title>AdminLTE 3 | Top Navigation</title> --}}
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Panaderia Elias</title>
-
+  
   <!-- Font Awesome Icons -->
   <link rel="stylesheet"  href="{{asset('/vendor/plugins/fontawesome-free/css/all.min.css')}}">
    <!-- SweetAlert2 -->
@@ -140,12 +140,12 @@
         @else
           @if (Auth::user()->hasRole('Cliente'))
             <li class="nav-item dropdown">
-              <a class="nav-link" href="{{route('cart.checkout')}}" >
-                <i class="fa fa-shopping-cart"></i>__
-                @if (count(Cart::getContent()))
-                  <span class="badge badge-warning navbar-badge"><h6>{{count(Cart::getContent())}}</h6></span>
-                @else
-                  <span class="badge badge-warning navbar-badge">0</span>
+              <a class="nav-link" href="{{route('cart.checkout')}}">
+                <i class="fa fa-shopping-cart"></i>
+                 @if (count(Cart::getContent()))
+                  <span class="badge badge-warning navbar-badge"id="ContadorCart" >{{count(Cart::getContent())}}</span>
+                @else 
+                  <span class="badge badge-warning navbar-badge" id="ContadorCart">0</span>
                 @endif
               </a>
             </li>
@@ -271,12 +271,35 @@
 <script src="{{asset('/vendor/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('/vendor/plugins/select2/js/select2.full.min.js')}}"></script>
 
 
-{{--
-  
-  
-  --}}
+<script>
+
+  $(document).ready(function(){
+  $.ajax({
+        url:'{{url('')}}/carrito-leer',
+        method:"GET",
+        success: function(resultado){
+            if (resultado == 0) {
+            }
+            else{
+                var resultado= JSON.parse(resultado);
+                if (resultado.datos) {
+                  $("#ContadorCart").html(resultado.datos);
+                }
+            }
+        }
+    });
+});
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+</script>
 
 </body>
 </html>

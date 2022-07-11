@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\Producto;
-use App\Models\User;
 use Cart;
+
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -15,6 +15,30 @@ class CartController extends Controller
     {
         $this->middleware('auth');
     }
+    public function agregar($id)
+    {
+        $producto = Producto::find($id);
+        \Cart::add(
+            $producto->id, 
+            $producto->nombre, 
+            $producto->precio, 
+            1,
+            // array("urlfoto"=>$producto->urlfoto)
+        );
+        $var =  count(\Cart::getContent());
+        $res['datos'] = $var;
+        $res['error'] = $producto;
+        return json_encode($res);
+    }
+
+    public function leer()
+    {
+        $var =  count(Cart::getContent());
+        $res['datos'] = $var;
+        return json_encode($res);
+    }
+    
+
     
      public function add(Request $request){
       
