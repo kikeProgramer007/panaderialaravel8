@@ -16,9 +16,10 @@ class CreateRecetasTable extends Migration
         Schema::create('recetas', function (Blueprint $table) {
             $table->id();
             //RELACION MUCHOS A MUCHOS (TABLA INTERMEDIA)
-            $table->foreignId('id_receta')->nullable()->constrained('ingredientes')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('id_ingrediente')->nullable()->constrained('ingredientes')->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('id_producto')->nullable()->constrained('productos')->cascadeOnUpdate()->nullOnDelete();
             $table->integer('cantidad');
+            $table->string('unidad');
             $table->integer('estado')->default(1);
         });
     }

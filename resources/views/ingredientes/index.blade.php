@@ -58,12 +58,12 @@
                                             <td>{{$ingrediente->descripcion}}</td>
                                               @foreach ($empresas as $empresa)
                                                   @if ($empresa->id==$provedor->id)
-                                                   <td>Empresa::{{$empresa->razonsocial}}</td>
+                                                   <td><i class="fas fa-building"></i> {{$empresa->razonsocial}}</td>
                                                   @endif
                                               @endforeach
                                               @foreach ($personas as $persona)
                                                   @if ($persona->id==$provedor->id)
-                                                    <td>Persona::{{$persona->nombre}}/{{$persona->apellidos}}</td>
+                                                    <td><i class="fas fa-user-tie"></i> {{$persona->nombre.' '.$persona->apellidos}}</td>
                                                   @endif
                                               @endforeach
                                             <td class="py-1 align-middle text-center">

@@ -16,6 +16,7 @@ class Producto extends Model
         'descripcion',
         'precio',
         'stock',
+        'recetado',
         'estado',
         'id_categoria'
     ];

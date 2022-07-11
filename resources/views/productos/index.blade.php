@@ -3,6 +3,12 @@
 @section('content')
 
     {{-- INICIO DEL CUERPO --}}
+<style>
+  .disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -59,7 +65,7 @@
                                                 $imagen = "img/productos/150x150.png";
                                             }
                                           @endphp
-                                         
+
                                           <td class="text-center"><img width="50"height="30"src="{{asset($imagen.'?'.time())}}"/></td>
                                           <td>{{$producto->id}}</td>
                                           <td>{{$producto->nombre}}</td>
@@ -68,6 +74,11 @@
                                           <td>{{$producto->stock}}</td>
                                           <td class="py-1 align-middle text-center">
                                             <div class="btn-group btn-group-sm">
+                                              @if ($producto->recetado == 1)
+                                                <a class="btn btn-success" rel="tooltip" data-placement="top" title="Ver receta" href="{{ url('producto/receta/verreceta/'.$producto->id)}}"><i class="fas fa-eye" ></i></a>
+                                              @else
+                                                <a class="btn btn-success disabled" rel="tooltip" data-placement="top" title="No tiene receta" href="#" ><i class="fas fa-eye-slash"></i></a>
+                                              @endif
                                               <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{ url('producto/edit/'.$producto->id)}}"><i class="fas fa-pencil-alt"></i></a>
                                               <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{url('producto/destroy/'.$producto->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
                                             </div>

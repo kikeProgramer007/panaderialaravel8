@@ -129,7 +129,7 @@
           <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-hockey-puck"></i>
+              <i class="nav-icon fas fa-bread-slice"></i>
               <p>
                 Productos
                 <i class="right fas fa-angle-left"></i>
@@ -153,7 +153,32 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-hockey-puck"></i>
+              <i class="nav-icon fas fa-clipboard-list"></i>
+
+              <p>
+                Receta
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ asset('producto/receta') }}" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Receta</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('ingrediente')}}" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Ingredientes</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
               <p>
                 Almacén
                 <i class="right fas fa-angle-left"></i>
@@ -186,7 +211,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cart-plus"></i>
+              <i class="nav-icon fas fa-hot-tub"></i>
               <p>
                 Producción
                 <i class="fas fa-angle-left right"></i>
@@ -205,18 +230,7 @@
                   <p>Terminados</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('ingrediente')}}" class="nav-link">
-                 <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Ingredientes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('provedor')}}" class="nav-link">
-                 <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Provedores</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
@@ -260,10 +274,18 @@
                   <p>Empleado</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="{{route('repartidor')}}" class="nav-link">
                  <i class="far fa-dot-circle nav-icon"></i>
                   <p>Repartidor</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('provedor')}}" class="nav-link">
+                 <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Provedores</p>
                 </a>
               </li>
 

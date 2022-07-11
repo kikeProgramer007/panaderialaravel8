@@ -58,8 +58,8 @@
                           <div class="col-sm-6">
                             <div class="form-group">
                               <label for="id_provedor">Provedor</label>
-                                  <select class="form-control"  id="id_provedor" name="id_provedor"  required>
-                                  <option selected disabled value="">Seleccionar Provedor</option>
+                                  <select class="form-control" data-show-content="true" id="id_provedor" name="id_provedor"  required>
+                                  <option selected disabled value="">Seleccionar Provedor</option >
                                       @foreach ($provedores as $provedor)
                                           @foreach ($empresas as $empresa)
                                               @if ($empresa->id==$provedor->id)
@@ -68,7 +68,7 @@
                                           @endforeach
                                           @foreach ($personas as $persona)
                                               @if ($persona->id==$provedor->id)
-                                                <option value="{{$provedor->id}}">Persona::{{$persona->nombre}} / {{$persona->apellidos}}</option>
+                                                <option value="{{$provedor->id}}">Persona::{{$persona->nombre.' '.$persona->apellidos}}</option>
                                               @endif
                                           @endforeach
                                       @endforeach

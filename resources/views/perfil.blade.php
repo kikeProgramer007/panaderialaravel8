@@ -56,7 +56,14 @@
                     <label for="exampleInputPassword1">Rol</label>
                     <input type="text" class="form-control" id="correo" name="correo" value="{{Auth::user()->roles[0]->name}}" disabled placeholder="escriba su correo" required>
                   </div>
-                
+
+                  @guest  {{-- ¿No esta loguado?--}}
+                    <h4>no esta loguado</h4>
+                  @else
+                    <h4>ESTA LOGUEADO</h4>
+                    {{Auth::user()->roles[0]->name}}
+                  @endguest
+
                   @if ($licencia!="")
                     <div class="form-group">
                         <label>Categoria de licencia</label>

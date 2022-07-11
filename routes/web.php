@@ -108,6 +108,10 @@ Route::controller(ProductoController::class)->group(function (){
     Route::get('/producto/destroy/{id}','destroy');
     Route::get('/producto/eliminados','deletes');
     Route::get('/producto/restaurar/{id}','restore');
+    Route::get('producto/receta','receta');
+    Route::post('producto/receta/generar','generar');
+    Route::get('producto/receta/verreceta/{producto}','detallereceta');
+    Route::get('producto/receta/eliminar/{producto}','destroyreceta');
 });
 // Almacenes
 Route::controller(AlmacenController::class)->group(function (){

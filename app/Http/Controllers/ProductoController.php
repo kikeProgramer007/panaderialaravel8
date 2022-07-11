@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\ingrediente;
 use App\Models\Producto;
+use App\Models\Receta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str; //Extencion para importar imagen
 use Illuminate\Support\Facades\File;//extencion para eliminar imagen
@@ -115,4 +117,77 @@ class ProductoController extends Controller
         $producto->update();
         return redirect('/producto');//IR A ESA RUTA
     }
+
+
+
+    public function receta()
+    {   $productos= Producto::all()->where('recetado',0);
+       // return $productos;
+        $ingredientes = ingrediente::all()->where('estado',1);
+        return view('productos.receta',compact('ingredientes','productos'));
+    }
+    public function generar(Request $request)
+    {
+        $num=collect($request->receta);
+        $n=count($num);
+
+      //  return $n;
+
+     //  echo "sw = ".$num[0]."  id_ingrediente =".$num[1]."  cantidad = ".$num[2]."  unidad = ".$num[3].'<br>';
+     //  echo "sw = ".$num[4]."  id_ingrediente =".$num[5]."  cantidad = ".$num[6]."  unidad = ".$num[7].'<br>';
+     //  echo "sw = ".$num[8]."  id_ingrediente =".$num[9]."  cantidad = ".$num[10]."  unidad = ".$num[11].'<br>';
+      // echo "sw = ".$num[12]."  id_ingrediente =".$num[13]."  cantidad = ".$num[14]."  unidad = ".$num[15].'<br>';
+    //  return $num;
+        if($n != 0){
+            $i=0;
+            while ($i<$n) {
+                if($num[$i]==1){
+                $receta=new Receta();
+                $receta->id_ingrediente=$num[$i+1];
+                $receta->cantidad=$num[$i+2];
+                $receta->unidad=$num[$i+3];
+                $receta->id_producto=$request->id_producto;
+                $receta->save();
+                }
+            $i=$i+4;
+            }
+            // cuando acabe actualizar producto porq ya esta recetedo
+            $producto = Producto::findOrFail($request->id_producto);
+            $producto->recetado = 1;
+            $producto->update();
+            
+            return redirect('producto');
+        }else{
+            return "no selecciono ningun";
+        }
+
+    }
+
+    public function detallereceta(Producto $producto){
+         $detalle= Receta::all()->where('estado',1);
+         $detalle=$detalle->where('id_producto',$producto->id);
+         $ingredientes = ingrediente::all();
+         $id_producto=$producto->id;
+        // return $detalle;
+          $n=count($detalle);
+         //return $n;
+         if($n!=0){
+            return view('productos/detallereceta',compact('ingredientes','detalle','id_producto'));
+         }else {
+            return "lo siento no tiene creado una receta";
+         }
+    } 
+
+    public function destroyreceta(Producto $producto)
+    {
+       // $detalle= Receta::all()->where('id_producto',$producto->id);
+
+       // return $detalle;
+        Receta::where('id_producto',$producto->id)->delete();
+     //   $detalle->delete();
+        $producto->recetado=0;
+        $producto->update();
+       return redirect('/producto');
+    }
+    
 }
