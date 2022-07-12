@@ -18,10 +18,11 @@ class CreatePedidosTable extends Migration
             $table->date('fecha');
             $table->date('fechaentrega');
             $table->float('montototal');
-            $table->tinyInteger('estado')->default(1);                                      //0 pendiente, 2 entregado, 3 cancelado
-       
+            $table->string('estadodelpedido',30)->default('pendiente');                                      // pendiente, entregado, cancelado
+            $table->tinyInteger('estado')->default(1);
+
             $table->unsignedBigInteger('id_ubicacion')->nullable()->unique();           //uno a uno  : acepta valores null y debe ser unico
-            $table->unsignedBigInteger('id_cliente');                                   //uno a muchos
+            $table->unsignedBigInteger('id_cliente');                                     //uno a muchos
             $table->unsignedBigInteger('id_empleado')->nullable()->default(null); //uno a muchos
             $table->unsignedBigInteger('id_repartidor')->nullable()->default(null); //uno a muchos
             $table->timestamps();

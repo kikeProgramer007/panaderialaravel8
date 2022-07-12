@@ -20,6 +20,17 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+
+  {{-- sssssssssssssssssssssssssssssss --}}
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('/vendor/plugins/toastr/toastr.min.css')}}">
+
+
+{{-- sssssssssssssssssssssssssssssss --}}
+
+
   @php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
 
   @if (config('adminlte.use_route_url', false))
@@ -263,8 +274,9 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery --><!-- autocomplete de venta -->
-{{-- <script src="../../plugins/jquery/jquery.min.js"></script> --}}
-<script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script>
+ <script src="{{asset('/vendor/plugins/jquery/jquery.min.js')}}"></script>
+
+{{-- <script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script> --}}
 <!-- Bootstrap 4 -->
 <script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- SweetAlert2 -->
@@ -273,7 +285,8 @@
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
 <!-- Select2 -->
 <script src="{{asset('/vendor/plugins/select2/js/select2.full.min.js')}}"></script>
-
+    <!-- Toastr -->
+    <script src="{{asset('/vendor/plugins/toastr/toastr.min.js')}}"></script>
 
 <script>
 
@@ -293,12 +306,58 @@
         }
     });
 });
-var Toast = Swal.mixin({
+  
+
+    var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000
+    });
+
+    $('.toastrDefaultSuccess').click(function() {
+      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultInfo').click(function() {
+      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultError').click(function() {
+      toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultWarning').click(function() {
+      toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.swalDefaultSuccess').click(function() {
+    Toast.fire({
+      icon: 'success',
+      title: 'Loasassascing elitr.'
+    })
   });
+  $('.swalDefaultInfo').click(function() {
+    Toast.fire({
+      icon: 'info',
+      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    })
+  });
+  $('.swalDefaultError').click(function() {
+    Toast.fire({
+      icon: 'error',
+      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    })
+  });
+  $('.swalDefaultWarning').click(function() {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    })
+  });
+  $('.swalDefaultQuestion').click(function() {
+    Toast.fire({
+      icon: 'question',
+      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    })
+  });
+
 </script>
 
 </body>

@@ -14,7 +14,7 @@ class TemporalInventarioController extends Controller
     
     public function __construct()
     {
-        $this->temporal_inventario = New TemporalInventario();
+        $this->temporal_inventario = new TemporalInventario();
     }
 
     public function insertar( Request $request){
@@ -76,8 +76,9 @@ class TemporalInventarioController extends Controller
             }else{
                 $error = 'No existe el producto';
             }
-
+           
         $res['datos'] = $this->cargaProductosenAlmacen($id_inventario);
+   
         $res['error'] = $error;
 
         return json_encode($res);

@@ -211,7 +211,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   <label>Fecha</label>
-                                  <input class="form-control form-control-sm" id="fecha" name="fecha" type="tel" value="{{date('m-d-Y');}}" disabled/>
+                                  <input class="form-control form-control-sm" id="fecha" name="fecha" type="tel" value="{{date('Y-m-d')}}" disabled/>
                                 </div>
                               </div>
                               {{-- DATOS PARA LA TABLA UBICACION --}}
@@ -275,6 +275,23 @@
                     @endif
 
                   </div><!--/body card-->
+                  <div class="card-body">
+                    <button type="button" class="btn btn-success toastrDefaultSuccess">
+                      Launch Success Toast
+                    </button>
+                    <button type="button" class="btn btn-info toastrDefaultInfo">
+                      Launch Info Toast
+                    </button>
+                    <button type="button" class="btn btn-danger toastrDefaultError">
+                      Launch Error Toast
+                    </button>
+                    <button type="button" class="btn btn-warning toastrDefaultWarning">
+                      Launch Warning Toast
+                    </button>
+                    <div class="text-muted mt-3">
+                      For more examples look at <a href="https://codeseven.github.io/toastr/">https://codeseven.github.io/toastr/</a>
+                    </div>
+                  </div>
                 </div><!--/card-->
             </div>
             <!-- /.col -->
@@ -347,6 +364,8 @@
 
       </div><!-- /.modal-footer -->
 
+   
+
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -362,7 +381,7 @@
   }
 
   function guardarpedido() { 
-    
+
 
     let url = '{{url('')}}/pedido/store';
 
@@ -378,61 +397,75 @@
     longitud_x    = document.getElementById("longitud_x").value;
     referencia    = document.getElementById('referencia').value;
 
-      $.ajax({
-          url: url,
-          method: "POST",
-          data: {
-              "_token"          :"{{ csrf_token() }}",
-              "id_usuario"      :id_usuario,
-              "id_cliente"      :id_cliente,
-              "correo"          :correo,
-              "apellidos"       :apellidos,
-              "telefono"        :telefono,
-              "fecha"           :fecha,
-              "url_ubicacion"   :url_ubicacion,
-              "latitud_y"       :latitud_y,
-              "longitud_x"      :longitud_x,
-              "referencia"      :referencia,
-          },
-          success: function(resultado){
-              if (resultado == 0) {
-                  alert('hola');
-              }
-              else{
-       
-                  if (resultado.errors) {
-                      if (resultado.errors.latitud_y) {mostrarerror(resultado.errors.latitud_y)}
-                      if (resultado.errors.longitud_x) { mostrarerror(resultado.errors.longitud_x)}
-                      if (resultado.errors.url_ubicacion) {mostrarerror(resultado.errors.url_ubicacion)}
-                      if (resultado.errors.referencia) {mostrarerror(resultado.errors.referencia)}
-                  }else{
-                      // var resultado= JSON.parse(resultado);
-                    
-                      // if (resultado.error == '') {
-                      //     $("#tablaProductos tbody").empty();
-                      //     $("#tablaProductos tbody").append(resultado.datos);
-                      //     $("#id_producto").val('');
-                      //     $("#nombre").val('');
-                      //     $("#descripcion").val('');
-                      //     $("#stock").val('');
-                      //     $("#precio_venta").val('');
-                      
-                      //     document.getElementById('stock').disabled=true;
-                      
-                      // }else{
-                      //     alert('resultado.error')
-                      // }
+    Swal.fire({
+        title: '¿Estás seguro de solicitar el pedido?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '!Si, solicitar!',
+  
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+              url: url,
+              method: "POST",
+              data: {
+                  "_token"          :"{{ csrf_token() }}",
+                  "id_usuario"      :id_usuario,
+                  "id_cliente"      :id_cliente,
+                  "correo"          :correo,
+                  "apellidos"       :apellidos,
+                  "telefono"        :telefono,
+                  "fecha"           :fecha,
+                  "url_ubicacion"   :url_ubicacion,
+                  "latitud_y"       :latitud_y,
+                  "longitud_x"      :longitud_x,
+                  "referencia"      :referencia,
+              },
+              success: function(resultado){
+                  if (!resultado) {
+                      alert('error');
                   }
-              }
-          },
-          
-      });
+                  else{
+                      if (resultado.error) {
+                          if (resultado.errors.latitud_y) {toastr.error(resultado.errors.latitud_y)}
+                          if (resultado.errors.longitud_x) { toastr.error(resultado.errors.longitud_x)}
+                          if (resultado.errors.url_ubicacion) {toastr.error(resultado.errors.url_ubicacion)}
+                          if (resultado.errors.referencia) {  toastr.error(resultado.errors.referencia)}
+                      }else{
+                        var resultado= JSON.parse(resultado);
+                        if(resultado.error){
+                          mostrarerror('error','Error de stock vuelva a intentar más tarde') 
+                        }else{
+                          $('#completa_pedido').prop('disabled', true);
+                          mostrarerror('success','Datos registrados correctamente');
+                          setTimeout(redirigir, '3000');
+                        }
+                      }
+                  }
+              },
+              
+          });
+        }else{
+  
+        }
+    });
+
   
     }
-    
-    function mostrarerror(error){
-     Toast.fire({icon: 'error',title: error});
+    function redirigir(){
+      window.location.href ='{{url('')}}/card-checkout';
     }
+    function mostrarerror(icono,error){
+     Toast.fire({icon: icono,title: error});
+    }
+
+
+
+
+
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoW4LyeLOiPgOmChMyAacirIgO7zqriGw&callback=initMap&libraries=geometry"
@@ -592,7 +625,8 @@ type="text/javascript" >
 
       (calculateDistance(latitud1,longitud1,latitud2,longitud2));
       $('#maps').modal('hide');
-      Swal.fire('Gracias por darnos tu ubicacion!', ' ','success')
+      toastr.success('Añadido','Gracias por darnos tu ubicacion!') 
+      // Swal.fire('Gracias por darnos tu ubicacion!', ' ','success')
     }else{
       Swal.fire('Seleccione su ubicacion por favor', ' ','error')
     }

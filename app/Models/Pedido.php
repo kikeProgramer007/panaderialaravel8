@@ -14,6 +14,7 @@ class Pedido extends Model
         'fecha',
         'fechaentrega',
         'montototal',
+        'estadodelpedido',
         'estado',
         'id_ubicacion',
         'id_cliente',
