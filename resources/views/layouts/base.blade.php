@@ -236,8 +236,8 @@
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-truck"></i>
+            <a href="{{route('pedido.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-shipping-fast"></i>
               <p>
                 Pedidos
               </p>

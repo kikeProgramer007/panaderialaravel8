@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetallePedido;
+use App\Models\Empleado;
 use App\Models\Pedido;
 use App\Models\ProductoAlmacen;
+use App\Models\Repartidor;
 use App\Models\Ubicacion;
 
 use Illuminate\Http\Request;
@@ -20,7 +22,32 @@ class PedidoController extends Controller
         $this->producto_almacen = New ProductoAlmacen();
     }
 
-    public function store( Request $request){
+    public function index(){
+        $repartidores = Repartidor::all()->where('estado',1);
+        $pedidos=Pedido::select(
+            'pedidos.id',
+            'pedidos.fecha',
+            'pedidos.montototal',
+            'pedidos.estadodelpedido',
+            'pedidos.id_ubicacion',
+            'pedidos.id_cliente',
+            'pedidos.id_empleado',
+            'pedidos.id_repartidor',
+            'ubicacion.url',
+            'clientes.nombre',
+            'clientes.apellidos',
+            'clientes.telefono',
+        )
+        ->join('ubicacion','pedidos.id_ubicacion','=','ubicacion.id')
+        ->join('clientes','pedidos.id_cliente','=','clientes.id')
+        ->where('pedidos.estado','=',1)
+        ->orderBy('pedidos.id','desc')
+        ->get();
+
+        return view('administracion.pedidos.index',compact('pedidos','repartidores'));
+    }
+
+    public function store(Request $request){
         $rules=array(
             'id_usuario'  =>"required|numeric",
             'id_cliente' =>"required|numeric",
@@ -61,6 +88,7 @@ class PedidoController extends Controller
             $ubicacion->longitud    =  $longitud_x ;
             $ubicacion->referencia  =  $referencia;
             $ubicacion->url         =  $url_ubicacion;
+            $ubicacion->save();
 
             //GUARDAR UBICACION
              $id_ubicacion = $ubicacion->id;
@@ -68,13 +96,14 @@ class PedidoController extends Controller
              $pedido->fecha             =  $fecha;
              $pedido->fechaentrega      =  $fecha;
              $pedido->montototal        =   Cart::getTotal();
-             $pedido->estadodelpedido   =   'pendiente';
+             $pedido->estadodelpedido   =   'solicitado';
              $pedido->estado            =   1;
              $pedido->id_ubicacion      =   $id_ubicacion;
              $pedido->id_cliente        =   $id_cliente;
              $pedido->id_empleado       =   NULL;
              $pedido->id_repartidor     =   NULL;
-    
+             $pedido->save();
+
             $id_pedido = $pedido->id;
             //GUARDAR DERALLE PEDIDO
             $error =$this->guardardetallepedido( $id_pedido );
@@ -82,8 +111,7 @@ class PedidoController extends Controller
             
             }else{
                 //CONFIRMAR GUARDADO
-                $ubicacion->save();
-                $pedido->save();
+                // Ubicacion::findOrFail();
             }
             //$res['dato'] =  $this->FunctionName('3','2',4);
             
@@ -113,6 +141,27 @@ class PedidoController extends Controller
         return  $error;
     }
 
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id_pedido'=>'required|numeric',
+            'id_repartidor'=>'required|numeric'
+        ]);
+
+        $userId = auth()->user()->id;
+        $empleado=Empleado::all();
+        $empleado=$empleado->where('id_usuario',$userId)->first();
+        
+        if ($empleado) {
+            $pedido = Pedido::findOrFail($request->id_pedido);
+            $pedido->id_empleado = $empleado['id'];
+            $pedido->id_repartidor = $request->id_repartidor;
+            $pedido->estadodelpedido = 'pendiente';
+            $pedido->update();
+       
+        }
+        return  back();
+    }
     public  function FunctionName($id_productodealmacen, $id_producto, $cantidad)
     {
         $producto_almacen =ProductoAlmacen::findOrFail($id_productodealmacen);

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Pedido;
 use App\Models\User;
 use App\Models\Repartidor;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +19,38 @@ class RepartidorController extends Controller
      $repartidores = Repartidor::all()->where('estado',1);
      $usuarios=User::all()->where('estado',1);
      return view('administracion/repartidores/index',compact('repartidores','usuarios'));
+    }
+
+    public function solucitudpedidos()
+    {
+        $userId = auth()->user()->id;
+        $repartidores = Repartidor::all();
+        $id_repartidor=$repartidores->where('id_usuario',$userId)->first();
+       
+
+        $repartidores = Repartidor::all()->where('estado',1);
+        $pedidos=Pedido::select(
+            'pedidos.id',
+            'pedidos.fecha',
+            'pedidos.montototal',
+            'pedidos.estadodelpedido',
+            'pedidos.id_ubicacion',
+            'pedidos.id_cliente',
+            'pedidos.id_empleado',
+            'pedidos.id_repartidor',
+            'ubicacion.url',
+            'clientes.nombre',
+            'clientes.apellidos',
+            'clientes.telefono',
+        )
+        ->join('ubicacion','pedidos.id_ubicacion','=','ubicacion.id')
+        ->join('clientes','pedidos.id_cliente','=','clientes.id')
+        ->where('pedidos.estado','=',1)
+        ->orderBy('pedidos.id','desc')
+        ->get();
+
+        return view('administracion.repartidores.pedidos-solicitados',compact('pedidos','repartidores'));
+        
     }
 
     public function create()

@@ -38,38 +38,6 @@
         {{-- <div class="row"> --}}
         {{-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> --}}
 
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false">
-              Right-aligned basdasdsaads
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-              <form class="px-4 py-3">
-                <div class="form-group">
-                  <label for="exampleDropdownFormEmail1">Email address</label>
-                  <input type="email" class="form-control form-control-sm" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                </div>
-                <div class="form-group">
-                  <label for="exampleDropdownFormPassword1">Password</label>
-                  <input type="password" class="form-control form-control-sm" id="exampleDropdownFormPassword1" placeholder="Password">
-                </div>
-                <div class="form-group mb-0">
-                  <label for="exampleDropdownFormPassword1">categoría</label>
-                </div>
-                <div class="form-group">
-                  <select class="form-control form-control-sm"    id="dropdownSubMenu2"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" required>
-                  <option selected disabled value="">Seleccionar categoría</option>
-                      <option value="2">ssssssssss</option>
-                      <option value="2">xxxxxxxxxxx</option>
-                      <option value="2">wwwwwwww</option>
-                      <option value="2">4444</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
-              </form>
-            </div>
-          </div>
-          <br><br>
-
             <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3 row-cols-lg-4  g-3">
                 @foreach ($productos as $row)
                     @php
@@ -144,35 +112,5 @@
         });
     }
 
-/*
-  $(document).ready(function() {
-    $(".btn-submit").click(function(e){
-      e.preventDefault();
-      let link="{{asset('')}}card-add";
-      var _token = $("input[name='_token']").val();
-      var producto_id = $("#producto_id").val();
-  
-      $.ajax({
-        url: link,
-        type:'POST',
-        data: {_token:_token, producto_id:producto_id},
-        success: function(data) {
-          alert('j')
-          printMsg(data);
-        }
-      });
-    }); 
-
-    function printMsg (msg) {
-      if($.isEmptyObject(msg.error)){
-        console.log(msg.success);
-        $('.alert-block').css('display','block').append('<strong>'+msg.success+'</strong>');
-      }else{
-        $.each( msg.error, function( key, value ) {
-          $('.'+key+'_err').text(value);
-        });
-      }
-    }
-  });*/
   </script>
   @endsection

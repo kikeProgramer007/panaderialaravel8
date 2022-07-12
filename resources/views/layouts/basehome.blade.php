@@ -20,15 +20,8 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-
-  {{-- sssssssssssssssssssssssssssssss --}}
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Toastr -->
-    <link rel="stylesheet" href="{{asset('/vendor/plugins/toastr/toastr.min.css')}}">
-
-
-{{-- sssssssssssssssssssssssssssssss --}}
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/toastr/toastr.min.css')}}">
 
 
   @php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
@@ -134,9 +127,9 @@
             </a> 
             @endif
             @if (Auth::user()->hasRole('Repartidor'))
-            <a href="{{asset('administracion')}}"  class="dropdown-item">
+            <a href="{{route('pedidos.solicitudes')}}"  class="dropdown-item">
               <i class="fas fa-file mr-2"></i> Delivery
-            </a>   
+            </a>
             @endif 
           @else
             <a href="{{asset('administracion')}}"  class="dropdown-item">
@@ -240,9 +233,6 @@
         </li>
         @endguest
 
-
-
-
         <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
               class="fas fa-th-large"></i></a>
@@ -275,8 +265,8 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery --><!-- autocomplete de venta -->
  <script src="{{asset('/vendor/plugins/jquery/jquery.min.js')}}"></script>
-
 {{-- <script src="{{asset('/vendor/js/jquery-3.5.1.min.js')}}"></script> --}}
+
 <!-- Bootstrap 4 -->
 <script src="{{asset('/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- SweetAlert2 -->

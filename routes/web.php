@@ -173,6 +173,9 @@ Route::controller(RepartidorController::class)->group(function (){
     Route::get('administracion/repartidor/destroy/{repartidor}','destroy');
     Route::get('administracion/repartidor/eliminados','deletes');
     Route::get('administracion/repartidor/restaurar/{repartidor}','restore');
+    //Pedidos dirigido al repartidor
+    Route::get('/solicitudes','solucitudpedidos')->name('pedidos.solicitudes');
+    Route::get('administracion/repartidor/restaurar/{repartidor}','restore');
 });
 
 //empleado
@@ -189,6 +192,8 @@ Route::controller(EmpleadoController::class)->group(function (){
 
 //Pedido
 Route::controller(PedidoController::class)->group(function (){
+    Route::get('/pedido','index')->name('pedido.index');
     Route::post('/pedido/store','store')->name('pedido.store');
-
+    Route::post('/pedido/editar','update')->name('pedido.update');
 });
+
