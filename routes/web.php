@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductoAlmacenController;
 use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\TemporalInventarioController;
 
 /*
@@ -175,6 +176,7 @@ Route::controller(RepartidorController::class)->group(function (){
     Route::get('administracion/repartidor/restaurar/{repartidor}','restore');
     //Pedidos dirigido al repartidor
     Route::get('/solicitudes','solucitudpedidos')->name('pedidos.solicitudes');
+    Route::put('/delivery/update','cambiarestado')->name('pedido.estado');
     Route::get('administracion/repartidor/restaurar/{repartidor}','restore');
 });
 
@@ -195,5 +197,19 @@ Route::controller(PedidoController::class)->group(function (){
     Route::get('/pedido','index')->name('pedido.index');
     Route::post('/pedido/store','store')->name('pedido.store');
     Route::post('/pedido/editar','update')->name('pedido.update');
+    Route::get('/pedido/ordenes','orders')->name('pedido.ordenes');
+});
+
+//producciones
+Route::controller(ProduccionController::class)->group(function (){
+    Route::get('administracion/produccion','index')->name('produccion');
+    Route::get('administracion/produccion/create','create');
+    Route::post('administracion/produccion/store','store');
+    Route::get('administracion/produccion/{id_produccion}/{fecha}','produccion');
+    Route::post('administracion/produccion/generar/{id_produccion}','generar');
+    Route::get('verproductos/{produccion}','verdetalle')->name('produccion.verdetalle');
+    Route::get('eliminar/{produccion}','destroyproduccion')->name('produccion.destroyproduccion');
+    Route::get('anular/{produccion}','anularproduccion')->name('produccion.anularproduccion');
+    Route::get('terminar/{produccion}','terminarproduccion')->name('produccion.terminarproduccion');
 });
 

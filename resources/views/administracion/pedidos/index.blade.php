@@ -3,26 +3,23 @@
 @section('content')
 
     {{-- INICIO DEL CUERPO --}}
-    <style>
-        .intermitente{
-        border: 1px solid green;
-        padding: 0% 0%;
-        box-shadow: 0px 0px 10px;
-        color: green;
-        animation: infinite resplandorAnimation 2s;
-      }
-      @keyframes resplandorAnimation {
-        0%,100%{
-          box-shadow: 0px 0px 20px;
-        }
-        50%{
-        box-shadow: 0px 0px 0px;
-        
-        }
-      
-      }
-  
-      </style>
+<style>
+  .intermitente{
+    border: 1px solid green;
+    padding: 0% 0%;
+    box-shadow: 0px 0px 10px;
+    color: green;
+    animation: infinite resplandorAnimation 2s;
+  }
+  @keyframes resplandorAnimation {
+    0%,100%{
+      box-shadow: 0px 0px 20px;
+    }
+    50%{
+    box-shadow: 0px 0px 0px;
+    }
+  }
+</style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -192,22 +189,6 @@
 <script>
     function obtenerIdpedido(id_pedido) {
         $("#id_pedido").val(id_pedido);
-        // $('#lista').modal('hide');
-        // document.getElementById('stock').disabled=false;
-        // var url='{{asset('')}}administracion/buscar/'+codigo;
-        // $.ajax({
-        //      url: url,
-        //     success: function(resultado){
-        //         var resultado= JSON.parse(resultado);
-        //         // alert(resultado.datos.nombre);
-
-        //         $("#nombre").val(resultado.datos.nombre);
-        //         $("#descripcion").val(resultado.datos.descripcion);
-        //         $("#precio_venta").val(resultado.datos.precio);
-              
-
-        //     },
-        // });
     }
 </script>
 @endsection

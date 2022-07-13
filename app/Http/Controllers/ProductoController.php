@@ -138,7 +138,13 @@ class ProductoController extends Controller
      //  echo "sw = ".$num[8]."  id_ingrediente =".$num[9]."  cantidad = ".$num[10]."  unidad = ".$num[11].'<br>';
       // echo "sw = ".$num[12]."  id_ingrediente =".$num[13]."  cantidad = ".$num[14]."  unidad = ".$num[15].'<br>';
     //  return $num;
-        if($n != 0){
+    $i=0;
+    $p=0;
+    while ($i < $n){
+      if($num[$i]==1){$p=$p+1;}  
+      $i=$i+4;
+    }
+        if($p != 0){
             $i=0;
             while ($i<$n) {
                 if($num[$i]==1){

@@ -22,7 +22,10 @@
 
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('/vendor/plugins/toastr/toastr.min.css')}}">
-
+   <!-- DataTables -->
+   <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
   @php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
 
@@ -111,34 +114,41 @@
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <!-- Notifications Dropdown Menu -->
-        
         @guest
         @else
-        <li class="nav-item dropdown">
-          @if (Auth::user()->hasRole('Cliente') or Auth::user()->hasRole('Administrador') or Auth::user()->hasRole('Repartidor'))
-            @if (Auth::user()->hasRole('Cliente'))
-            <a href="{{asset('administracion')}}"  class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> Historico
-            </a>   
+          <li class="nav-item dropdown">
+            @if (Auth::user()->hasRole('Cliente') or Auth::user()->hasRole('Administrador') or Auth::user()->hasRole('Repartidor'))
+              @if (Auth::user()->hasRole('Cliente'))
+              <li class="nav-item">
+                <a class="nav-link"  href="{{route('pedido.ordenes')}}">
+                  <i class="fas fa-hard-hat"> Mis pedidos</i>
+                </a>
+              </li>
+              @endif
+              @if (Auth::user()->hasRole('Administrador'))
+                <li class="nav-item">
+                  <a class="nav-link"  href="{{asset('administracion')}}">
+                    <i class="fas fa-chart-bar"> Administración</i>
+                  </a>
+                </li>
+              @endif
+              @if (Auth::user()->hasRole('Repartidor'))
+              <li class="nav-item">
+                <a class="nav-link"  href="{{route('pedidos.solicitudes')}}">
+                  <i class="fas fa-motorcycle"> Delivery</i>
+                </a>
+              </li>
+              @endif 
+            @else
+              <li class="nav-item">
+                <a class="nav-link"  href="{{asset('administracion')}}">
+                  <i class="fas fa-cash-register"> Recepcion</i>
+                </a>
+              </li>
             @endif
-            @if (Auth::user()->hasRole('Administrador'))
-            <a href="{{asset('administracion')}}"  class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> Administracion
-            </a> 
-            @endif
-            @if (Auth::user()->hasRole('Repartidor'))
-            <a href="{{route('pedidos.solicitudes')}}"  class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> Delivery
-            </a>
-            @endif 
-          @else
-            <a href="{{asset('administracion')}}"  class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> Area
-            </a>
-          @endif
-        </li>            
-        @endguest
-        
+          </li>            
+          @endguest
+
         @guest
          
         @else
@@ -156,87 +166,59 @@
           @endif
         @endguest
 
-          <!-- Iniciar Sesion -->
-        <li  class="nav-item dropdown">
-          <a  class="nav-link" data-toggle="dropdown" href="#">
-             <i class="far fas fa-user-circle"></i>
-          </a> 
-          @guest
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+    
+        @guest
+           <!-- Iniciar Sesion -->
+              <li  class="nav-item dropdown">
+                <a  class="nav-link" data-toggle="dropdown" href="#">
+                  <i class="fas fa-user-cog"></i>
+                </a> 
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-          @if (Route::has('login'))
-            <div class="dropdown-divider"></div>
-            <a href="{{ route('login') }}" class="dropdown-item">
-                <i class="fas fa-sign-in-alt mr-2"></i>{{ __('Login') }}
-            </a>
-          @endif
-            @if (Route::has('register'))
-                <div class="dropdown-divider"></div>
-                <a href="{{ route('register') }}" class="dropdown-item ">
-                    <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
-                </a>
-          @endif
-        
-          @else 
-          <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-            <div class="card card-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header text-white"
-                    style="background: url({{asset('/vendor/images/photo1.png')}}) center center;">
-                <h3 class="widget-user-username text-right">{{Auth::user()->name}}</h3>
-                <h5 class="widget-user-desc text-right">{{ Auth::user()->roles[0]->name  }}</h5>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle" src="{{asset('/vendor/images/user.png')}}" alt="User Avatar">
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <a href="{{asset('perfil')}}/{{Auth::user()->id}}"  class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> Perfil
+                @if (Route::has('login'))
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('login') }}" class="dropdown-item">
+                      <i class="fas fa-sign-in-alt mr-2"></i>{{ __('Login') }}
+                  </a>
+                @endif
+                  @if (Route::has('register'))
+                      <div class="dropdown-divider"></div>
+                      <a href="{{ route('register') }}" class="dropdown-item ">
+                          <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
                       </a>
-                    {{--  <a href="{{$password_reset_url}}"  class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> editar
-                      </a>
-                    --}}  
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <a href="{{ route('logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item">
-                        <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
-                      </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                          @csrf
-                      </form> 
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-
-                
+                @endif
               </div>
-            </div>
-          </div>
+            </li>
+        @else 
+   
+       <!-- NAV PERFIL -->
+        <li class="nav-item dropdown user-menu">
+          <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="fas fa-user-cog"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-lx dropdown-menu-right">
+            <!-- User image -->
+            <li class="user-header" style="background: url({{asset('/vendor/images/photo1.png')}}) center center;">
+              <img src="{{asset('/vendor/images/user.png')}}" class="img-circle elevation-2" alt="User Image">
+              <p class="text-white">
+                {{ Auth::user()->roles[0]->name  }}
+                <small clasS="text-muted text-white">{{Auth::user()->name}}</small>
+                <small clasS="text-muted text-white">Montero - {{date('d-m-Y');}} </small>
+              </p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <a href="{{asset('perfil')}}/{{Auth::user()->id}}" class="btn btn-default btn-flat text-dark"><i class="fas fa-user mr-2"></i>Perfil</a>
+              <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat float-right text-dark"><i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form> 
+            </li>
+          </ul>
         </li>
-        @endguest
-
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-              class="fas fa-th-large"></i></a>
-        </li>
+         <!-- FIN DE NAV PERFIL -->
+      @endguest
+  
       </ul>
     </div>
   </nav>
@@ -275,9 +257,13 @@
 <script src="{{asset('/vendor/dist/js/adminlte.min.js')}}"></script>
 <!-- Select2 -->
 <script src="{{asset('/vendor/plugins/select2/js/select2.full.min.js')}}"></script>
-    <!-- Toastr -->
-    <script src="{{asset('/vendor/plugins/toastr/toastr.min.js')}}"></script>
-
+<!-- Toastr -->
+<script src="{{asset('/vendor/plugins/toastr/toastr.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{asset('/vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('/vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script>
 
   $(document).ready(function(){
@@ -296,7 +282,37 @@
         }
     });
 });
-  
+
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,//view nro
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "deferRender": true,//
+      "retrieve": true,
+      "processing": true,//
+      language: {
+        "decimal": "",
+        "emptyTable": "No hay información",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "lengthMenu": "Mostrar _MENU_ entradas",
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "zeroRecords": "Sin resultados encontrados",
+        "paginate": {
+            "next": "Siguiente",
+            "previous": "Anterior"
+        }
+      }
+    });
+  });
 
     var Toast = Swal.mixin({
     toast: true,
@@ -347,7 +363,15 @@
       title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
     })
   });
-
+//tooltips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+$(document).ready(function() {
+    $("table").tooltip({
+        selector: '[rel="tooltip"]'
+    });
+});
 </script>
 
 </body>

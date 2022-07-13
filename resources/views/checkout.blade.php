@@ -275,23 +275,7 @@
                     @endif
 
                   </div><!--/body card-->
-                  <div class="card-body">
-                    <button type="button" class="btn btn-success toastrDefaultSuccess">
-                      Launch Success Toast
-                    </button>
-                    <button type="button" class="btn btn-info toastrDefaultInfo">
-                      Launch Info Toast
-                    </button>
-                    <button type="button" class="btn btn-danger toastrDefaultError">
-                      Launch Error Toast
-                    </button>
-                    <button type="button" class="btn btn-warning toastrDefaultWarning">
-                      Launch Warning Toast
-                    </button>
-                    <div class="text-muted mt-3">
-                      For more examples look at <a href="https://codeseven.github.io/toastr/">https://codeseven.github.io/toastr/</a>
-                    </div>
-                  </div>
+      
                 </div><!--/card-->
             </div>
             <!-- /.col -->

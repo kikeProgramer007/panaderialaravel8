@@ -15,9 +15,13 @@ class CreateProduccionTable extends Migration
     {
         Schema::create('produccion', function (Blueprint $table) {
             $table->id();
-            $table->string('estadodelaproducion',50);
+            $table->string('estadoproduccion',50);
             $table->date('fecha');
+            $table->time('hora')->default('00:00:00');
+            $table->time('horafini')->nullable();
             $table->tinyInteger('estado')->default(1);
+            $table->bigInteger('id_usuario')->unsigned()->nullable();
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->timestamps();
         });
     }

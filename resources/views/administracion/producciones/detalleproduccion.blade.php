@@ -11,13 +11,13 @@
           <div class="container-fluid">
               <div class="row mb-0">
                   <div class="col-sm-6 mb-0">
-                      <h1>Detalle Receta</h1>
+                      <h1>Detalle Produccion</h1>
                   </div>
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="">Inicio</a></li>
-                          <li class="breadcrumb-item active">Producto</li>
-                          <li class="breadcrumb-item active">Detalle Receta</li>
+                          <li class="breadcrumb-item active">Produccion</li>
+                          <li class="breadcrumb-item active">Detalle Produccion</li>
                       </ol>
                   </div>
               </div>
@@ -30,31 +30,35 @@
               <div class="row">
                   <div class="col-12">
                       <div class="card">
-
+                          
                           <!-- /.card-header -->
                           <div class="card-body">
                             <div class="mb-3">
-                              <a class="btn btn-danger" href="{{asset('producto/receta/eliminar')}}/{{$id_producto}}">eliminar receta</a>
+                              @if ($estado!="terminado")
+                              <a class="btn btn-danger" href="{{route('produccion.destroyproduccion',$id_produccion)}}">cancelar produccion</a>
+                              @endif
+                              <a class="btn btn-primary" href="{{route('produccion')}}">producciones</a>
                             </div>
                                <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
                                   <thead>
                                       <tr>
-                                        <th width="5%"> id_ingrediente </th>
+                                        <th width="5%"> id_producto</th>
                                         <th> nombre </th>
+                                        <th> precio </th>
                                         <th> cantidad </th>
-                                        <th> unidad </th>
+                                      
                                         {{--<th width="7%">Acción</th>--}}
                                       </tr>
                                   </thead>
                                   <tbody>
                                     @foreach ($detalle as $det)
                                       <tr>
-                                          <td>{{$det->id_ingrediente}}</td>
-                                          @foreach ($ingredientes as $ingrediente)
-                                              @if ($ingrediente->id==$det->id_ingrediente)
-                                                <td>{{$ingrediente->nombre}}</td>
+                                          <td>{{$det->id_producto}}</td>
+                                          @foreach ($productos as $producto)
+                                              @if ($producto->id==$det->id_producto)
+                                                <td>{{$producto->nombre}}</td>
+                                                <td>{{$producto->precio}}</td>
                                                 <td>{{$det->cantidad}}</td>
-                                                <td>{{$det->unidad}}</td>
                                                 {{--<td class="py-1 align-middle text-center">
                                                   <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href=""><i class="fas fa-pencil-alt"></i></a>

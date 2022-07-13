@@ -1,8 +1,23 @@
 @extends('layouts.basehome')
 
 @section('content')
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> --}}
+<style>
+  .intermitente{
+    border: 1px solid green;
+    padding: 0% 0%;
+    box-shadow: 0px 0px 10px;
+    color: green;
+    animation: infinite resplandorAnimation 2s;
+  }
+  @keyframes resplandorAnimation {
+    0%,100%{
+      box-shadow: 0px 0px 20px;
+    }
+    50%{
+    box-shadow: 0px 0px 0px;
+    }
+  }
+</style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,13 +25,12 @@
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> Panes<small> Disponibles</small></h1>
+            <h1 class="m-0 text-dark"> Delivery</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Layout</a></li>
-              <li class="breadcrumb-item active">Top Navigation</li>
+              <li class="breadcrumb-item active">Solicitudes de pedidos</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,11 +49,6 @@
 
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="d-flex justify-content-end">
-                                <div class="form-group">
-                                    <a class="btn btn-danger btn-sm" href="{{route('almacen.deletes')}}"><i class="far fa-trash-alt"></i>&nbsp;Eliminados</a>
-                                </div>
-                            </div>
                             <table id="example2" class="table table-bordered table-sm table-hover table-striped ">
                                 <thead>
                                     <tr>
@@ -72,8 +81,13 @@
                                         <td>{{$pedido->telefono}}</td>
                                         <td class="py-1 align-middle text-center">
                                           <div class="btn-group btn-group-sm">
-                                            <a target="_blank" class="btn btn-info" rel="tooltip" data-placement="top" title="Ver ubicación" href="{{$pedido->url}}"><i class="fas fa-map-marker-alt"></i></a>
-                                            <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{route('almacen.edit', $pedido->id)}}"><i class="fas fa-pencil-alt"></i></a>
+                                            <a target="_blank" class="btn btn-info" rel="tooltip" data-placement="top" title="Ver ubicación" href="{{$pedido->url}}"><i class="fas fa-map-marked-alt"></i></a>
+                                            <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Ver detalle" href=""><i class="fas fa-list-alt"></i></a>
+                                            @if ($pedido->estadodelpedido == 'pendiente')
+                                             <button class="btn btn-default intermitente" rel="tooltip" data-placement="top" title="¿Pedido entregado?" onclick="obtenerIdpedido({{$pedido->id}})" data-toggle="modal" data-target="#modal-repartidor"><i class="fas fa-question"></i></button>
+                                            @else
+                                              <button class="btn btn-success" rel="tooltip" data-placement="top" title="Entregado"><i class="fas fa-clipboard-check"></i></button>
+                                            @endif
                                           </div>
                                         </td>
                                     </tr>
@@ -109,27 +123,45 @@
   </aside>
   <!-- /.control-sidebar -->
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-repartidor"  tabindex="-1"aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+  
+          <div class="modal-body py-3">
+              <form method="POST" action="{{route('pedido.estado')}}" autocomplete="off" >
+                @method('PUT')  
+                @csrf
+                  <input type="hidden" id="id_pedido" name="id_pedido" class="mb-0">
+                  <div class="form-group  mb-4">
+                      <label for="recipient-name" class="col-form-label">Estado:</label>
+                      <select class="form-control form-control-sm"  id="estado" name="estado"  required>
+                      <option selected disabled value="">Seleccionar estado</option>
+                          <option value="entregado">Entregado</option>
+                          <option value="cancelado">Cancelado</option>
+                      </select>
+                      <div class="invalid-feedback">Seleccione un repartidor.</div>
+                  </div>
+  
+                  <div class="d-flex justify-content-end ">
+                      <div class="form-group mb-1">
+                          <button type="button" class="btn btn-default btn-sm " data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success btn-sm" >Confirmar</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal -->
+
   <script  type="text/javascript">
-
-
-
-    //ESTA FUNICION ES PARA ELIMINAR UNA REGISTRO DE LA TABLA TEMPORAL
-    function addproducto(id_producto) {
-        var url='{{url('')}}/carrito-agregar/'+ id_producto;
-        $.ajax({
-            url: url,
-            method:"GET",
-            success: function(resultado){
-                if (resultado == 0) {
-                }
-                else{
-                    var resultado= JSON.parse(resultado);
-                    // alert(resultado.datos);
-                    $("#ContadorCart").html(resultado.datos);
-                }
-            }
-        });
+    function obtenerIdpedido(id_pedido) {
+        $("#id_pedido").val(id_pedido);
     }
-
   </script>
   @endsection

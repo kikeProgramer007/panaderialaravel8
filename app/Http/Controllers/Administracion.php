@@ -8,6 +8,9 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\role_has_permissions;
 use App\Models\User;
+use App\Models\Repartidor;
+use App\Models\Empleado;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\ErrorHandler\Collecting;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +86,27 @@ class Administracion extends Controller
     {
         $user = User::all();
         $user = $user->where('id',$id)->first();
+        $cliente=Cliente::all();
+        $cliente=$cliente->where('id_usuario',$id)->first();
+        $repartidor=Repartidor::all();
+        $repartidor=$repartidor->where('id_usuario',$id)->first();
+        $empleado=Empleado::all();
+        $empleado=$empleado->where('id_usuario',$id)->first();
+        
+        if($empleado){
+            $empleado->estado=1;
+            $empleado->update();
+        }
+
+        if($cliente){
+            $cliente->estado=1;
+            $cliente->update();  
+        }
+
+        if($repartidor){
+            $repartidor->estado=1;
+            $repartidor->update();
+        }
         $user->estado = 1;
         $user->update();
         return redirect()->to(asset('administracion'));
@@ -146,7 +170,6 @@ class Administracion extends Controller
     {
         $request->validate([
             'nombre'=> 'required',
-            
         ]);
            $roleX= Role::create([
                 'name'=> $request->nombre, 
@@ -257,6 +280,27 @@ class Administracion extends Controller
     {
         $user = User::all();
         $user = $user->where('id',$id)->first();
+        $cliente=Cliente::all();
+        $cliente=$cliente->where('id_usuario',$id)->first();
+        $repartidor=Repartidor::all();
+        $repartidor=$repartidor->where('id_usuario',$id)->first();
+        $empleado=Empleado::all();
+        $empleado=$empleado->where('id_usuario',$id)->first();
+        
+        if($empleado){
+            $empleado->estado=0;
+            $empleado->update();
+        }
+
+        if($cliente){
+            $cliente->estado=0;
+            $cliente->update();  
+        }
+
+        if($repartidor){
+            $repartidor->estado=0;
+            $repartidor->update();
+        }
         $user->estado = 0;
         $user->update();
         return redirect()->to(asset('administracion'));

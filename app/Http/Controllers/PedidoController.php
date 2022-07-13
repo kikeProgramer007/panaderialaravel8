@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\DetallePedido;
 use App\Models\Empleado;
 use App\Models\Pedido;
@@ -45,6 +46,39 @@ class PedidoController extends Controller
         ->get();
 
         return view('administracion.pedidos.index',compact('pedidos','repartidores'));
+    }
+
+    //PEDIDOS SOLICITADOS DEL CLIENTE:
+    public function orders()
+    {
+        $userId = auth()->user()->id;
+        $clientes = Cliente::all();
+        $cliente=$clientes->where('id_usuario',$userId)->first();
+       
+        $pedidos=Pedido::select(
+            'pedidos.id',
+            'pedidos.fecha',
+            'pedidos.montototal',
+            'pedidos.estadodelpedido',
+            'pedidos.id_ubicacion',
+            'pedidos.id_cliente',
+            'pedidos.id_empleado',
+            'pedidos.id_repartidor',
+            'ubicacion.url',
+            'ubicacion.referencia',
+            'clientes.nombre',
+            'clientes.apellidos',
+            'clientes.telefono',
+        )
+        ->join('ubicacion','pedidos.id_ubicacion','=','ubicacion.id')
+        ->join('clientes','pedidos.id_cliente','=','clientes.id')
+   
+        ->where('pedidos.estado','=',1)
+        ->where('pedidos.id_cliente','=', $cliente['id'])
+        ->orderBy('pedidos.id','asc')
+        ->get();
+      
+        return view('mispedidos',compact('pedidos'));
     }
 
     public function store(Request $request){

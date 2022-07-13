@@ -26,9 +26,7 @@ class RepartidorController extends Controller
         $userId = auth()->user()->id;
         $repartidores = Repartidor::all();
         $id_repartidor=$repartidores->where('id_usuario',$userId)->first();
-       
-
-        $repartidores = Repartidor::all()->where('estado',1);
+      
         $pedidos=Pedido::select(
             'pedidos.id',
             'pedidos.fecha',
@@ -45,12 +43,28 @@ class RepartidorController extends Controller
         )
         ->join('ubicacion','pedidos.id_ubicacion','=','ubicacion.id')
         ->join('clientes','pedidos.id_cliente','=','clientes.id')
+        ->join('repartidores','pedidos.id_repartidor','=','repartidores.id')
+        ->join('empleados','pedidos.id_empleado','=','empleados.id')
         ->where('pedidos.estado','=',1)
+        ->where('pedidos.id_repartidor','=', $id_repartidor['id'])
         ->orderBy('pedidos.id','desc')
         ->get();
 
-        return view('administracion.repartidores.pedidos-solicitados',compact('pedidos','repartidores'));
+        return view('administracion.repartidores.pedidos-solicitados',compact('pedidos'));
         
+    }
+
+    public function cambiarestado(Request $request)
+    {
+        $request->validate([
+            'id_pedido'=> 'required|numeric',
+            'estado'=> 'required',
+        ]);
+
+        $pedido = Pedido::findOrFail($request->id_pedido);
+        $pedido->estadodelpedido = $request->estado;
+        $pedido->update();
+        return back();
     }
 
     public function create()
