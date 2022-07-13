@@ -19,7 +19,7 @@ class ProductoSeeder extends Seeder
             'nombre' => 'Rosquete',
             'descripcion' => 'Casero',
             'precio' => 10,
-            'stock' => 0,
+            'stock' => 5000,
             'estado' => 1,
             'id_categoria' => 4
         ]);
@@ -28,7 +28,7 @@ class ProductoSeeder extends Seeder
             'nombre' => 'Pan de Pulque',
             'descripcion' => 'Casero',
             'precio' => 12.50,
-            'stock' => 0,
+            'stock' => 5000,
             'estado' => 1,
             'id_categoria' => 1
         ]);
@@ -37,7 +37,7 @@ class ProductoSeeder extends Seeder
             'nombre' => 'Pan Galleta',
             'descripcion' => 'Casero',
             'precio' => 12.00,
-            'stock' => 0,
+            'stock' => 100,
             'estado' => 1,
             'id_categoria' => 1
         ]);
@@ -46,7 +46,7 @@ class ProductoSeeder extends Seeder
             'nombre' => 'Pan de Arroz',
             'descripcion' => 'Pan delicioso hecho al horno',
             'precio' => 12.4,
-            'stock' => 0,
+            'stock' => 600,
             'estado' => 1,
             'id_categoria' => 1
         ]);

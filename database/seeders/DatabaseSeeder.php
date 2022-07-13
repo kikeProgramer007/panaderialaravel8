@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProductoSeeder::class,
             RecetaSeeder::class,
             AlmacenSeeder::class,
+            ProductoAlmacenSeeder::class,
         ]);
     }
 }

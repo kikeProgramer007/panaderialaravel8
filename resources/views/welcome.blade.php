@@ -15,8 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Layout</a></li>
-              <li class="breadcrumb-item active">Top Navigation</li>
+              <li class="breadcrumb-item active">Panes disponibles</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,7 +36,7 @@
                       if (!file_exists($imagen)) {$imagen = "img/productos/150x150.png";}
                     @endphp
                     <div class="col">
-                        <div class="card shadow-md card-warning card-outline">
+                        <div class="card shadow-md card-danger card-outline">
                             <img src="{{asset($imagen.'?'.time())}}" alt="imagen producto">
                             <div class="card-body">
                                 <h5 class="card-title">{{$row->nombre}}</h5>
@@ -52,7 +51,7 @@
                                       @csrf
                                       <input type="hidden" id="producto_id"name="producto_id" value="{{$row->id}}">
                                       {{-- <button class="btn btn-sm btn-outline-warning" type="submit" name="btn" onclick="#" >Agregar al carrito</button> --}}
-                                      <button class="btn btn-sm btn-outline-warning" type="button" onclick="addproducto({{$row->id}})" name="btn" onclick="#" >Agregar al carrito</button>
+                                      <button class="btn btn-sm btn-outline-danger" type="button" onclick="addproducto({{$row->id}})" name="btn" onclick="#" >Agregar al carrito</button>
                                       
                                       {{-- <button class="btn btn-sm btn-outline-warning btn-submit" type="submit" >Agregar al carrito</button> --}}
                                     </form>

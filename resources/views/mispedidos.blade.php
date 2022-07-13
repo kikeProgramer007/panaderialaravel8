@@ -54,11 +54,17 @@
                                     <b>Correo electrónico:</b> {{auth()->user()->email;}}<br>
                                     <b>Telefono:</b>  {{$row->telefono}}<br>
                                     <b>Dirección:</b>  {{$row->referencia}}<br>
-                                    <b>sus pedidos:</b> 968-34567<br>
                                     <b>Monto total:</b> {{$row->montototal}} Bs<br>
+                                    @php
+                                      $separar = (explode(" ",$row->created_at));
+                                      $fecha = $separar[0];
+                                      $hora = $separar[1];
+                                    @endphp
+                                    <b>Hora:</b>  {{$hora}}<br>
+
                                     <b>Estado del pedido:</b>
-                                  @if ($row->id_empleado == NULL && $row->id_repartidor == NULL)
-                                    <span class="text-warning">solicitado</span>
+                                  @if (($row->id_empleado == NULL && $row->id_repartidor == NULL)&&$row->estadodelpedido == 'solicitado')
+                                   <span class="badge badge-warning text">{{$row->estadodelpedido}}</span>
                                     @elseif ($row->estadodelpedido == 'pendiente')
                                     <span class="text-info">{{$row->estadodelpedido}}</span>
                                     @elseif ($row->estadodelpedido == 'entregado')
@@ -71,11 +77,11 @@
                                   <br>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                      @if ($row->id_empleado == NULL && $row->id_repartidor == NULL)
-                                        <a href="#"class="btn btn-sm btn-danger">Cancelar Pedido</a>
+                                      @if (($row->id_empleado == NULL && $row->id_repartidor == NULL)&&$row->estadodelpedido == 'solicitado' )
+                                        <button class="btn btn-sm btn-danger" rel="tooltip" data-placement="top" title="¿Pedido entregado?" onclick="obtenerIdpedido({{$row->id}})" data-toggle="modal" data-target="#cancelarpedido">Cancelar Pedido</button>
                                       @endif
                                     </div>
-                                    <form action="{{route('cart.add')}}" method="POST">
+                                    <form action="#" method="POST">
                                       @csrf
                                       <input type="hidden" id="producto_id"name="producto_id" value="{{$row->id}}">
                                       <button class="btn btn-sm btn-dark" type="button" onclick="addproducto({{$row->id}})" name="btn" onclick="#" >Ver detalle</button>
@@ -94,18 +100,38 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-
+    <!-- Modal -->
+    <div class="modal fade" id="cancelarpedido"  tabindex="-1"aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+  
+          <div class="modal-body py-3">
+              <form method="POST" action="{{route('pedido.cancelar')}}" autocomplete="off" >
+                @method('PUT')  
+                @csrf
+                  <input type="hidden" id="id_pedido" name="id_pedido" class="mb-0">
+                  <div class="form-group  mb-4">
+                      <label for="recipient-name" class="col-form-label">Cancelar solicitud</label>
+                      <p for="recipient-name" class="col-form-label">¿Desea Cancelar la solicitud?</p>
+                  </div>
+                  <div class="d-flex justify-content-end ">
+                      <div class="form-group mb-1">
+                          <button type="button" class="btn btn-default btn-sm mr-2 " data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-danger btn-sm" >Confirmar</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
     </div>
-  </aside>
-  <!-- /.control-sidebar -->
+      <!-- /.modal -->
 
   <script  type="text/javascript">
-
+    function obtenerIdpedido(id_pedido) {
+        $("#id_pedido").val(id_pedido);
+    }
   </script>
   @endsection

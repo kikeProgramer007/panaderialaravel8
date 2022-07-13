@@ -81,11 +81,14 @@
                                         <td>{{$pedido->telefono}}</td>
                                         <td class="py-1 align-middle text-center">
                                           <div class="btn-group btn-group-sm">
+                                         
                                             <a target="_blank" class="btn btn-info" rel="tooltip" data-placement="top" title="Ver ubicación" href="{{$pedido->url}}"><i class="fas fa-map-marked-alt"></i></a>
                                             <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Ver detalle" href=""><i class="fas fa-list-alt"></i></a>
                                             @if ($pedido->estadodelpedido == 'pendiente')
                                              <button class="btn btn-default intermitente" rel="tooltip" data-placement="top" title="¿Pedido entregado?" onclick="obtenerIdpedido({{$pedido->id}})" data-toggle="modal" data-target="#modal-repartidor"><i class="fas fa-question"></i></button>
-                                            @else
+                                            @elseif ($pedido->estadodelpedido == 'cancelado')
+                                              <button class="btn btn-danger" rel="tooltip" data-placement="top" title="No Entregado"><i class="far fa-calendar-times"></i></button>
+                                            @elseif ($pedido->estadodelpedido == 'entregado')
                                               <button class="btn btn-success" rel="tooltip" data-placement="top" title="Entregado"><i class="fas fa-clipboard-check"></i></button>
                                             @endif
                                           </div>

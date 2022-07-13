@@ -16,23 +16,23 @@ class AlmacenSeeder extends Seeder
     {
         Almacen::create([
             'sigla'=>'A',
-            'capacidad'=>350, 
+            'capacidad'=>1000, 
         ]);
         Almacen::create([
             'sigla'=>'B',
-            'capacidad'=>540, 
+            'capacidad'=>1000, 
         ]);
         Almacen::create([
             'sigla'=>'C',
-            'capacidad'=>650, 
+            'capacidad'=>1000, 
         ]);
         Almacen::create([
             'sigla'=>'D',
-            'capacidad'=>250, 
+            'capacidad'=>1000, 
         ]);
         Almacen::create([
             'sigla'=>'E',
-            'capacidad'=>100, 
+            'capacidad'=>1000, 
         ]);
           
     }

@@ -198,6 +198,7 @@ Route::controller(PedidoController::class)->group(function (){
     Route::post('/pedido/store','store')->name('pedido.store');
     Route::post('/pedido/editar','update')->name('pedido.update');
     Route::get('/pedido/ordenes','orders')->name('pedido.ordenes');
+    Route::put('/pedido/cancelar','cancelarsolicitud')->name('pedido.cancelar');
 });
 
 //producciones

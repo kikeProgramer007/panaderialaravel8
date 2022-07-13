@@ -64,6 +64,7 @@ class PedidoController extends Controller
             'pedidos.id_cliente',
             'pedidos.id_empleado',
             'pedidos.id_repartidor',
+            'pedidos.created_at',
             'ubicacion.url',
             'ubicacion.referencia',
             'clientes.nombre',
@@ -79,6 +80,20 @@ class PedidoController extends Controller
         ->get();
       
         return view('mispedidos',compact('pedidos'));
+    }
+
+    public function cancelarsolicitud(Request $request)
+    {
+        $request->validate([
+            'id_pedido'=> 'required|numeric',
+        ]);
+
+        $pedido = Pedido::findOrFail($request->id_pedido);
+        $pedido->estadodelpedido = 'cancelado';
+        $pedido->id_empleado = NULL;
+        $pedido->id_repartidor = NULL;
+        $pedido->update();
+        return back();
     }
 
     public function store(Request $request){

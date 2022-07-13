@@ -126,7 +126,7 @@
               </li>
               @endif
               @if (Auth::user()->hasRole('Administrador'))
-                <li class="nav-item">
+                <li class="nav-item"> 
                   <a class="nav-link"  href="{{asset('administracion')}}">
                     <i class="fas fa-chart-bar"> Administración</i>
                   </a>
@@ -157,16 +157,16 @@
               <a class="nav-link" href="{{route('cart.checkout')}}">
                 <i class="fa fa-shopping-cart"></i>
                  @if (count(Cart::getContent()))
-                  <span class="badge badge-warning navbar-badge"id="ContadorCart" >{{count(Cart::getContent())}}</span>
+                  {{-- <span class="badge badge-warning navbar-badge" id="ContadorCart" ><b>{{count(Cart::getContent())}}</b></span> --}}
+                   <span class="badge badge-danger navbar-badge font-weight-bold"id="ContadorCart"><b>{{count(Cart::getContent())}}</b></span>
                 @else 
-                  <span class="badge badge-warning navbar-badge" id="ContadorCart">0</span>
+                  <span class="badge badge-danger navbar-badge font-weight-bold" id="ContadorCart"><b>0</b></span>
                 @endif
               </a>
             </li>
           @endif
         @endguest
 
-    
         @guest
            <!-- Iniciar Sesion -->
               <li  class="nav-item dropdown">
@@ -181,15 +181,15 @@
                       <i class="fas fa-sign-in-alt mr-2"></i>{{ __('Login') }}
                   </a>
                 @endif
-                  @if (Route::has('register'))
-                      <div class="dropdown-divider"></div>
-                      <a href="{{ route('register') }}" class="dropdown-item ">
-                          <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
-                      </a>
+                @if (Route::has('register'))
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('register') }}" class="dropdown-item ">
+                      <i class="fas fa-address-card mr-2"></i>{{ __('Register') }}
+                  </a>
                 @endif
               </div>
             </li>
-        @else 
+        @else  
    
        <!-- NAV PERFIL -->
         <li class="nav-item dropdown user-menu">

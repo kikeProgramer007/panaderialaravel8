@@ -14,7 +14,7 @@ use App\Models\provedor;
 use App\Models\ppersona;
 use App\Models\pempresa;
 
-
+use function Ramsey\Uuid\v1;
 
 class UserSeeder extends Seeder
 {
@@ -135,8 +135,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Cliente'); 
 
        Cliente::create([
-            'nombre'=>'enrique',
-            'apellidos'=>'confori quispe',
+            'nombre'=>'Enrique',
+            'apellidos'=>'Condori Quispe',
             'edad'=>21,
             'telefono'=>71619345,
             'id_usuario'=>$c1->id,
@@ -149,14 +149,56 @@ class UserSeeder extends Seeder
         ])->assignRole('Repartidor');
 
        Repartidor::create([
-       'nombre'=>'lucas',
+       'nombre'=>'Juan',
        'apellidos'=>'carvajal barrios',
        'edad'=>21,
        'nro_licencia'=>'Categoria A',
        'telefono'=>71619345,
        'id_usuario'=>$c2->id,
        ]);
-    
+    //creacion de UserRepartirdor
+       $UserRepartirdor1=user::create([
+        'name' => 'Juan',
+        'email' => 'repartidor1@gmail.com',
+        'password' => Hash::make('123'),
+        ])->assignRole('Repartidor');
+
+       Repartidor::create([
+       'nombre'=>'Juan',
+       'apellidos'=>'Menacho Almanza',
+       'edad'=>22,
+       'nro_licencia'=>'Categoria A',
+       'telefono'=>77772262,
+       'id_usuario'=>$UserRepartirdor1->id,
+       ]);
+       $UserRepartirdor2=user::create([
+        'name' => 'Felipe',
+        'email' => 'repartidor2@gmail.com',
+        'password' => Hash::make('123'),
+        ])->assignRole('Repartidor');
+
+       Repartidor::create([
+       'nombre'=>'Felipe',
+       'apellidos'=>'Arias Diaz',
+       'edad'=>21,
+       'nro_licencia'=>'Categoria A',
+       'telefono'=>76521212,
+       'id_usuario'=>$UserRepartirdor2->id,
+       ]);
+       $UserRepartirdor3=user::create([
+        'name' => 'Thomas',
+        'email' => 'repartidor3@gmail.com',
+        'password' => Hash::make('123'),
+        ])->assignRole('Repartidor');
+
+       Repartidor::create([
+       'nombre'=>'Thomas',
+       'apellidos'=>'Villarroel Lopez',
+       'edad'=>21,
+       'nro_licencia'=>'Categoria A',
+       'telefono'=>71600345,
+       'id_usuario'=>$UserRepartirdor3->id,
+       ]);
        //creacion de provedor
 
        $p1=provedor::create([

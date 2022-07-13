@@ -62,7 +62,13 @@ class RepartidorController extends Controller
         ]);
 
         $pedido = Pedido::findOrFail($request->id_pedido);
-        $pedido->estadodelpedido = $request->estado;
+        if ($request->estado == 'cancelado') {
+            $pedido->estadodelpedido = $request->estado;
+            $pedido->id_empleado = NULL;
+            $pedido->id_repartidor = NULL;
+        }else{
+            $pedido->estadodelpedido = $request->estado;
+        }
         $pedido->update();
         return back();
     }

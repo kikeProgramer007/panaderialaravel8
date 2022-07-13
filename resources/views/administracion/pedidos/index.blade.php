@@ -86,7 +86,6 @@
                                           <td class="py-1 align-middle text-center">
                                             <div class="btn-group btn-group-sm">
                                               <a target="_blank" class="btn btn-info" rel="tooltip" data-placement="top" title="Ver ubicación" href="{{$pedido->url}}"><i class="fas fa-map-marker-alt"></i></a>
-
                                               <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{route('almacen.edit', $pedido->id)}}"><i class="fas fa-pencil-alt"></i></a>
                                              @if ($pedido->id_repartidor)
                                                 <button onclick="obtenerIdpedido({{$pedido->id}})" class="btn btn-success" rel="tooltip" data-placement="top" title="Repartidor seleccionado" data-toggle="modal" data-target="#modal-repartidor"></span><i class="fas fa-user-check"></i></button>
@@ -126,13 +125,6 @@
   <div class="modal fade" id="modal-repartidor"  tabindex="-1"aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        {{-- <div class="modal-header p-2">
-          <h4 class="modal-title">Repartidores</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div> --}}
-
         <div class="modal-body py-2">
             <form method="POST" action="{{route('pedido.update')}}" autocomplete="off" class="needs-validation" novalidate>
                 @csrf
