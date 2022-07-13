@@ -131,7 +131,7 @@
                 <input type="hidden" id="id_pedido" name="id_pedido">
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Repartidor:</label>
-                    <select class="form-control"  id="id_repartidor" name="id_repartidor"  required>
+                    <select class="form-control form-control-sm"  id="id_repartidor" name="id_repartidor"  required>
                     <option selected disabled value="">Seleccionar repartidor</option>
                         @foreach ($repartidores as $repartidor)
                         <option value="{{$repartidor->id}}">{{$repartidor->nombre}}</option>
@@ -142,8 +142,8 @@
 
                 <div class="d-flex justify-content-end">
                     <div class="form-group mb-2">
-                        <button type="button" class="btn btn-default btn-sm " data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger btn-sm" >Confirmar</button>
+                        <button type="button" class="btn btn-default btn-sm mr-1" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success btn-sm" >Confirmar</button>
                     </div>
                 </div>
             </form>

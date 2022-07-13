@@ -143,14 +143,14 @@ class UserSeeder extends Seeder
         ]);
 
        $c2=user::create([
-        'name' => 'lucas',
+        'name' => 'Lucas',
         'email' => 'lucas@gmail.com',
         'password' => Hash::make('123'),
         ])->assignRole('Repartidor');
 
        Repartidor::create([
-       'nombre'=>'Juan',
-       'apellidos'=>'carvajal barrios',
+       'nombre'=>'Lucas',
+       'apellidos'=>'Carvajal Barrios',
        'edad'=>21,
        'nro_licencia'=>'Categoria A',
        'telefono'=>71619345,
