@@ -417,7 +417,7 @@
                           if (resultado.errors.latitud_y) {toastr.error(resultado.errors.latitud_y)}
                           if (resultado.errors.longitud_x) { toastr.error(resultado.errors.longitud_x)}
                           if (resultado.errors.url_ubicacion) {toastr.error(resultado.errors.url_ubicacion)}
-                          if (resultado.errors.referencia) {  toastr.error(resultado.errors.referencia)}
+                          if (resultado.errors.referencia) { toastr.error(resultado.errors.referencia)}
                       }else{
                         var resultado= JSON.parse(resultado);
                         if(resultado.error){

@@ -118,3 +118,13 @@ on `producto_almacen`.`id_producto` = `productos`.`id`
 where `producto_almacen`.`estado` = 1
 and `producto_almacen`.`stock` > 0
 group by `productos`.`id`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`precio`;
+
+
+======================== INCORPORANDO FORMULARIO PARA ENVIAR CORREO =======================
+
+PRUEBAS DE CORREO EN MAILTRAP: https://mailtrap.io/
+
+> php artisan make:mail ContactoMailable
+> ContactanosController
+> php artisan make:controller ContactanosController
+>

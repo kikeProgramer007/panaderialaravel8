@@ -59,38 +59,55 @@
             <a href="{{ url('/') }}" class="nav-link">Panes</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Contacto</a>
+            <a href="{{ route('contactanos.index') }}" class="nav-link">Contacto</a>
           </li>
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Categorias</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Caseros </a></li>
-              <li><a href="#" class="dropdown-item">Integrales</a></li>
-              <li><a href="#" class="dropdown-item">Harina</a></li>
-              <li><a href="#" class="dropdown-item">Queques</a></li>
+            
+              @if (isset($categorias))
+                @foreach ($categorias as $categoria)
+                  <li><a href="{{ route('cargar.categoria',$categoria->id) }}" class="dropdown-item">{{$categoria->nombre}} </a></li>
+                @endforeach
+              @else
+                <li><a href="#" class="dropdown-item">Caseros </a></li>
+                <li><a href="#" class="dropdown-item">Integrales</a></li>
+                <li><a href="#" class="dropdown-item">Harina</a></li>
+                <li><a href="#" class="dropdown-item">Queques</a></li>
+              @endif
+            
 
               <li class="dropdown-divider"></li>
 
               <!-- Level two dropdown-->
               <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Almacenes</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                  </li>
 
-                  <!-- Level three dropdown-->
-                  <li class="dropdown-submenu">
-                    <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                    <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                    </ul>
-                  </li>
-                  <!-- End Level three -->
-
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
+                 
+                  @if (isset($almacenes))
+                    @foreach ($almacenes as $almacen)
+                      <li>
+                        <a tabindex="-1" href="#" class="dropdown-item">{{$almacen->sigla}}</a>
+                      </li>
+                    @endforeach
+                  @else
+                    <li>
+                      <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                    </li>
+                    <!-- Level three dropdown-->
+                    <li class="dropdown-submenu">
+                      <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
+                      <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                        <li><a href="#" class="dropdown-item">3rd level</a></li>
+                        <li><a href="#" class="dropdown-item">3rd level</a></li>
+                      </ul>
+                    </li>
+                    <!-- End Level three -->
+                    <li><a href="#" class="dropdown-item">level 2</a></li>
+                    <li><a href="#" class="dropdown-item">level 2</a></li>
+                  @endif
+           
                 </ul>
               </li>
               <!-- End Level two -->
@@ -238,7 +255,7 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
@@ -320,6 +337,23 @@
     showConfirmButton: false,
     timer: 3000
     });
+    toastr.options = {
+      "closeButton": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-bottom-left",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
 
     $('.toastrDefaultSuccess').click(function() {
       toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
@@ -367,11 +401,15 @@
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
-$(document).ready(function() {
+$(document).ready(function(){
     $("table").tooltip({
         selector: '[rel="tooltip"]'
     });
+
+ 
 });
+
+
 </script>
 
 </body>

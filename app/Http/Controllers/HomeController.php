@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Repartidor;
 use App\Models\Cliente;
-
+use App\Models\ProductoAlmacen;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,11 +47,25 @@ class HomeController extends Controller
        
         //  $sql = 'SELECT * FROM products';
         //  ->distinct()->get();  
-        // ->get(); //DEVUELDE TODOS LOS DATOS
-        // ->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
-        return view('welcome',compact('productos'));
-
-       
+        $categorias=ProductoAlmacen::select(
+            'categorias.nombre',
+            'categorias.id'
+            )
+            ->join('almacenes','producto_almacen.id_almacen','=','almacenes.id')
+            ->join('productos','producto_almacen.id_producto','=','productos.id')
+            ->join('categorias','productos.id_categoria','=','categorias.id')
+            ->where('producto_almacen.estado','=',1)
+            ->where('producto_almacen.stock','>',0)
+            ->distinct()->get();
+    
+        $almacenes=ProductoAlmacen::select(
+           'almacenes.sigla'
+        )
+        ->join('almacenes','producto_almacen.id_almacen','=','almacenes.id')
+        ->join('productos','producto_almacen.id_producto','=','productos.id')
+        ->where('producto_almacen.estado','=',1)
+        ->distinct()->get(); 
+        return view('welcome',compact('productos','categorias','almacenes'));
     }
 
     public function perfil(User $user)

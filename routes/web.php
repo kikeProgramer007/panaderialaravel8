@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProvedorController;
 use App\Http\Controllers\IngredienteController;
@@ -35,9 +36,15 @@ Route::get('/', function () {
     // return view('welcome');
     return redirect('/');
 });
-// Route::resource('index', HomeController::class);
-Route::get('/', [FrontController::class,'index']);
 
+Route::get('/', [FrontController::class,'index']);
+Route::get('cargarcategoria/{id}',[FrontController::class,'cargarcategoria'])->name('cargar.categoria');
+
+//Envio de Correo
+Route::get('contactanos',[ContactanosController::class,'index'])->name('contactanos.index');
+Route::post('contactanos',[ContactanosController::class,'store'])->name('contactanos.store');
+
+//Carrito de compras
 Route::post('/card-add}', [CartController::class,'add'])->name('cart.add');
 Route::get('/carrito-agregar/{id}', [CartController::class,'agregar'])->name('cart.agregar');
 Route::get('/carrito-leer', [CartController::class,'leer'])->name('cart.leer');

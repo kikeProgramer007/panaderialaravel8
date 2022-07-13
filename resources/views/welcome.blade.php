@@ -1,8 +1,7 @@
 @extends('layouts.basehome')
 
 @section('content')
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> --}}
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,7 +35,7 @@
                       if (!file_exists($imagen)) {$imagen = "img/productos/150x150.png";}
                     @endphp
                     <div class="col">
-                        <div class="card shadow-md card-danger card-outline">
+                        <div class="card shadow-lg card-danger card-outline">
                             <img src="{{asset($imagen.'?'.time())}}" alt="imagen producto">
                             <div class="card-body">
                                 <h5 class="card-title">{{$row->nombre}}</h5>
@@ -70,20 +69,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
   <script  type="text/javascript">
-
-
 
     //ESTA FUNICION ES PARA ELIMINAR UNA REGISTRO DE LA TABLA TEMPORAL
     function addproducto(id_producto) {
@@ -98,6 +84,9 @@
                     var resultado= JSON.parse(resultado);
                     // alert(resultado.datos);
                     $("#ContadorCart").html(resultado.datos);
+                    if (resultado.datos) {
+                      toastr.success('Producto añadido correctamente','Añadido')
+                    }
                 }
             }
         });
