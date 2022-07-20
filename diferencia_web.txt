@@ -1,0 +1,21 @@
+diferencia de servidor de correo y servidro web
+
+- un servidor web es una computadora que esta en la nube y accedemos remotamente 
+a traves de los puertos 80 y 443
+
+- un servidor de correo es servicio para compartir informacion a traves de los servidores web
+
+diferencia
+
+servidor web
+
+- muestra contenido e informacion
+- es visible y manejable sin la necesidad de credenciales
+- utiliza el http y https
+
+
+servidor de correo
+
+- usa el contenido del servidor web
+- es visible y es manejada con la necesidad de credenciales
+- utiliza el smtp

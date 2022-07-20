@@ -86,7 +86,7 @@
                                           <td class="py-1 align-middle text-center">
                                             <div class="btn-group btn-group-sm">
                                               <a target="_blank" class="btn btn-info" rel="tooltip" data-placement="top" title="Ver ubicación" href="{{$pedido->url}}"><i class="fas fa-map-marker-alt"></i></a>
-                                              <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{route('almacen.edit', $pedido->id)}}"><i class="fas fa-pencil-alt"></i></a>
+                                              {{-- <a class="btn btn-warning" rel="tooltip" data-placement="top" title="Editar" href="{{route('almacen.edit', $pedido->id)}}"><i class="fas fa-pencil-alt"></i></a> --}}
                                              @if ($pedido->id_repartidor)
                                                 <button onclick="obtenerIdpedido({{$pedido->id}})" class="btn btn-success" rel="tooltip" data-placement="top" title="Repartidor seleccionado" data-toggle="modal" data-target="#modal-repartidor"></span><i class="fas fa-user-check"></i></button>
                                              @else
@@ -96,7 +96,7 @@
                                                 <button onclick="obtenerIdpedido({{$pedido->id}})" class="btn btn-default intermitente" rel="tooltip" data-placement="top" title="Seleccionar repartidor" data-toggle="modal" data-target="#modal-repartidor"><i class="fas fa-user-plus "></i></button>
                                                 @endif
                                             @endif
-                                              <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{route('almacen.destroy', $pedido->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a>
+                                              {{-- <a href="#" class="btn btn-danger" rel="tooltip" data-placement="top" title="Eliminar" data-href="{{route('almacen.destroy', $pedido->id)}}" data-toggle="modal" data-target="#modal-confirma"><i class="fas fa-trash"></i></a> --}}
                                             </div>
                                           </td>
                                       </tr>

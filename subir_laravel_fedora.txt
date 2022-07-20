@@ -1,0 +1,59 @@
+subir proyecto de laravel 8 a fedora 35
+---------------------------componentes---------------------------------------
+// instalar apache //
+-sudo dnf install httpd
+//instalar mysql//
+-sudo dnf install mariadb-server
+-sudo systemctl start mariadb.service/usr/bin/mysql_secure_installation
+//instalar php y sus paketes//
+-sudo dnf install php php-zip php-mysqlnd php-mcrypt php-xml php-mbstring
+//instalar composer//
+-sudo dnf install composer unzip
+
+
+------------------------------laravel----------------------------------------
+
+-cd /var/www/
+-git clone https://github.com/kikeProgramer007/panaderialaravel8.git
+-mv panaderialaravel8 html
+-cd /var/www/html
+-composer install
+-chown -R apache:apache html
+-chmod -R 755 /var/www/html
+-chmod -R 755 /var/www/html/storage
+-chcon -R -t httpd_sys_rw_content_t /var/www/html/storage
+-cp .env.example .env
+-php artisan key:generate
+
+
+-sudo nano /etc/httpd/conf.d/html.conf
+
+copiar loque esta dentro del comentario
+/////////////////////////////////////////////////////////////////////
+<VirtualHost *:80>
+       ServerName laravel.tecadmin.net
+       DocumentRoot /var/www/laravel/public
+
+       <Directory /var/www/laravel>
+              AllowOverride All
+       </Directory>
+</VirtualHost>
+////////////////////////////////////////////////////////////////////
+
+-sudo systemctl restart httpd.service
+
+//limpiar cache//
+-php artisan cache:clear    -- aplicacion
+-php artisan route:clear    -- rute
+-php artisan config:clear   -- configuracion
+-php artisan view:clear     -- view
+
+/// error 2002 [HY000] Permiso denegado ///
+
+-getsebool httpd_can_network_connect_db
+
+-setsebool -P httpd_can_network_connect_db on
+
+
+
+
